@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:enabled="true"
+        android:icon="@drawable/home_icon"
+        android:title="@string/homeText" />
+    <item
+        android:id="@+id/careersFragment"
+        android:enabled="true"
+        android:icon="@drawable/school_icon"
+        android:title="@string/careersText" />
+    <item
+        android:id="@+id/moreFragment"
+        android:enabled="true"
+        android:icon="@drawable/more_icon"
+        android:title="@string/moreText" />
+</menu>

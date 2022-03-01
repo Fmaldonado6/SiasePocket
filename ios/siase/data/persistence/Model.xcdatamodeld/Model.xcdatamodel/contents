@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="MainCareer" representedClassName="MainCareer" syncable="YES" codeGenerationType="class">
+        <attribute name="claveCarrera" optional="YES" attributeType="String"/>
+        <attribute name="claveDependencia" optional="YES" attributeType="String"/>
+        <attribute name="claveGradoAcademico" optional="YES" attributeType="String"/>
+        <attribute name="claveModalidad" optional="YES" attributeType="String"/>
+        <attribute name="claveNivelAcademico" optional="YES" attributeType="String"/>
+        <attribute name="clavePlanEstudios" optional="YES" attributeType="String"/>
+        <attribute name="claveUnidad" optional="YES" attributeType="String"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="MainSchedule" representedClassName="MainSchedule" syncable="YES" codeGenerationType="class">
+        <attribute name="claveCarrera" optional="YES" attributeType="String"/>
+        <attribute name="claveDependencia" optional="YES" attributeType="String"/>
+        <attribute name="claveGradoAcademico" optional="YES" attributeType="String"/>
+        <attribute name="claveModalidad" optional="YES" attributeType="String"/>
+        <attribute name="claveNivelAcademico" optional="YES" attributeType="String"/>
+        <attribute name="clavePlanEstudios" optional="YES" attributeType="String"/>
+        <attribute name="claveUnidad" optional="YES" attributeType="String"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <attribute name="periodo" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="MainScheduleClasses" representedClassName="MainScheduleClasses" syncable="YES" codeGenerationType="class">
+        <attribute name="claveMateria" optional="YES" attributeType="String"/>
+        <attribute name="fase" optional="YES" attributeType="String"/>
+        <attribute name="grupo" optional="YES" attributeType="String"/>
+        <attribute name="horaFin" optional="YES" attributeType="String"/>
+        <attribute name="horaInicio" optional="YES" attributeType="String"/>
+        <attribute name="modalidad" optional="YES" attributeType="String"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <attribute name="nombreCorto" optional="YES" attributeType="String"/>
+        <attribute name="oportunidad" optional="YES" attributeType="String"/>
+        <attribute name="salon" optional="YES" attributeType="String"/>
+        <attribute name="tipo" optional="YES" attributeType="String"/>
+        <attribute name="weekDay" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <elements>
+        <element name="MainCareer" positionX="-63" positionY="-18" width="128" height="149"/>
+        <element name="MainSchedule" positionX="-54" positionY="54" width="128" height="164"/>
+        <element name="MainScheduleClasses" positionX="-36" positionY="108" width="128" height="209"/>
+    </elements>
+</model>
