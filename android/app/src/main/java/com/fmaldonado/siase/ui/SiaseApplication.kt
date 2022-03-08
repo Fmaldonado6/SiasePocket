@@ -1,6 +1,7 @@
 package com.fmaldonado.siase.ui
 
 import android.app.Application
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -25,6 +26,8 @@ class SiaseApplication : Application() {
             val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel(NotificationsService.CHANNEL_ID, name, importance).apply {
                 description = descriptionText
+                setShowBadge(true)
+                lockscreenVisibility = Notification.VISIBILITY_PUBLIC
             }
             val notificationManager: NotificationManager = getSystemService(
                 Context.NOTIFICATION_SERVICE

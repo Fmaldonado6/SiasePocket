@@ -6,7 +6,7 @@ import com.fmaldonado.siase.data.persistence.dao.*
 import com.fmaldonado.siase.data.persistence.entities.*
 
 @Database(
-    version = 8,
+    version = 10,
     entities = [
         MainScheduleEntity::class,
         MainCareerEntity::class,

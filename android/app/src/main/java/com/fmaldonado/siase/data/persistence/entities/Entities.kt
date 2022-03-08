@@ -1,8 +1,7 @@
 package com.fmaldonado.siase.data.persistence.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
+import androidx.room.ForeignKey.CASCADE
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 
@@ -114,7 +113,10 @@ data class TodayClassesEntity(
     val oportunidad: String,
 )
 
-@Entity(tableName = "notifications")
+@Entity(
+    tableName = "notifications",
+
+)
 data class NotificationsEntity(
     @PrimaryKey(autoGenerate = true)
     @NotNull
@@ -128,10 +130,16 @@ data class NotificationsEntity(
     val description:String,
     @NotNull
     @ColumnInfo(name = "time")
-    val time:Long
+    val time:Long,
+    @NotNull
+    @ColumnInfo(name = "claveMateria")
+    val claveMateria: String
 )
 
-@Entity(tableName = "mainScheduleClasses")
+@Entity(
+    tableName = "mainScheduleClasses",
+    indices = [Index(value = ["claveMateria"])]
+    )
 data class MainScheduleClassesEntity(
     @PrimaryKey(autoGenerate = true)
     @NotNull

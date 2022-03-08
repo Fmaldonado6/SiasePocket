@@ -64,6 +64,7 @@ constructor(
                 status.postValue(Status.Completed)
 
             } catch (e: Exception) {
+                Log.e("Error", "e", e)
                 status.postValue(Status.Error)
             }
         }

@@ -31,14 +31,7 @@ constructor(
 
     }
 
-    init {
-        createNotificationChannel()
-    }
 
-    private fun createNotificationChannel() {
-
-
-    }
 
     fun scheduleNotification(notification: NotificationsEntity) {
         val intent = Intent(application, NotificationReceiver::class.java)
@@ -46,6 +39,7 @@ constructor(
         intent.putExtra(Notifications.DESCRIPTION, notification.description)
         intent.putExtra(Notifications.TIME, notification.time)
         intent.putExtra(Notifications.ID, notification.id)
+        intent.putExtra(Notifications.SUBJECT_ID, notification.claveMateria)
 
         val pendingIntent = PendingIntent.getBroadcast(
             application,

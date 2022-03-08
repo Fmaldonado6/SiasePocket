@@ -87,7 +87,7 @@ class ScheduleDetailFragment : Fragment() {
         )
         var i = 7f
         var initialDuration = 100L
-        while (i < 22f) {
+        while (i < 22.5f) {
             val fadeIn = AlphaAnimation(0f, 1f)
             fadeIn.interpolator = DecelerateInterpolator()
             fadeIn.duration = initialDuration
@@ -131,7 +131,7 @@ class ScheduleDetailFragment : Fragment() {
             resources.displayMetrics
         ).toInt()
         var initialDuration = 100L
-        for (i in 0..29) {
+        for (i in 0..30) {
             val fadeIn = AlphaAnimation(0f, 1f)
             fadeIn.interpolator = DecelerateInterpolator()
             fadeIn.duration = initialDuration

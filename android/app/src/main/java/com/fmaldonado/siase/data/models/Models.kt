@@ -42,10 +42,10 @@ data class Kardex(
 
 @Parcelize
 data class Subject(
-    val semestre: Int,
+    val semestreMateria: String,
     val claveMateria: String,
     val nombre: String,
-    val calificaciones: List<Float>
+    val oportunidades: List<String>
 ) : Parcelable
 
 @Parcelize

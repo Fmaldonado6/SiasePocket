@@ -19,6 +19,10 @@ abstract class MainScheduleClassesDao {
     @Query("delete from mainScheduleClasses")
     abstract suspend fun deleteClasses()
 
+    @Transaction
+    @Query("select * from mainScheduleClasses where claveMateria = :claveMateria")
+    abstract suspend fun getByClaveMateria(claveMateria:String):MainScheduleClassesEntity?
+
     suspend fun insertClasses(classes: List<MainScheduleClassesEntity>) {
         for (classDetail in classes) {
             insertClass(classDetail)

@@ -11,9 +11,8 @@
     <LinearLayout
         android:id="@+id/timeLayout"
         android:layout_width="80dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -24,6 +23,7 @@
         android:id="@+id/eventLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/timeLayout"
         app:layout_constraintTop_toTopOf="parent">

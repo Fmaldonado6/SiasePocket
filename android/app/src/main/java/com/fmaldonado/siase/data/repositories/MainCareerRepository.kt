@@ -2,6 +2,7 @@ package com.fmaldonado.siase.data.repositories
 
 import com.fmaldonado.siase.R
 import com.fmaldonado.siase.data.models.Careers
+import com.fmaldonado.siase.data.models.ClassDetail
 import com.fmaldonado.siase.data.models.Notifications
 import com.fmaldonado.siase.data.models.Schedule
 import com.fmaldonado.siase.data.network.NetworkDataSource
@@ -132,7 +133,7 @@ constructor(
                 id = i,
                 title = application.getString(R.string.notificationTitle),
                 description = description,
-                time = calendar.timeInMillis,
+                time = calendar.timeInMillis, claveMateria = classDetail.claveMateria
             )
 
             notificationsDao.insertNotification(notification)
@@ -161,6 +162,11 @@ constructor(
     fun getNotificationsPreferences(): Boolean {
         val preferences = preferencesService.getPreferences()
         return preferences.notifications
+    }
+
+    suspend fun getNotificationClass(claveMateria: String): ClassDetail? {
+        val entity = mainScheduleClassesDao.getByClaveMateria(claveMateria) ?: return  null
+        return MainScheduleClassToEntityMapper.entityToClass(entity)
     }
 
     suspend fun setNotificationsPreferences(enabled: Boolean) {
