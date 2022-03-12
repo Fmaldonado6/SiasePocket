@@ -28,13 +28,13 @@ class KardexItemAdapter(
     override fun onBindViewHolder(holder: KardexItemViewHolder, position: Int) {
         val item = subjects[position]
         holder.binding.title.text = item.nombre
-        var opportunity = item.calificaciones.size
+        var opportunity = item.oportunidades.size
         if (opportunity == 0) opportunity = 1
         holder.binding.subtitle.text = holder.binding.root.context.getString(
             R.string.opportunityText,
             opportunity.toString()
         )
-        holder.binding.grades.text = item.calificaciones.lastOrNull()?.toInt()?.toString() ?: "?"
+        holder.binding.grades.text = item.oportunidades.lastOrNull() ?: "?"
     }
 
     override fun getItemCount(): Int = subjects.size

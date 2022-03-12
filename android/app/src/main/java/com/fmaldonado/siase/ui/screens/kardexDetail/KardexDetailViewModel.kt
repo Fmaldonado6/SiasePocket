@@ -51,12 +51,12 @@ constructor(
     }
 
     private fun getKardexList(kardex: Kardex) {
-        val map = HashMap<Int, MutableList<Subject>>()
+        val map = HashMap<String, MutableList<Subject>>()
 
         for (subject in kardex.materias) {
-            val value = map[subject.semestre]
+            val value = map[subject.semestreMateria]
             if (value == null)
-                map[subject.semestre] = mutableListOf(subject)
+                map[subject.semestreMateria] = mutableListOf(subject)
             else
                 value.add(subject)
         }

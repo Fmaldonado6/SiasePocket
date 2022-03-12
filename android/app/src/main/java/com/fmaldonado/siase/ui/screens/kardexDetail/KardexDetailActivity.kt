@@ -49,14 +49,15 @@ class KardexDetailActivity : AppCompatActivity() {
 
         for ((i, subject) in detail.withIndex()) {
             val newTab = tabs.newTab()
-            newTab.text = "Semestre ${i + 1}"
+            newTab.text = "Semestre ${subject.first().semestreMateria}"
             tabs.addTab(newTab)
         }
 
         binding.viewPager.adapter = KardexViewPagerAdapter(this, detail)
 
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab: TabLayout.Tab, i: Int ->
-            tab.text = "Semestre ${i + 1}"
+            val item = detail[i].first()
+            tab.text = "Semestre ${item.semestreMateria}"
         }.attach()
     }
 }

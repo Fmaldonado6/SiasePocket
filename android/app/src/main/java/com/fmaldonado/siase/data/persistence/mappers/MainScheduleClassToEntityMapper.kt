@@ -29,6 +29,23 @@ object MainScheduleClassToEntityMapper {
 
     }
 
+    fun entityToClass(entity: MainScheduleClassesEntity):ClassDetail{
+        return  ClassDetail(
+            tipo = entity.tipo,
+            salon = entity.salon,
+            oportunidad = entity.oportunidad,
+            nombreCorto = entity.nombreCorto,
+            modalidad = entity.modalidad,
+            horaInicio = entity.horaInicio,
+            horaFin = entity.horaFin,
+            grupo = entity.grupo,
+            fase = entity.fase,
+            claveMateria = entity.claveMateria,
+            nombre = entity.nombre,
+
+        )
+    }
+
     fun classesToScheduleDetail(classes: List<MainScheduleClassesEntity>): ScheduleDetail {
         val detail = ScheduleDetail(
             lunes = mutableListOf(),
