@@ -41,6 +41,7 @@
 		AC057D3727CDE47E008CBD68 /* MainCareerDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057D3627CDE47E008CBD68 /* MainCareerDao.swift */; };
 		AC057D3927CDEA58008CBD68 /* MainScheduleDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057D3827CDEA58008CBD68 /* MainScheduleDao.swift */; };
 		AC057D4327CDEDA1008CBD68 /* MainScheduleClassesDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057D4227CDEDA1008CBD68 /* MainScheduleClassesDao.swift */; };
+		AC981B9C27CE004000616DE9 /* Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC981B9B27CE004000616DE9 /* Exceptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		AC057D3627CDE47E008CBD68 /* MainCareerDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCareerDao.swift; sourceTree = "<group>"; };
 		AC057D3827CDEA58008CBD68 /* MainScheduleDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleDao.swift; sourceTree = "<group>"; };
 		AC057D4227CDEDA1008CBD68 /* MainScheduleClassesDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleClassesDao.swift; sourceTree = "<group>"; };
+		AC981B9B27CE004000616DE9 /* Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exceptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				AC057D0727CB50F8008CBD68 /* NetworkDataSource.swift */,
+				AC981B9B27CE004000616DE9 /* Exceptions.swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				AC057D2127CB7903008CBD68 /* CareersPageController.swift in Sources */,
 				AC057CFE27CB4598008CBD68 /* RoundedTextField.swift in Sources */,
 				AC057CFC27CB44BA008CBD68 /* LoginStackView.swift in Sources */,
+				AC981B9C27CE004000616DE9 /* Exceptions.swift in Sources */,
 				AC057D0227CB48EB008CBD68 /* Extensions.swift in Sources */,
 				AC057D2627CC926D008CBD68 /* ScheduleDetailView.swift in Sources */,
 				AC057D3927CDEA58008CBD68 /* MainScheduleDao.swift in Sources */,

@@ -36,8 +36,10 @@ class NetworkDataSource{
         switch(response.result){
             case .success(let data):
                 completer(data)
-            case .failure(let error):
-                print(error)
+        case .failure(let error):
+            response.response?.statusCode
+        
+            
         }
     }
 }
