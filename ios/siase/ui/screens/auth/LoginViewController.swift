@@ -36,23 +36,40 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
-            
-        viewModel.bindStatus = { status in
-            self.changeStatus(status: self.viewModel.status)
-        }
-        viewModel.checkSession()
         setupViews()
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        viewModel.bindStatus = { status in
+            self.changeStatus(status: self.viewModel.status)
+        }
+        
+        viewModel.bindNeedsSelection = { selection in
+            if(selection == nil){
+                return
+            }
+            
+            if(selection!){
+                self.navigate(screen: MainCareerSelectionController())
+            }else{
+                self.navigate(screen: MainViewController())
+            }
+        }
+        
+        viewModel.checkSession()
+
+    }
+    
     private func changeStatus(status:Status){
+        if(status == Status.Completed){
+            viewModel.checkIfNeedsSelection()
+            return
+        }
+        
         stackView.isHidden = status != Status.Loaded
         label.isHidden = status != Status.Loaded
         loadingSpinnerView.isHidden = status != Status.Loading
-        
-        if(status == Status.Completed){
-            navigate(screen: MainViewController())
-        }
         
         if(status == Status.Loading){
             loadingSpinnerView.startAnimating()

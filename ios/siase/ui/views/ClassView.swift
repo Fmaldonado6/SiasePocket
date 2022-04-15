@@ -38,7 +38,12 @@ class ClassView : UIStackView{
         self.addArrangedSubview(classLabel)
         self.addArrangedSubview(timeLabel)
         self.isLayoutMarginsRelativeArrangement = true
-        self.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
+        self.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: 20,
+            leading: 20,
+            bottom: 20,
+            trailing: 20
+        )
         self.spacing = 5
         self.axis = .vertical
         self.distribution = .equalSpacing

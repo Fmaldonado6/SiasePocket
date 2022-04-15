@@ -10,15 +10,18 @@ import Foundation
 class ScheduleRepository{
     
     private let authRepository:AuthRepository
+    private let networkDataSource:NetworkDataSource
     
     private var todaySchedule:[ClassDetail]?
     private var dayOfWeek:Int?
     
     init(
         authRepository:AuthRepository =
-            DIContainer.shared.resolve(type: AuthRepository.self)!
+            DIContainer.shared.resolve(type: AuthRepository.self)!,
+        networkDataSource :NetworkDataSource = DIContainer.shared.resolve(type: NetworkDataSource.self)!
     ){
         self.authRepository = authRepository
+        self.networkDataSource = networkDataSource
     }
     
     func requiresFetch() -> Bool{
@@ -51,6 +54,12 @@ class ScheduleRepository{
         dayOfWeek = calendar.component(.weekday, from: Date.now)
         
         return []
+        
+    }
+    
+    func getSchedule(index:Int,completer:@escaping([Schedule]?,AppError? )->Void){
+        
+        networkDataSource.getSchedules(index: index, completer: completer)
         
     }
     

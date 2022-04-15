@@ -22,7 +22,7 @@ class NetworkDataSource{
         self.preferencesService = preferencesService
     }
 
-    func login(user:String, password:String,completer:@escaping(LoginResponse)->Void){
+    func login(user:String, password:String,completer:@escaping(LoginResponse?,AppError?)->Void){
         let jsonBody = ["user":user,"password":password]
     
         AF.request(urlBase+"user",method: .post,parameters: jsonBody,encoding: JSONEncoding.default)
@@ -32,13 +32,39 @@ class NetworkDataSource{
             }
     }
     
-    private func interceptor<T : Decodable>(response:DataResponse<T,AFError>, completer:@escaping (T) -> Void){
+    func getSchedules(index:Int,completer:@escaping([Schedule]?,AppError?)->Void){
+        AF.request(urlBase+"schedules/"+String(index),method: .get,headers: getHeaders())
+            .responseDecodable(of:[Schedule].self){ response in
+                self.interceptor(response: response, completer: completer)
+            }
+    }
+    
+    func getHeaders()->HTTPHeaders{
+        var headers = HTTPHeaders.default
+        guard let savedToken = token else {return headers}
+        headers.add(HTTPHeader(name: "Authorization", value: "Bearer: "+savedToken))
+        return headers
+    }
+    
+    private func interceptor<T : Decodable>(response:DataResponse<T,AFError>, completer:@escaping (T?,AppError?) -> Void){
         switch(response.result){
             case .success(let data):
-                completer(data)
-        case .failure(let error):
-            response.response?.statusCode
-        
+                completer(data,nil)
+            case .failure(let error):
+                let code  = error.responseCode
+                if(code == 400){
+                    return completer(nil,BadInput(message:response.error?.errorDescription ?? ""))
+                }
+            
+                if(code == 404){
+                    return completer(nil,NotFoundError(message:response.error?.errorDescription ?? ""))
+                }
+            
+                if(code == 501 || code == 401){
+                    return completer(nil, Unauthorized(message:response.error?.errorDescription ?? ""))
+                }
+            
+                return completer(nil,AppError(message:response.error?.errorDescription ?? ""))
             
         }
     }

@@ -14,7 +14,7 @@ class AuthRepository{
     
     private let preferencesService:PreferencesService
     
-    private lazy var currentSession:LoginResponse? = {
+    lazy var currentSession:LoginResponse? = {
         preferencesService.getPreferences().session
     }()
     
@@ -41,27 +41,36 @@ class AuthRepository{
         return true
     }
     
-    func restoreSession(completer:@escaping (LoginResponse)->Void){
+    func restoreSession(completer:@escaping (LoginResponse?,AppError?)->Void){
         let preferences = preferencesService.getPreferences()
-        self.login(username: preferences.user!, password: preferences.password!, completer: completer)
+        self.login(
+            username: preferences.user!,
+            password: preferences.password!,
+            completer: completer
+        )
     }
     
     func login(
         username:String,
         password:String,
-        completer:@escaping (LoginResponse)->Void
+        completer:@escaping (LoginResponse?,AppError?)->Void
     ){
         networkDataSource.login(
             user: username,
             password: password
-        ){ response in
+        ){ response,error in
+            
+            if(error != nil){
+                return completer(nil,error)
+            }
+                
             self.currentSession = response
             var preferences = Preferences()
             preferences.user = username
             preferences.password = password
             preferences.session = response
             self.preferencesService.savePreferences(newPreferences: preferences)
-            completer(response)
+            completer(response,nil)
         }
     }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC03B124280A31B000287C05 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B123280A31B000287C05 /* ScheduleCell.swift */; };
+		AC03B126280A31DB00287C05 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B125280A31DB00287C05 /* ScheduleView.swift */; };
 		AC057CC327CB2CF0008CBD68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC227CB2CF0008CBD68 /* AppDelegate.swift */; };
 		AC057CC527CB2CF0008CBD68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC427CB2CF0008CBD68 /* SceneDelegate.swift */; };
 		AC057CC727CB2CF0008CBD68 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC627CB2CF0008CBD68 /* LoginViewController.swift */; };
@@ -41,7 +43,15 @@
 		AC057D3727CDE47E008CBD68 /* MainCareerDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057D3627CDE47E008CBD68 /* MainCareerDao.swift */; };
 		AC057D3927CDEA58008CBD68 /* MainScheduleDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057D3827CDEA58008CBD68 /* MainScheduleDao.swift */; };
 		AC057D4327CDEDA1008CBD68 /* MainScheduleClassesDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057D4227CDEDA1008CBD68 /* MainScheduleClassesDao.swift */; };
+		AC6F404D2808D123007281BB /* CareerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F404C2808D123007281BB /* CareerView.swift */; };
+		AC6F40502808ED44007281BB /* MainScheduleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F404F2808ED44007281BB /* MainScheduleSelectionViewController.swift */; };
+		AC6F4052280A2082007281BB /* MainScheduleSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F4051280A2082007281BB /* MainScheduleSelectionViewModel.swift */; };
+		AC6F4055280A20B4007281BB /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F4054280A20B4007281BB /* BaseViewModel.swift */; };
+		AC970B6F27DC2DD000D133F7 /* MainCareerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC970B6E27DC2DD000D133F7 /* MainCareerRepository.swift */; };
+		AC970B7127DC33EF00D133F7 /* MainCareerSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC970B7027DC33EF00D133F7 /* MainCareerSelectionController.swift */; };
 		AC981B9C27CE004000616DE9 /* Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC981B9B27CE004000616DE9 /* Exceptions.swift */; };
+		ACC83BF22807BEC9003E3E54 /* MainCareerSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC83BF12807BEC9003E3E54 /* MainCareerSelectionViewModel.swift */; };
+		ACC83BF42807C4D9003E3E54 /* CareerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC83BF32807C4D9003E3E54 /* CareerCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +72,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC03B123280A31B000287C05 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		AC03B125280A31DB00287C05 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		AC057CBF27CB2CF0008CBD68 /* siase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = siase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC057CC227CB2CF0008CBD68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC057CC427CB2CF0008CBD68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,7 +111,15 @@
 		AC057D3627CDE47E008CBD68 /* MainCareerDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCareerDao.swift; sourceTree = "<group>"; };
 		AC057D3827CDEA58008CBD68 /* MainScheduleDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleDao.swift; sourceTree = "<group>"; };
 		AC057D4227CDEDA1008CBD68 /* MainScheduleClassesDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleClassesDao.swift; sourceTree = "<group>"; };
+		AC6F404C2808D123007281BB /* CareerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerView.swift; sourceTree = "<group>"; };
+		AC6F404F2808ED44007281BB /* MainScheduleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleSelectionViewController.swift; sourceTree = "<group>"; };
+		AC6F4051280A2082007281BB /* MainScheduleSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleSelectionViewModel.swift; sourceTree = "<group>"; };
+		AC6F4054280A20B4007281BB /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		AC970B6E27DC2DD000D133F7 /* MainCareerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCareerRepository.swift; sourceTree = "<group>"; };
+		AC970B7027DC33EF00D133F7 /* MainCareerSelectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCareerSelectionController.swift; sourceTree = "<group>"; };
 		AC981B9B27CE004000616DE9 /* Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exceptions.swift; sourceTree = "<group>"; };
+		ACC83BF12807BEC9003E3E54 /* MainCareerSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCareerSelectionViewModel.swift; sourceTree = "<group>"; };
+		ACC83BF32807C4D9003E3E54 /* CareerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +203,7 @@
 		AC057CF227CB3E25008CBD68 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				AC6F4053280A20AB007281BB /* base */,
 				AC057CF627CB3E3B008CBD68 /* utils */,
 				AC057CF527CB3E36008CBD68 /* views */,
 				AC057CF427CB3E31008CBD68 /* screens */,
@@ -206,6 +227,8 @@
 		AC057CF427CB3E31008CBD68 /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				AC6F404E2808ED35007281BB /* mainScheduleSelection */,
+				AC970B6D27DC2D4300D133F7 /* mainCareerSelection */,
 				AC057D1627CB5D8F008CBD68 /* main */,
 				AC057CF727CB3E41008CBD68 /* auth */,
 			);
@@ -219,6 +242,10 @@
 				AC057CFD27CB4598008CBD68 /* RoundedTextField.swift */,
 				AC057D1927CB6B00008CBD68 /* ClassView.swift */,
 				AC057D2527CC926D008CBD68 /* ScheduleDetailView.swift */,
+				ACC83BF32807C4D9003E3E54 /* CareerCell.swift */,
+				AC6F404C2808D123007281BB /* CareerView.swift */,
+				AC03B123280A31B000287C05 /* ScheduleCell.swift */,
+				AC03B125280A31DB00287C05 /* ScheduleView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -281,6 +308,7 @@
 			children = (
 				AC057D1027CB54A6008CBD68 /* AuthRepository.swift */,
 				AC057D2C27CDB2B3008CBD68 /* ScheduleRepository.swift */,
+				AC970B6E27DC2DD000D133F7 /* MainCareerRepository.swift */,
 			);
 			path = repositories;
 			sourceTree = "<group>";
@@ -362,6 +390,32 @@
 				AC057D4227CDEDA1008CBD68 /* MainScheduleClassesDao.swift */,
 			);
 			path = dao;
+			sourceTree = "<group>";
+		};
+		AC6F404E2808ED35007281BB /* mainScheduleSelection */ = {
+			isa = PBXGroup;
+			children = (
+				AC6F404F2808ED44007281BB /* MainScheduleSelectionViewController.swift */,
+				AC6F4051280A2082007281BB /* MainScheduleSelectionViewModel.swift */,
+			);
+			path = mainScheduleSelection;
+			sourceTree = "<group>";
+		};
+		AC6F4053280A20AB007281BB /* base */ = {
+			isa = PBXGroup;
+			children = (
+				AC6F4054280A20B4007281BB /* BaseViewModel.swift */,
+			);
+			path = base;
+			sourceTree = "<group>";
+		};
+		AC970B6D27DC2D4300D133F7 /* mainCareerSelection */ = {
+			isa = PBXGroup;
+			children = (
+				AC970B7027DC33EF00D133F7 /* MainCareerSelectionController.swift */,
+				ACC83BF12807BEC9003E3E54 /* MainCareerSelectionViewModel.swift */,
+			);
+			path = mainCareerSelection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -510,17 +564,26 @@
 				AC057D0227CB48EB008CBD68 /* Extensions.swift in Sources */,
 				AC057D2627CC926D008CBD68 /* ScheduleDetailView.swift in Sources */,
 				AC057D3927CDEA58008CBD68 /* MainScheduleDao.swift in Sources */,
+				ACC83BF42807C4D9003E3E54 /* CareerCell.swift in Sources */,
+				AC03B126280A31DB00287C05 /* ScheduleView.swift in Sources */,
+				AC970B6F27DC2DD000D133F7 /* MainCareerRepository.swift in Sources */,
+				AC6F40502808ED44007281BB /* MainScheduleSelectionViewController.swift in Sources */,
+				AC6F404D2808D123007281BB /* CareerView.swift in Sources */,
 				AC057D2B27CDA15D008CBD68 /* PreferencesService.swift in Sources */,
 				AC057D0027CB486F008CBD68 /* Colors.swift in Sources */,
+				AC03B124280A31B000287C05 /* ScheduleCell.swift in Sources */,
 				AC057D1527CB5718008CBD68 /* LoginViewModel.swift in Sources */,
 				AC057CC327CB2CF0008CBD68 /* AppDelegate.swift in Sources */,
 				AC057CC527CB2CF0008CBD68 /* SceneDelegate.swift in Sources */,
+				AC6F4052280A2082007281BB /* MainScheduleSelectionViewModel.swift in Sources */,
 				AC057D1827CB5DAC008CBD68 /* MainViewController.swift in Sources */,
+				AC970B7127DC33EF00D133F7 /* MainCareerSelectionController.swift in Sources */,
 				AC057D0827CB50F8008CBD68 /* NetworkDataSource.swift in Sources */,
 				AC057D1A27CB6B00008CBD68 /* ClassView.swift in Sources */,
 				AC057D1327CB5688008CBD68 /* Status.swift in Sources */,
 				AC057D1127CB54A6008CBD68 /* AuthRepository.swift in Sources */,
 				AC057D4327CDEDA1008CBD68 /* MainScheduleClassesDao.swift in Sources */,
+				AC6F4055280A20B4007281BB /* BaseViewModel.swift in Sources */,
 				AC057D0527CB50D3008CBD68 /* DIContainer.swift in Sources */,
 				AC057D3027CDB5B1008CBD68 /* DataExtensions.swift in Sources */,
 				AC057D1D27CB72BF008CBD68 /* HomePageController.swift in Sources */,
@@ -528,6 +591,7 @@
 				AC057D3427CDD4C2008CBD68 /* Model.xcdatamodeld in Sources */,
 				AC057D3727CDE47E008CBD68 /* MainCareerDao.swift in Sources */,
 				AC057D2427CB7A0E008CBD68 /* MorePageController.swift in Sources */,
+				ACC83BF22807BEC9003E3E54 /* MainCareerSelectionViewModel.swift in Sources */,
 				AC057CF927CB41D0008CBD68 /* RoundedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
