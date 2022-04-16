@@ -7,17 +7,45 @@
 
 import Foundation
 
-class HomePageVieModel{
+class HomePageVieModel:BaseViewModel{
     
-    private let authRepository:AuthRepository
+    private let scheduleRepository:ScheduleRepository
     
     init(
-        authRepository:AuthRepository = DIContainer.shared.resolve(type: AuthRepository.self)!
+        authRepository:AuthRepository = DIContainer.shared.resolve(type: AuthRepository.self)!,
+        scheduleRepository:ScheduleRepository = DIContainer.shared.resolve(type: ScheduleRepository.self)!
     ){
-        self.authRepository = authRepository
+        self.scheduleRepository = scheduleRepository
     }
     
+    private(set) lazy var currentSession = self.authRepository.currentSession!
     
+    private(set) var todaySchedule:[ClassDetail]? = nil
+    {
+        didSet{
+            bindTodaySchedule(todaySchedule)
+        }
+    }
+    
+    private(set) var nextClass:ClassDetail? = nil
+    {
+        didSet{
+            bindNextClass(nextClass)
+        }
+    }
+
+    var bindTodaySchedule:([ClassDetail]?)->Void = {classes in }
+    var bindNextClass:(ClassDetail?)->Void = {nextClass in }
+
+    
+    func getTodaySchedule(){
+        status = Status.Loading
+        todaySchedule = scheduleRepository.getTodaySchedule()
+        nextClass = scheduleRepository.getNextClass(schedule: todaySchedule ?? [])
+        status = Status.Loaded
+    }
+    
+   
     
     
 }

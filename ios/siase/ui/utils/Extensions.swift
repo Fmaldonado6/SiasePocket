@@ -36,6 +36,18 @@ extension UIColor {
     }
 }
 
+extension Date{
+    
+    static func parseTime(time:String)->DateComponents{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "hh:mm a"
+        let date = dateFormatter.date(from:time)!
+        return Calendar.current.dateComponents([.hour,.minute], from: date)
+    }
+    
+}
+
 class ClosureSleeve {
   let closure: () -> ()
 

@@ -39,6 +39,18 @@ class NetworkDataSource{
             }
     }
     
+    func getScheduleDetail(
+        index:Int,
+        periodo:String,
+        completer:@escaping(ScheduleDetail?,AppError?)->Void
+    ){
+        AF.request(urlBase+"schedules/"+String(index)+"/"+periodo,method: .get,headers: getHeaders())
+            .responseDecodable(of:ScheduleDetail.self){ response in
+                self.interceptor(response: response, completer: completer)
+            }
+        
+    }
+    
     func getHeaders()->HTTPHeaders{
         var headers = HTTPHeaders.default
         guard let savedToken = token else {return headers}

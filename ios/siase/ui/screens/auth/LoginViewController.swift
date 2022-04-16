@@ -41,6 +41,7 @@ class LoginViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+                
         viewModel.bindStatus = { status in
             self.changeStatus(status: self.viewModel.status)
         }
@@ -49,11 +50,15 @@ class LoginViewController: UIViewController {
             if(selection == nil){
                 return
             }
-            
+                        
             if(selection!){
-                self.navigate(screen: MainCareerSelectionController())
+                let vc = MainCareerSelectionController()
+                vc.modalPresentationStyle = .fullScreen
+                self.navigate(screen: vc)
             }else{
-                self.navigate(screen: MainViewController())
+                let vc = MainViewController()
+                vc.modalPresentationStyle = .fullScreen
+                self.navigate(screen: vc)
             }
         }
         
@@ -62,10 +67,12 @@ class LoginViewController: UIViewController {
     }
     
     private func changeStatus(status:Status){
+
         if(status == Status.Completed){
             viewModel.checkIfNeedsSelection()
             return
         }
+        
         
         stackView.isHidden = status != Status.Loaded
         label.isHidden = status != Status.Loaded

@@ -28,6 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             type: MainScheduleDao.self,
             component: MainScheduleDao()
         )
+        DIContainer.shared.register(
+            type: MainScheduleClassesDao.self,
+            component: MainScheduleClassesDao()
+        )
         //-------
         
         //--Services---
@@ -81,12 +85,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             type: MainScheduleSelectionViewModel.self,
             component: MainScheduleSelectionViewModel()
         )
+        DIContainer.shared.register(
+            type: HomePageVieModel.self,
+            component: HomePageVieModel()
+        )
         //------
         
-        let window:UIWindow = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = LoginViewController()
-        window.makeKeyAndVisible()
-        self.window = window
+      
         return true
     }
     

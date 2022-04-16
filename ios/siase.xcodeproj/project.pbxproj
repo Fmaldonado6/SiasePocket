@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AC03B124280A31B000287C05 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B123280A31B000287C05 /* ScheduleCell.swift */; };
 		AC03B126280A31DB00287C05 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B125280A31DB00287C05 /* ScheduleView.swift */; };
+		AC03B129280B60BC00287C05 /* NextClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B128280B60BC00287C05 /* NextClassView.swift */; };
+		AC03B12B280B693700287C05 /* TodayClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B12A280B693700287C05 /* TodayClassesView.swift */; };
 		AC057CC327CB2CF0008CBD68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC227CB2CF0008CBD68 /* AppDelegate.swift */; };
 		AC057CC527CB2CF0008CBD68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC427CB2CF0008CBD68 /* SceneDelegate.swift */; };
 		AC057CC727CB2CF0008CBD68 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC627CB2CF0008CBD68 /* LoginViewController.swift */; };
@@ -74,6 +76,8 @@
 /* Begin PBXFileReference section */
 		AC03B123280A31B000287C05 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		AC03B125280A31DB00287C05 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		AC03B128280B60BC00287C05 /* NextClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextClassView.swift; sourceTree = "<group>"; };
+		AC03B12A280B693700287C05 /* TodayClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayClassesView.swift; sourceTree = "<group>"; };
 		AC057CBF27CB2CF0008CBD68 /* siase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = siase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC057CC227CB2CF0008CBD68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC057CC427CB2CF0008CBD68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +152,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC03B127280B60AF00287C05 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				AC03B128280B60BC00287C05 /* NextClassView.swift */,
+				AC03B12A280B693700287C05 /* TodayClassesView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		AC057CB627CB2CF0008CBD68 = {
 			isa = PBXGroup;
 			children = (
@@ -335,6 +348,7 @@
 		AC057D1E27CB76E6008CBD68 /* home */ = {
 			isa = PBXGroup;
 			children = (
+				AC03B127280B60AF00287C05 /* views */,
 				AC057D1C27CB72BF008CBD68 /* HomePageController.swift */,
 				AC057D2727CD17B3008CBD68 /* HomePageViewModel.swift */,
 			);
@@ -565,6 +579,7 @@
 				AC057D2627CC926D008CBD68 /* ScheduleDetailView.swift in Sources */,
 				AC057D3927CDEA58008CBD68 /* MainScheduleDao.swift in Sources */,
 				ACC83BF42807C4D9003E3E54 /* CareerCell.swift in Sources */,
+				AC03B12B280B693700287C05 /* TodayClassesView.swift in Sources */,
 				AC03B126280A31DB00287C05 /* ScheduleView.swift in Sources */,
 				AC970B6F27DC2DD000D133F7 /* MainCareerRepository.swift in Sources */,
 				AC6F40502808ED44007281BB /* MainScheduleSelectionViewController.swift in Sources */,
@@ -576,6 +591,7 @@
 				AC057CC327CB2CF0008CBD68 /* AppDelegate.swift in Sources */,
 				AC057CC527CB2CF0008CBD68 /* SceneDelegate.swift in Sources */,
 				AC6F4052280A2082007281BB /* MainScheduleSelectionViewModel.swift in Sources */,
+				AC03B129280B60BC00287C05 /* NextClassView.swift in Sources */,
 				AC057D1827CB5DAC008CBD68 /* MainViewController.swift in Sources */,
 				AC970B7127DC33EF00D133F7 /* MainCareerSelectionController.swift in Sources */,
 				AC057D0827CB50F8008CBD68 /* NetworkDataSource.swift in Sources */,

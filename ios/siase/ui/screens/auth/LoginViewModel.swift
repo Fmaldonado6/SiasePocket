@@ -50,7 +50,7 @@ class LoginViewModel : BaseViewModel {
         authRepository.login(username: username, password: password) { loginResponse, error in
             
             if(error != nil){
-                self.status = Status.Error
+                self.status = Status.Loaded
                 return
             }
             
