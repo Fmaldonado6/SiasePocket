@@ -84,6 +84,7 @@ class ScheduleDetailController:UIViewController{
                 at: index, animated: true
             )
         }
+        self.segmentedControl.selectedSegmentIndex = 0
         setupSchedule(index: 0)
     }
     

@@ -22,6 +22,8 @@
 		AC03B1412812717200287C05 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B1402812717200287C05 /* Helpers.swift */; };
 		AC03B146281289F500287C05 /* NoSwipeSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B145281289F500287C05 /* NoSwipeSegmentedControl.swift */; };
 		AC03B149281349EC00287C05 /* KardexPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B148281349EC00287C05 /* KardexPageController.swift */; };
+		AC03B14B2813572F00287C05 /* KardexPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B14A2813572F00287C05 /* KardexPageViewModel.swift */; };
+		AC03B14D2813575000287C05 /* KardexRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B14C2813575000287C05 /* KardexRepository.swift */; };
 		AC057CC327CB2CF0008CBD68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC227CB2CF0008CBD68 /* AppDelegate.swift */; };
 		AC057CC527CB2CF0008CBD68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC427CB2CF0008CBD68 /* SceneDelegate.swift */; };
 		AC057CC727CB2CF0008CBD68 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC627CB2CF0008CBD68 /* LoginViewController.swift */; };
@@ -100,6 +102,8 @@
 		AC03B1402812717200287C05 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		AC03B145281289F500287C05 /* NoSwipeSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSwipeSegmentedControl.swift; sourceTree = "<group>"; };
 		AC03B148281349EC00287C05 /* KardexPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KardexPageController.swift; sourceTree = "<group>"; };
+		AC03B14A2813572F00287C05 /* KardexPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KardexPageViewModel.swift; sourceTree = "<group>"; };
+		AC03B14C2813575000287C05 /* KardexRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KardexRepository.swift; sourceTree = "<group>"; };
 		AC057CBF27CB2CF0008CBD68 /* siase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = siase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC057CC227CB2CF0008CBD68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC057CC427CB2CF0008CBD68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				AC03B148281349EC00287C05 /* KardexPageController.swift */,
+				AC03B14A2813572F00287C05 /* KardexPageViewModel.swift */,
 			);
 			path = kardex;
 			sourceTree = "<group>";
@@ -394,6 +399,7 @@
 				AC057D1027CB54A6008CBD68 /* AuthRepository.swift */,
 				AC057D2C27CDB2B3008CBD68 /* ScheduleRepository.swift */,
 				AC970B6E27DC2DD000D133F7 /* MainCareerRepository.swift */,
+				AC03B14C2813575000287C05 /* KardexRepository.swift */,
 			);
 			path = repositories;
 			sourceTree = "<group>";
@@ -667,6 +673,7 @@
 				AC6F404D2808D123007281BB /* CareerView.swift in Sources */,
 				AC057D2B27CDA15D008CBD68 /* PreferencesService.swift in Sources */,
 				AC057D0027CB486F008CBD68 /* Colors.swift in Sources */,
+				AC03B14D2813575000287C05 /* KardexRepository.swift in Sources */,
 				AC03B124280A31B000287C05 /* ScheduleCell.swift in Sources */,
 				AC057D1527CB5718008CBD68 /* LoginViewModel.swift in Sources */,
 				AC057CC327CB2CF0008CBD68 /* AppDelegate.swift in Sources */,
@@ -685,6 +692,7 @@
 				AC057D4327CDEDA1008CBD68 /* MainScheduleClassesDao.swift in Sources */,
 				AC6F4055280A20B4007281BB /* BaseViewModel.swift in Sources */,
 				AC057D0527CB50D3008CBD68 /* DIContainer.swift in Sources */,
+				AC03B14B2813572F00287C05 /* KardexPageViewModel.swift in Sources */,
 				AC057D3027CDB5B1008CBD68 /* DataExtensions.swift in Sources */,
 				AC057D1D27CB72BF008CBD68 /* HomePageController.swift in Sources */,
 				AC057D2D27CDB2B3008CBD68 /* ScheduleRepository.swift in Sources */,

@@ -70,6 +70,10 @@ class HomePageController : UIViewController{
         setupViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tabBarController?.tabBar.isHidden = false
+    }
     
     private func setupViews(){
         view.addSubview(scrollView)
@@ -81,6 +85,7 @@ class HomePageController : UIViewController{
         todaysClassesView.fullScheduleButtonClickListener {
             let vc = ScheduleDetailController()
             vc.fullSchedule = self.viewModel.getFullSchedule()
+            self.tabBarController?.tabBar.isHidden = true
             self.navigationController?.pushViewController(vc, animated: true)
         }
     

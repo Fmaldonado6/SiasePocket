@@ -62,6 +62,13 @@ class CareerDetailPageController : UIViewController,UINavigationBarDelegate {
             self.present(vc, animated: false, completion: nil)
         }
         
+        kardexCard.setClickListener {
+            let vc = KardexPageController()
+        
+            self.navigationController?.pushViewController(vc, animated: true)
+        
+        }
+        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
