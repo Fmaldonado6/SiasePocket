@@ -10,6 +10,8 @@ import UIKit
 
 class ScheduleSelectionController:BottomSheet{
     
+    
+    
     private let viewModel:ScheduleSelectionViewModel = DIContainer.shared.resolve(type: ScheduleSelectionViewModel.self)!
     
     private var isAtTop = true
@@ -135,6 +137,14 @@ extension ScheduleSelectionController:UITableViewDelegate,UITableViewDataSource{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         isAtTop = scrollView.contentOffset.y <= 0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ScheduleDetailController()
+        let navController = presentingViewController as? UINavigationController
+        vc.schedule = schedules[indexPath.row]
+        navController?.pushViewController(vc, animated: true)
+        self.animateDismissView()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

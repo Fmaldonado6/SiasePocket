@@ -59,7 +59,7 @@ class CareerDetailPageController : UIViewController,UINavigationBarDelegate {
             let vc = ScheduleSelectionController()
             vc.index = self.index
             vc.modalPresentationStyle = .overCurrentContext
-            self.navigationController?.present(vc, animated: false, completion: nil)
+            self.present(vc, animated: false, completion: nil)
         }
         
         NSLayoutConstraint.activate([

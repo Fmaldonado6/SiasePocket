@@ -72,9 +72,15 @@ extension CareersPageController : UITableViewDelegate, UITableViewDataSource{
         vc.career = careers[indexPath.row]
         vc.index = indexPath.row
         vc.modalPresentationStyle = .fullScreen
-        self.hidesBottomBarWhenPushed = true
-
+        self.tabBarController?.tabBar.isHidden = true
         navigationController?.pushViewController(vc, animated: true)
-        self.hidesBottomBarWhenPushed = false
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+        print(parent)
+    }
+    
+    
 }

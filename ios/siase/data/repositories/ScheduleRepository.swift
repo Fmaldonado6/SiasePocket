@@ -101,6 +101,20 @@ class ScheduleRepository{
         
     }
     
+    func getScheduleDetail(index:Int,periodo:String,completer:@escaping(ScheduleDetail?,AppError? )->Void){
+        networkDataSource.getScheduleDetail(index: index, periodo: periodo, completer: completer)
+    }
+    
+    func getScheduleDetail(schedule:Schedule,completer:@escaping(ScheduleDetail?,AppError? )->Void){
+       guard let index = authRepository.currentSession?.carreras.firstIndex(where: { e in
+            return e.claveCarrera == schedule.claveCarrera && e.claveDependencia == schedule.claveDependencia
+       })else{
+           completer(nil,AppError(message:"Couldn't find career"))
+           return
+       }
+        
+        networkDataSource.getScheduleDetail(index: index, periodo: schedule.periodo ?? "", completer: completer)
+    }
     
     
     

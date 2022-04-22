@@ -46,7 +46,6 @@ class MainCareerSelectionController : UIViewController{
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic;
         viewModel.bindCareers = {careers in
-            print(careers.count)
             self.careers = careers
             self.tableView.reloadData()
         }

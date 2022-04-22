@@ -93,6 +93,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             type: HomePageVieModel.self,
             component: HomePageVieModel()
         )
+        DIContainer.shared.register(
+            type: ScheduleDetailViewModel.self,
+            component: ScheduleDetailViewModel()
+        )
         
         DIContainer.shared.register(
             type: CareersPageViewModel.self,

@@ -30,12 +30,11 @@ class ScheduleDetailView:UIStackView{
     override init(frame: CGRect) {
         
         super.init(frame: frame)
-        
+
+        self.axis = .horizontal
         self.addArrangedSubview(hoursView)
         self.addArrangedSubview(classesView)
-        self.axis = .horizontal
-        setupHours()
-        setupDividers()
+        rebuild()
         
     }
     
@@ -95,7 +94,21 @@ class ScheduleDetailView:UIStackView{
         }
     }
     
+    private func rebuild(){
+        for subView in hoursView.subviews as [UIView] {
+            subView.removeFromSuperview()
+        }
+        
+        for subView in classesView.subviews as [UIView] {
+            subView.removeFromSuperview()
+        }
+        
+        setupHours()
+        setupDividers()
+    }
+    
     func setupClasses(classes:[ClassDetail]){
+        rebuild()
         let realHourHeight = hourHeight * 2
         let initialTimeDate = Calendar.current.date(bySettingHour: 7, minute: 0, second: 0, of: Date())!
         let initialTime = Calendar.current.dateComponents([.hour,.minute], from: initialTimeDate)

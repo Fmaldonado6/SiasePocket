@@ -58,7 +58,7 @@ class LoginViewController: UIViewController {
             }else{
                 let vc = MainViewController()
                 vc.modalPresentationStyle = .fullScreen
-                self.navigate(screen: vc)
+                self.present(vc, animated: true, completion: nil)
             }
         }
         

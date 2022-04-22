@@ -17,6 +17,10 @@
 		AC03B1362812445300287C05 /* ScheduleSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B1352812445300287C05 /* ScheduleSelectionController.swift */; };
 		AC03B138281247DF00287C05 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B137281247DF00287C05 /* BottomSheet.swift */; };
 		AC03B13A28124D3500287C05 /* ScheduleSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B13928124D3500287C05 /* ScheduleSelectionViewModel.swift */; };
+		AC03B13D2812637F00287C05 /* ScheduleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B13C2812637F00287C05 /* ScheduleDetailController.swift */; };
+		AC03B13F281263FB00287C05 /* ScheduleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B13E281263FB00287C05 /* ScheduleDetailViewModel.swift */; };
+		AC03B1412812717200287C05 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B1402812717200287C05 /* Helpers.swift */; };
+		AC03B146281289F500287C05 /* NoSwipeSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B145281289F500287C05 /* NoSwipeSegmentedControl.swift */; };
 		AC057CC327CB2CF0008CBD68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC227CB2CF0008CBD68 /* AppDelegate.swift */; };
 		AC057CC527CB2CF0008CBD68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC427CB2CF0008CBD68 /* SceneDelegate.swift */; };
 		AC057CC727CB2CF0008CBD68 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC627CB2CF0008CBD68 /* LoginViewController.swift */; };
@@ -90,6 +94,10 @@
 		AC03B1352812445300287C05 /* ScheduleSelectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSelectionController.swift; sourceTree = "<group>"; };
 		AC03B137281247DF00287C05 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		AC03B13928124D3500287C05 /* ScheduleSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSelectionViewModel.swift; sourceTree = "<group>"; };
+		AC03B13C2812637F00287C05 /* ScheduleDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailController.swift; sourceTree = "<group>"; };
+		AC03B13E281263FB00287C05 /* ScheduleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailViewModel.swift; sourceTree = "<group>"; };
+		AC03B1402812717200287C05 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		AC03B145281289F500287C05 /* NoSwipeSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSwipeSegmentedControl.swift; sourceTree = "<group>"; };
 		AC057CBF27CB2CF0008CBD68 /* siase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = siase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC057CC227CB2CF0008CBD68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC057CC427CB2CF0008CBD68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +207,15 @@
 			path = scheduleSelection;
 			sourceTree = "<group>";
 		};
+		AC03B13B2812636600287C05 /* scheduleDetail */ = {
+			isa = PBXGroup;
+			children = (
+				AC03B13C2812637F00287C05 /* ScheduleDetailController.swift */,
+				AC03B13E281263FB00287C05 /* ScheduleDetailViewModel.swift */,
+			);
+			path = scheduleDetail;
+			sourceTree = "<group>";
+		};
 		AC057CB627CB2CF0008CBD68 = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +295,8 @@
 		AC057CF427CB3E31008CBD68 /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				AC03B12E2810E15500287C05 /* careerDetail */,
+				AC03B13B2812636600287C05 /* scheduleDetail */,
 				AC03B1342812444200287C05 /* scheduleSelection */,
 				AC6F404E2808ED35007281BB /* mainScheduleSelection */,
 				AC970B6D27DC2D4300D133F7 /* mainCareerSelection */,
@@ -299,6 +318,7 @@
 				AC03B123280A31B000287C05 /* ScheduleCell.swift */,
 				AC03B125280A31DB00287C05 /* ScheduleView.swift */,
 				AC03B137281247DF00287C05 /* BottomSheet.swift */,
+				AC03B145281289F500287C05 /* NoSwipeSegmentedControl.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -309,6 +329,7 @@
 				AC057CFF27CB486F008CBD68 /* Colors.swift */,
 				AC057D0127CB48EB008CBD68 /* Extensions.swift */,
 				AC057D1227CB5688008CBD68 /* Status.swift */,
+				AC03B1402812717200287C05 /* Helpers.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -378,7 +399,6 @@
 		AC057D1B27CB72AF008CBD68 /* pages */ = {
 			isa = PBXGroup;
 			children = (
-				AC03B12E2810E15500287C05 /* careerDetail */,
 				AC057D2227CB79FB008CBD68 /* more */,
 				AC057D1F27CB78F1008CBD68 /* careers */,
 				AC057D1E27CB76E6008CBD68 /* home */,
@@ -623,6 +643,8 @@
 				AC057D0227CB48EB008CBD68 /* Extensions.swift in Sources */,
 				AC057D2627CC926D008CBD68 /* ScheduleDetailView.swift in Sources */,
 				AC057D3927CDEA58008CBD68 /* MainScheduleDao.swift in Sources */,
+				AC03B1412812717200287C05 /* Helpers.swift in Sources */,
+				AC03B13D2812637F00287C05 /* ScheduleDetailController.swift in Sources */,
 				ACC83BF42807C4D9003E3E54 /* CareerCell.swift in Sources */,
 				AC03B13A28124D3500287C05 /* ScheduleSelectionViewModel.swift in Sources */,
 				AC03B12B280B693700287C05 /* TodayClassesView.swift in Sources */,
@@ -638,10 +660,12 @@
 				AC057CC327CB2CF0008CBD68 /* AppDelegate.swift in Sources */,
 				AC057CC527CB2CF0008CBD68 /* SceneDelegate.swift in Sources */,
 				AC6F4052280A2082007281BB /* MainScheduleSelectionViewModel.swift in Sources */,
+				AC03B146281289F500287C05 /* NoSwipeSegmentedControl.swift in Sources */,
 				AC03B129280B60BC00287C05 /* NextClassView.swift in Sources */,
 				AC03B12D280FAA2100287C05 /* CareersPageViewModel.swift in Sources */,
 				AC057D1827CB5DAC008CBD68 /* MainViewController.swift in Sources */,
 				AC970B7127DC33EF00D133F7 /* MainCareerSelectionController.swift in Sources */,
+				AC03B13F281263FB00287C05 /* ScheduleDetailViewModel.swift in Sources */,
 				AC057D0827CB50F8008CBD68 /* NetworkDataSource.swift in Sources */,
 				AC057D1A27CB6B00008CBD68 /* ClassView.swift in Sources */,
 				AC057D1327CB5688008CBD68 /* Status.swift in Sources */,
