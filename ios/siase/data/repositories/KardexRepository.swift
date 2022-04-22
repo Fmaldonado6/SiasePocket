@@ -20,8 +20,15 @@ class KardexRepository{
         self.networkDataSource = networkDataSource
     }
     
-    func getKardex(career:Career){
-        
+    func getKardex(career:Career,completer:@escaping(Kardex?,AppError? )->Void){
+        guard let index = authRepository.currentSession?.carreras.firstIndex(where: {e in
+            return e.claveCarrera == career.claveCarrera && e.claveDependencia == career.claveDependencia
+
+        })else{
+            completer(nil,AppError(message:"Couldn't find career"))
+            return
+        }
+        networkDataSource.gerKardex(index: index, completer: completer)
     }
     
 }
