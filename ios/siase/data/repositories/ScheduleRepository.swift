@@ -14,6 +14,7 @@ class ScheduleRepository{
     private let mainScheduleClassesDao:MainScheduleClassesDao
     
     private var todaySchedule:[ClassDetail]?
+    private(set) var fullSchedule:ScheduleDetail?
     private var dayOfWeek:Int?
     
     init(
@@ -56,7 +57,7 @@ class ScheduleRepository{
         
         dayOfWeek = calendar.component(.weekday, from: Date.now)
         guard let fullSchedule = try? mainScheduleClassesDao.getClasses() else{ return [] }
-        
+        self.fullSchedule = fullSchedule
         todaySchedule = getScheduleByDay(day: dayOfWeek ?? 0, schedule: fullSchedule)
         
         return todaySchedule

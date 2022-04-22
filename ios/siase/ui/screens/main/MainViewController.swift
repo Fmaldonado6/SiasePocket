@@ -46,28 +46,5 @@ class MainViewController : UITabBarController{
         viewControllers = [homePage,careersPage,morePage]
         
     }
-    
-
-    
-    override func becomeFirstResponder() -> Bool {
-        hidesBottomBarWhenPushed = false
-        print("ASDASDASD")
-        return super.becomeFirstResponder()
-    }
-    
-    override var canBecomeFirstResponder: Bool{
-        hidesBottomBarWhenPushed = false
-        return super.becomeFirstResponder()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("ASDASDASD")
-
-    }
  
 }

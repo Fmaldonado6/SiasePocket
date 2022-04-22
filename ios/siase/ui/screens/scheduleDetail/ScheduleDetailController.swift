@@ -11,8 +11,9 @@ import UIKit
 class ScheduleDetailController:UIViewController{
     
     
-    var schedule:Schedule!
-    var scheduleDetail:[[ClassDetail]] = [[ClassDetail]]()
+    var schedule:Schedule? = nil
+    var scheduleDetail:[[ClassDetail]]? = nil
+    var fullSchedule:ScheduleDetail? = nil
     
     private let viewModel = DIContainer.shared.resolve(type: ScheduleDetailViewModel.self)!
     
@@ -60,7 +61,14 @@ class ScheduleDetailController:UIViewController{
             self.changeStatus(status: status)
         }
         
-        viewModel.getScheduleDetail(schedule: schedule)
+        if(schedule != nil){
+            viewModel.getScheduleDetail(schedule: schedule!)
+        }
+        
+        if(fullSchedule != nil){
+            viewModel.processResponse(scheduleDetail: fullSchedule!)
+        }
+        
     }
     
     private func setupSegmentedControl(scheduleDetail:[[ClassDetail]]){
@@ -80,6 +88,10 @@ class ScheduleDetailController:UIViewController{
     }
     
     private func setupSchedule(index:Int){
+        guard let scheduleDetail = scheduleDetail else {
+            return
+        }
+
         let detail = scheduleDetail[index]
         self.scheduleDetailView.setupClasses(classes: detail)
     }

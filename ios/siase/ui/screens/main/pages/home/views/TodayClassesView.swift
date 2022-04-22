@@ -48,6 +48,12 @@ class TodayClassesView:UIStackView{
         classesView.setupClasses(classes: classes)
     }
     
+    func fullScheduleButtonClickListener(listener:@escaping()->Void){
+        fullScheduleButton.setOnClickListener {
+            listener()
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

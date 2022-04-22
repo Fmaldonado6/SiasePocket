@@ -38,6 +38,7 @@ class HomePageController : UIViewController{
         return spinner
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,12 +70,19 @@ class HomePageController : UIViewController{
         setupViews()
     }
     
+    
     private func setupViews(){
         view.addSubview(scrollView)
         view.addSubview(loadingSpinnerView)
 
         scrollView.addSubview(nextClassView)
         scrollView.addSubview(todaysClassesView)
+        
+        todaysClassesView.fullScheduleButtonClickListener {
+            let vc = ScheduleDetailController()
+            vc.fullSchedule = self.viewModel.getFullSchedule()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     
         
         NSLayoutConstraint.activate([

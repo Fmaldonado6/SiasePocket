@@ -36,6 +36,10 @@ class HomePageVieModel:BaseViewModel{
 
     var bindTodaySchedule:([ClassDetail]?)->Void = {classes in }
     var bindNextClass:(ClassDetail?)->Void = {nextClass in }
+    
+    func getFullSchedule() -> ScheduleDetail?{
+        return scheduleRepository.fullSchedule
+    }
 
     
     func getTodaySchedule(){

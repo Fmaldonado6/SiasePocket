@@ -54,7 +54,8 @@ class ScheduleDetailViewModel:BaseViewModel{
         }
     }
     
-    private func processResponse(scheduleDetail:ScheduleDetail){
+    func processResponse(scheduleDetail:ScheduleDetail){
+        self.status = Status.Loading
         var list = [[ClassDetail]]()
         list.append(scheduleDetail.lunes.getFormattedDetail())
         list.append(scheduleDetail.martes.getFormattedDetail())

@@ -21,6 +21,7 @@
 		AC03B13F281263FB00287C05 /* ScheduleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B13E281263FB00287C05 /* ScheduleDetailViewModel.swift */; };
 		AC03B1412812717200287C05 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B1402812717200287C05 /* Helpers.swift */; };
 		AC03B146281289F500287C05 /* NoSwipeSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B145281289F500287C05 /* NoSwipeSegmentedControl.swift */; };
+		AC03B149281349EC00287C05 /* KardexPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03B148281349EC00287C05 /* KardexPageController.swift */; };
 		AC057CC327CB2CF0008CBD68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC227CB2CF0008CBD68 /* AppDelegate.swift */; };
 		AC057CC527CB2CF0008CBD68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC427CB2CF0008CBD68 /* SceneDelegate.swift */; };
 		AC057CC727CB2CF0008CBD68 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057CC627CB2CF0008CBD68 /* LoginViewController.swift */; };
@@ -98,6 +99,7 @@
 		AC03B13E281263FB00287C05 /* ScheduleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailViewModel.swift; sourceTree = "<group>"; };
 		AC03B1402812717200287C05 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		AC03B145281289F500287C05 /* NoSwipeSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSwipeSegmentedControl.swift; sourceTree = "<group>"; };
+		AC03B148281349EC00287C05 /* KardexPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KardexPageController.swift; sourceTree = "<group>"; };
 		AC057CBF27CB2CF0008CBD68 /* siase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = siase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC057CC227CB2CF0008CBD68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC057CC427CB2CF0008CBD68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +218,14 @@
 			path = scheduleDetail;
 			sourceTree = "<group>";
 		};
+		AC03B147281349E000287C05 /* kardex */ = {
+			isa = PBXGroup;
+			children = (
+				AC03B148281349EC00287C05 /* KardexPageController.swift */,
+			);
+			path = kardex;
+			sourceTree = "<group>";
+		};
 		AC057CB627CB2CF0008CBD68 = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +305,7 @@
 		AC057CF427CB3E31008CBD68 /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				AC03B147281349E000287C05 /* kardex */,
 				AC03B12E2810E15500287C05 /* careerDetail */,
 				AC03B13B2812636600287C05 /* scheduleDetail */,
 				AC03B1342812444200287C05 /* scheduleSelection */,
@@ -631,6 +642,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC03B1302810E16800287C05 /* CareerDetailPageController.swift in Sources */,
+				AC03B149281349EC00287C05 /* KardexPageController.swift in Sources */,
 				AC057D0E27CB529E008CBD68 /* Models.swift in Sources */,
 				AC03B138281247DF00287C05 /* BottomSheet.swift in Sources */,
 				AC057CC727CB2CF0008CBD68 /* LoginViewController.swift in Sources */,
