@@ -82,12 +82,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             component: MainCareerSelectionViewModel()
         )
         DIContainer.shared.register(
+            type: ScheduleSelectionViewModel.self,
+            component: ScheduleSelectionViewModel()
+        )
+        DIContainer.shared.register(
             type: MainScheduleSelectionViewModel.self,
             component: MainScheduleSelectionViewModel()
         )
         DIContainer.shared.register(
             type: HomePageVieModel.self,
             component: HomePageVieModel()
+        )
+        
+        DIContainer.shared.register(
+            type: CareersPageViewModel.self,
+            component: CareersPageViewModel()
         )
         //------
         

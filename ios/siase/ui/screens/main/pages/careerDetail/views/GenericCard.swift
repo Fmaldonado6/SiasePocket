@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CareerView :UIView{
+class GenericCard :UIView{
     
     private let textStackView:UIStackView = {
         let view = UIStackView()
@@ -20,21 +20,16 @@ class CareerView :UIView{
         return view
     }()
     
-    private let careerLabel:UILabel = {
+    private let title:UILabel = {
         let view = UILabel()
         view.font = view.font.withSize(15)
         return view
     }()
-    private let careerDependency:UILabel = {
-        let view = UILabel()
-        view.font = view.font.withSize(12)
-        view.textColor = .systemGray
-        return view
-    }()
+
     
     private let iconView:UIImageView = {
         let imageConfiguration:UIImage.Configuration = UIImage.SymbolConfiguration(scale: .small)
-        let image = UIImage(systemName: "graduationcap",withConfiguration: imageConfiguration)
+        let image = UIImage(systemName: "clock",withConfiguration: imageConfiguration)
         let imageView = UIImageView()
         imageView.image = image
         imageView.tintColor = .label
@@ -44,20 +39,26 @@ class CareerView :UIView{
         return imageView
     }()
     
-    func setCareerText(text:String){
-        careerLabel.text = text
+    func setTitle(text:String){
+        title.text = text
     }
     
-    func setDependencyText(text:String){
-        careerDependency.text = text
+    func setIcon(iconName:String){
+        let imageConfiguration:UIImage.Configuration = UIImage.SymbolConfiguration(scale: .small)
+        let image = UIImage(systemName: iconName,withConfiguration: imageConfiguration)
+        iconView.image = image
     }
     
+    private var listener:(()->())? = nil
+    
+    func setClickListener(listener:@escaping()->()){
+        self.listener = listener
+    }
+
     override init(frame: CGRect) {
         
         super.init(frame: frame)
         self.backgroundColor = Colors.Light.surfaceVariant | Colors.Dark.surfaceVariant
-
-        
         self.directionalLayoutMargins = NSDirectionalEdgeInsets(
             top: 20,
             leading: 20,
@@ -67,15 +68,23 @@ class CareerView :UIView{
 
         self.layer.cornerRadius = 15
         setupViews()
+        addTapGesture(tapNumber: 1, target: self, action: #selector(clickListener))
         
+    }
+    
+    @objc private func clickListener(){
+        guard let listener = listener else {
+            return
+        }
+
+        listener()
     }
     
     private func setupViews(){
         self.addSubview(iconView)
         self.addSubview(textStackView)
         
-        textStackView.addArrangedSubview(careerLabel)
-        textStackView.addArrangedSubview(careerDependency)
+        textStackView.addArrangedSubview(title)
 
         NSLayoutConstraint.activate([
             iconView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
@@ -92,6 +101,6 @@ class CareerView :UIView{
     }
     
     required init(coder: NSCoder) {
-        fatalError("Not implementef")
+        fatalError("Not implemented")
     }
 }

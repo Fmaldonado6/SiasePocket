@@ -21,7 +21,7 @@ class TodayClassesView:UIStackView{
         let view = UIButton()
         view.titleLabel?.font = view.titleLabel?.font.withSize(15)
         view.setTitle("Ver horario completo", for: .normal)
-        view.setTitleColor(Colors.Light.primaryColor, for: .normal)
+        view.setTitleColor(Colors.Light.primaryColor | Colors.Dark.primaryColor, for: .normal)
         return view
     }()
     

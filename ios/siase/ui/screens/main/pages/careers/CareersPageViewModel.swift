@@ -1,13 +1,13 @@
 //
-//  MainCareerSelectionViewModel.swift
+//  CareersViewModel.swift
 //  siase
 //
-//  Created by Fernando Maldonado on 13/04/22.
+//  Created by Fernando Maldonado on 19/04/22.
 //
 
 import Foundation
 
-class MainCareerSelectionViewModel : BaseViewModel{
+class CareersPageViewModel:BaseViewModel{
     
     
     private(set) lazy var careers:[Career] = authRepository.currentSession!.carreras
@@ -22,5 +22,6 @@ class MainCareerSelectionViewModel : BaseViewModel{
     func getCareers(){
         careers = authRepository.currentSession!.carreras
     }
-
+    
+    
 }

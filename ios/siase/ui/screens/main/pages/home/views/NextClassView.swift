@@ -29,6 +29,7 @@ class NextClassView:UIStackView{
     private let noNextClassLabel:UILabel = {
         let view = UILabel()
         view.textAlignment = .center
+        view.textColor = .systemGray
         view.text = "¡Felicidades, has terminado por hoy!"
         view.font = view.font.withSize(15)
         return view

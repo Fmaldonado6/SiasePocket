@@ -81,7 +81,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             PreferencesKeys.SignOut.key -> viewModel.signOut()
             PreferencesKeys.Developer.key -> startURLIntent("https://twitter.com/Fmaldonado4202")
-            PreferencesKeys.SourceCode.key -> startURLIntent("https://github.com/Fmaldonado6/AndroidSiase")
+            PreferencesKeys.SourceCode.key -> startURLIntent("https://github.com/Fmaldonado6/SiasePocket")
             PreferencesKeys.Icon.key -> startURLIntent("https://twitter.com/DavidLazaroFern")
             PreferencesKeys.Notifications.key -> {
                 val notifPref = findPreference(

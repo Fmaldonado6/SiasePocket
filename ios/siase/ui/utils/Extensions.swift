@@ -68,10 +68,31 @@ extension UIControl {
     }
 }
 
+extension UIView {
+  func addTapGesture(tapNumber: Int, target: Any, action: Selector) {
+    let tap = UITapGestureRecognizer(target: target, action: action)
+    tap.numberOfTapsRequired = tapNumber
+    addGestureRecognizer(tap)
+    isUserInteractionEnabled = true
+  }
+}
+
 extension UIViewController{
     func navigate(screen:UIViewController,type:UIModalPresentationStyle = .fullScreen){
         let nvc = UINavigationController(rootViewController: screen)
         nvc.modalPresentationStyle = type
         self.present(nvc, animated: true,completion: nil)
+    }
+}
+
+infix operator |: AdditionPrecedence
+public extension UIColor {
+    
+    static func | (lightMode: UIColor, darkMode: UIColor) -> UIColor {
+        guard #available(iOS 13.0, *) else { return lightMode }
+            
+        return UIColor { (traitCollection) -> UIColor in
+            return traitCollection.userInterfaceStyle == .light ? lightMode : darkMode
+        }
     }
 }

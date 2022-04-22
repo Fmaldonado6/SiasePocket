@@ -21,7 +21,7 @@ class ClassView : UIView{
     private let timeLabel:UILabel = {
         let view = UILabel()
         view.font = view.font.withSize(12)
-        view.textColor = Colors.Light.onPrimaryContainer
+        view.textColor = .systemGray
         view.translatesAutoresizingMaskIntoConstraints = false
 
         return view
@@ -38,7 +38,7 @@ class ClassView : UIView{
     override init(frame: CGRect) {
         
         super.init(frame: frame)
-        self.backgroundColor = Colors.Light.surfaceVariant
+        self.backgroundColor = Colors.Light.surfaceVariant | Colors.Dark.surfaceVariant
         self.addSubview(classLabel)
         self.addSubview(timeLabel)
         

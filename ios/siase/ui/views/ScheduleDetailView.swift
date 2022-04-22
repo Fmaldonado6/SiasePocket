@@ -103,7 +103,6 @@ class ScheduleDetailView:UIStackView{
             let container = UIView()
             container.translatesAutoresizingMaskIntoConstraints = false
             let classView = ClassView()
-            classView.backgroundColor = Colors.Light.surfaceVariant
             classView.translatesAutoresizingMaskIntoConstraints = false
             container.addSubview(classView)
             classesView.addSubview(container)

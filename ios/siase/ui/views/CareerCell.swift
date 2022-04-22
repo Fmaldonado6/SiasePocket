@@ -35,7 +35,7 @@ class CareerCell : UITableViewCell{
         
         
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 90),
+            heightAnchor.constraint(equalToConstant: 95),
             careerView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
             careerView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -20),
             careerView.topAnchor.constraint(equalTo: self.topAnchor,constant: 10),

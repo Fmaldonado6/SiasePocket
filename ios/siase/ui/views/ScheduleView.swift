@@ -31,8 +31,8 @@ class ScheduleView :UIView{
         let imageConfiguration:UIImage.Configuration = UIImage.SymbolConfiguration(scale: .small)
         let image = UIImage(systemName: "clock",withConfiguration: imageConfiguration)
         let imageView = UIImageView()
+        imageView.tintColor = .label
         imageView.image = image
-        imageView.tintColor = .black
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -47,7 +47,7 @@ class ScheduleView :UIView{
     override init(frame: CGRect) {
         
         super.init(frame: frame)
-        self.backgroundColor = Colors.Light.surfaceVariant
+        self.backgroundColor = Colors.Light.surfaceVariant | Colors.Dark.surfaceVariant
 
         
         self.directionalLayoutMargins = NSDirectionalEdgeInsets(
