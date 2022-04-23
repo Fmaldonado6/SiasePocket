@@ -53,7 +53,7 @@ class MainScheduleSelectionViewModel  : BaseViewModel {
     }
     
     func setMainSchedule(career:Career,schedule:Schedule){
-        
+        status = Status.Loading
         self.mainCareerRepository.setMainCareer(career: career){careerError in
             
             guard careerError == nil else {

@@ -68,6 +68,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DIContainer.shared.register(
             type: MainCareerRepository.self,
             component: MainCareerRepository())
+        DIContainer.shared.register(
+            type: KardexRepository.self,
+            component: KardexRepository())
         
         //------
         
@@ -101,6 +104,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DIContainer.shared.register(
             type: CareersPageViewModel.self,
             component: CareersPageViewModel()
+        )
+        DIContainer.shared.register(
+            type: KardexPageViewModel.self,
+            component: KardexPageViewModel()
         )
         //------
         

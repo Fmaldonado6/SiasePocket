@@ -64,7 +64,7 @@ class CareerDetailPageController : UIViewController,UINavigationBarDelegate {
         
         kardexCard.setClickListener {
             let vc = KardexPageController()
-        
+            vc.career = self.career
             self.navigationController?.pushViewController(vc, animated: true)
         
         }

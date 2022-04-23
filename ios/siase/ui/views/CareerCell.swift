@@ -32,7 +32,8 @@ class CareerCell : UITableViewCell{
         self.careerView.setDependencyText(text: dependencyName ?? "asdasd")
 
         self.backgroundColor = .systemGroupedBackground
-        
+        self.selectionStyle = .none
+
         
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 95),

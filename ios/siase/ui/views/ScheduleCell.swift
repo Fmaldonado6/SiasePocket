@@ -27,7 +27,8 @@ class ScheduleCell : UITableViewCell{
         self.scheduleView.setScheduletext(text: schedule.nombre ?? "")
 
         self.backgroundColor = .systemGroupedBackground
-        
+        self.selectionStyle = .none
+
     
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 90),

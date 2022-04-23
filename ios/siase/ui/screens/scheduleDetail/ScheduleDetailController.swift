@@ -46,7 +46,7 @@ class ScheduleDetailController:UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGroupedBackground
         navigationItem.title = "Horario"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .never;
@@ -113,12 +113,12 @@ class ScheduleDetailController:UIViewController{
             segmentedControl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
             segmentedControl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -20),
             
-            scrollView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor,constant: 20),
+            scrollView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor,constant: 5),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            scheduleDetailView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scheduleDetailView.topAnchor.constraint(equalTo: scrollView.topAnchor,constant: 15),
             scheduleDetailView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             scheduleDetailView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         ])

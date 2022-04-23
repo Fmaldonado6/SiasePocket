@@ -58,6 +58,9 @@
 		AC057D3727CDE47E008CBD68 /* MainCareerDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057D3627CDE47E008CBD68 /* MainCareerDao.swift */; };
 		AC057D3927CDEA58008CBD68 /* MainScheduleDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057D3827CDEA58008CBD68 /* MainScheduleDao.swift */; };
 		AC057D4327CDEDA1008CBD68 /* MainScheduleClassesDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC057D4227CDEDA1008CBD68 /* MainScheduleClassesDao.swift */; };
+		AC3EDA8E2814A976009E6D32 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = AC3EDA8D2814A976009E6D32 /* OrderedCollections */; };
+		AC3EDA912814B107009E6D32 /* SubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA902814B107009E6D32 /* SubjectView.swift */; };
+		AC3EDA932814B1D5009E6D32 /* SubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */; };
 		AC6F404D2808D123007281BB /* CareerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F404C2808D123007281BB /* CareerView.swift */; };
 		AC6F40502808ED44007281BB /* MainScheduleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F404F2808ED44007281BB /* MainScheduleSelectionViewController.swift */; };
 		AC6F4052280A2082007281BB /* MainScheduleSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F4051280A2082007281BB /* MainScheduleSelectionViewModel.swift */; };
@@ -141,6 +144,8 @@
 		AC057D3627CDE47E008CBD68 /* MainCareerDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCareerDao.swift; sourceTree = "<group>"; };
 		AC057D3827CDEA58008CBD68 /* MainScheduleDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleDao.swift; sourceTree = "<group>"; };
 		AC057D4227CDEDA1008CBD68 /* MainScheduleClassesDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleClassesDao.swift; sourceTree = "<group>"; };
+		AC3EDA902814B107009E6D32 /* SubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectView.swift; sourceTree = "<group>"; };
+		AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectCell.swift; sourceTree = "<group>"; };
 		AC6F404C2808D123007281BB /* CareerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerView.swift; sourceTree = "<group>"; };
 		AC6F404F2808ED44007281BB /* MainScheduleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleSelectionViewController.swift; sourceTree = "<group>"; };
 		AC6F4051280A2082007281BB /* MainScheduleSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleSelectionViewModel.swift; sourceTree = "<group>"; };
@@ -157,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC3EDA8E2814A976009E6D32 /* OrderedCollections in Frameworks */,
 				AC057D0B27CB524E008CBD68 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,6 +231,7 @@
 		AC03B147281349E000287C05 /* kardex */ = {
 			isa = PBXGroup;
 			children = (
+				AC3EDA8F2814B0FA009E6D32 /* views */,
 				AC03B148281349EC00287C05 /* KardexPageController.swift */,
 				AC03B14A2813572F00287C05 /* KardexPageViewModel.swift */,
 			);
@@ -485,6 +492,15 @@
 			path = dao;
 			sourceTree = "<group>";
 		};
+		AC3EDA8F2814B0FA009E6D32 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				AC3EDA902814B107009E6D32 /* SubjectView.swift */,
+				AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		AC6F404E2808ED35007281BB /* mainScheduleSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -529,6 +545,7 @@
 			name = siase;
 			packageProductDependencies = (
 				AC057D0A27CB524E008CBD68 /* Alamofire */,
+				AC3EDA8D2814A976009E6D32 /* OrderedCollections */,
 			);
 			productName = siase;
 			productReference = AC057CBF27CB2CF0008CBD68 /* siase.app */;
@@ -604,6 +621,7 @@
 			mainGroup = AC057CB627CB2CF0008CBD68;
 			packageReferences = (
 				AC057D0927CB524E008CBD68 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				AC3EDA8C2814A976009E6D32 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = AC057CC027CB2CF0008CBD68 /* Products */;
 			projectDirPath = "";
@@ -654,6 +672,7 @@
 				AC057CC727CB2CF0008CBD68 /* LoginViewController.swift in Sources */,
 				AC03B1362812445300287C05 /* ScheduleSelectionController.swift in Sources */,
 				AC057D2827CD17B3008CBD68 /* HomePageViewModel.swift in Sources */,
+				AC3EDA912814B107009E6D32 /* SubjectView.swift in Sources */,
 				AC057D2127CB7903008CBD68 /* CareersPageController.swift in Sources */,
 				AC057CFE27CB4598008CBD68 /* RoundedTextField.swift in Sources */,
 				AC057CFC27CB44BA008CBD68 /* LoginStackView.swift in Sources */,
@@ -698,6 +717,7 @@
 				AC057D2D27CDB2B3008CBD68 /* ScheduleRepository.swift in Sources */,
 				AC057D3427CDD4C2008CBD68 /* Model.xcdatamodeld in Sources */,
 				AC057D3727CDE47E008CBD68 /* MainCareerDao.swift in Sources */,
+				AC3EDA932814B1D5009E6D32 /* SubjectCell.swift in Sources */,
 				AC057D2427CB7A0E008CBD68 /* MorePageController.swift in Sources */,
 				ACC83BF22807BEC9003E3E54 /* MainCareerSelectionViewModel.swift in Sources */,
 				AC057CF927CB41D0008CBD68 /* RoundedButton.swift in Sources */,
@@ -1064,6 +1084,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		AC3EDA8C2814A976009E6D32 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1071,6 +1099,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AC057D0927CB524E008CBD68 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		AC3EDA8D2814A976009E6D32 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AC3EDA8C2814A976009E6D32 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -12,21 +12,34 @@ class KardexPageController : UIViewController{
     
     var career:Career!
     
-    private lazy var segmentedControl:UISegmentedControl = {
-        let view = UISegmentedControl()
+    private let viewModel = DIContainer.shared.resolve(type: KardexPageViewModel.self)!
+    
+    private lazy var segmentedControl:NoSwipeSegmentedControl = {
+        let view = NoSwipeSegmentedControl()
         view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let segmentedContainer:UIScrollView = {
+        let view = UIScrollView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
         return view
     }()
     
     private lazy var tableView:UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGroupedBackground
+        view.separatorStyle = UITableViewCell.SeparatorStyle.none
         view.delegate = self
         view.dataSource = self
+        view.register(SubjectCell.self, forCellReuseIdentifier: SubjectCell.identifier)
         return view
     }()
     
     private var subjects:[[Subject]] = [[Subject]]()
+    private var currentSemester:[Subject] = [Subject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,29 +48,71 @@ class KardexPageController : UIViewController{
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .never;
         setupViews()
+        
+        viewModel.bindSubjects = {subjects in
+            self.subjects = subjects
+            self.currentSemester = subjects[0]
+            self.tableView.reloadData()
+            self.setupSegmentedControl()
+        }
+        
+        viewModel.getkardex(career: career)
+    }
+    
+    private func setupSegmentedControl(){
+        
+        for (index,semester) in subjects.enumerated(){
+            
+            segmentedControl.insertSegment(
+                withTitle: "Semestre \(semester.first!.semestreMateria ?? "")",
+                at: index, animated: true
+            )
+            
+        }
+        
     }
     
     private func setupViews(){
-        view.addSubview(segmentedControl)
+        view.addSubview(segmentedContainer)
+        
         view.addSubview(tableView)
         
+        segmentedContainer.addSubview(segmentedControl)
+        
+        segmentedControl.addTarget(self, action: #selector(self.segmentAction(_:)), for: .valueChanged)
+        
         NSLayoutConstraint.activate([
-            segmentedControl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            segmentedControl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            segmentedContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            segmentedContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            segmentedContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            segmentedContainer.heightAnchor.constraint(equalToConstant: 40),
+            
+            segmentedControl.leadingAnchor.constraint(equalTo: segmentedContainer.leadingAnchor,constant: 20),
+            segmentedControl.trailingAnchor.constraint(equalTo: segmentedContainer.trailingAnchor,constant: -20),
+            segmentedControl.centerYAnchor.constraint(equalTo: segmentedContainer.centerYAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: segmentedContainer.bottomAnchor,constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         ])
+    }
+    
+    @objc func segmentAction(_ segmentedControl: UISegmentedControl) {
+        self.currentSemester = subjects[segmentedControl.selectedSegmentIndex]
+        tableView.reloadData()
     }
     
 }
 
 extension KardexPageController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return subjects.count
+        return currentSemester.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "ASDASD"
+        let cell = tableView.dequeueReusableCell(withIdentifier: SubjectCell.identifier) as! SubjectCell
+        cell.configure(index: indexPath.row, subject: currentSemester[indexPath.row])
         return cell
     }
     
