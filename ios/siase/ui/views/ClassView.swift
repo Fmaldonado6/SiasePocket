@@ -35,12 +35,21 @@ class ClassView : UIView{
         timeLabel.text = text
     }
     
+    private var listener:(()->())? = nil
+    
+    func setClickListener(listener:@escaping()->()){
+        self.listener = listener
+    }
+
+    
     override init(frame: CGRect) {
         
         super.init(frame: frame)
         self.backgroundColor = Colors.Light.surfaceVariant | Colors.Dark.surfaceVariant
         self.addSubview(classLabel)
         self.addSubview(timeLabel)
+        
+        
         
         NSLayoutConstraint.activate([
             
@@ -57,6 +66,16 @@ class ClassView : UIView{
   
         self.layer.cornerRadius = 15
         
+        addTapGesture(tapNumber: 1, target: self, action: #selector(clickListener))
+        
+    }
+    
+    @objc private func clickListener(){
+        guard let listener = listener else {
+            return
+        }
+
+        listener()
     }
     
     required init(coder: NSCoder) {

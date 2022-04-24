@@ -58,14 +58,15 @@ class CareerDetailPageController : UIViewController,UINavigationBarDelegate {
         schedulesCard.setClickListener {
             let vc = ScheduleSelectionController()
             vc.index = self.index
-            vc.modalPresentationStyle = .overCurrentContext
-            self.present(vc, animated: false, completion: nil)
+            let nav = UINavigationController(rootViewController: vc)
+            self.present(nav, animated: true, completion: nil)
         }
         
         kardexCard.setClickListener {
             let vc = KardexPageController()
             vc.career = self.career
-            self.navigationController?.pushViewController(vc, animated: true)
+            let nav = UINavigationController(rootViewController: vc)
+            self.present(nav, animated: true, completion: nil)
         
         }
         

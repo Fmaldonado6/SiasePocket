@@ -31,10 +31,10 @@ class ScheduleDetailController:UIViewController{
     }()
     
     
-    private let scheduleDetailView:ScheduleDetailView = {
+    private lazy var scheduleDetailView:ScheduleDetailView = {
         let view = ScheduleDetailView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        
+        view.setupParent(parent: self)
         return view
     }()
     

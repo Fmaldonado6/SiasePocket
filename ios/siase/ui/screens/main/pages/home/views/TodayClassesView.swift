@@ -44,6 +44,10 @@ class TodayClassesView:UIStackView{
         return view
     }()
     
+    func setupClassViewParent(parent:UIViewController){
+        classesView.setupParent(parent: parent)
+    }
+    
     func setupClasses(classes:[ClassDetail]){
         classesView.setupClasses(classes: classes)
     }

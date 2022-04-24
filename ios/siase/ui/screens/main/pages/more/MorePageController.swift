@@ -14,6 +14,9 @@ class MorePageController : UIViewController{
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
         navigationItem.title = "Siase Pocket"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .automatic;
+        
         
     }
 }

@@ -89,11 +89,12 @@ class MainScheduleSelectionViewController : UIViewController{
     }
     
     private func changeStatus(status:Status){
-        
+        let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+
         if(status == Status.Completed){
             let vc  = MainViewController()
             vc.modalPresentationStyle = .fullScreen
-            navigationController?.present(vc, animated: true, completion: nil)
+            delegate?.setRootViewController(vc)
             return
         }
         

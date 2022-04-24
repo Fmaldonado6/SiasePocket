@@ -42,6 +42,7 @@ class MainViewController : UITabBarController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         UITabBar.appearance().tintColor = Colors.Light.secondary | Colors.Dark.secondary
         viewControllers = [homePage,careersPage,morePage]
         

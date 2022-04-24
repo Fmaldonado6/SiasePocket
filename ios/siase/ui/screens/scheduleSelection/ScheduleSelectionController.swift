@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ScheduleSelectionController:BottomSheet{
+class ScheduleSelectionController:UIViewController{
     
     
     
@@ -20,6 +20,7 @@ class ScheduleSelectionController:BottomSheet{
     private lazy var tableView :UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGroupedBackground
         view.delegate = self
         view.dataSource = self
         return view
@@ -45,6 +46,9 @@ class ScheduleSelectionController:BottomSheet{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Horarios"
+        navigationItem.largeTitleDisplayMode = .never
+        view.backgroundColor = .systemGroupedBackground
         
         viewModel.bindSchedule = { schedules in
             self.schedules = schedules
@@ -62,29 +66,19 @@ class ScheduleSelectionController:BottomSheet{
     }
     
     private func setupViews(){
-        self.maximumContainerHeight = 300
         
-        containerView.addSubview(loadingSpinnerView)
-        containerView.addSubview(header)
-        containerView.addSubview(tableView)
-        
-        
-        
+        view.addSubview(loadingSpinnerView)
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
             
-            loadingSpinnerView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            loadingSpinnerView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             
-            
-            header.topAnchor.constraint(equalTo: containerView.topAnchor,constant: 20),
-            header.leadingAnchor.constraint(equalTo: containerView.leadingAnchor,constant: 20),
-            header.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,constant: -20),
-            
-            tableView.topAnchor.constraint(equalTo: header.bottomAnchor,constant: 20),
-            tableView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
         
     }
@@ -103,15 +97,7 @@ class ScheduleSelectionController:BottomSheet{
 
     }
     
-    override func handlePanGesture(gesture: UIPanGestureRecognizer) {
-        
-        if(!canDismiss){
-            return
-        }
-        
-        super.handlePanGesture(gesture: gesture)
-    }
-    
+
     
 }
 
@@ -141,18 +127,17 @@ extension ScheduleSelectionController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = ScheduleDetailController()
-        let navController = presentingViewController as? UINavigationController
+        vc.modalPresentationStyle = .fullScreen
         vc.schedule = schedules[indexPath.row]
-        navController?.pushViewController(vc, animated: true)
-        self.animateDismissView()
+        navigationController?.pushViewController(vc, animated: true)
+    
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         var config = UIListContentConfiguration.cell()
-        
+        cell.backgroundColor = .systemGroupedBackground
         let schedule = schedules[indexPath.row]
-        
         config.text = schedule.nombre
         config.textProperties.font = config.textProperties.font.withSize(15)
         let imageConfiguration:UIImage.Configuration = UIImage.SymbolConfiguration(scale: .small)

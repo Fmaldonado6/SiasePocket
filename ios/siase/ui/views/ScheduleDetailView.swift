@@ -27,6 +27,8 @@ class ScheduleDetailView:UIStackView{
         return view
     }()
     
+    private weak var parent:UIViewController!
+    
     override init(frame: CGRect) {
         
         super.init(frame: frame)
@@ -36,6 +38,10 @@ class ScheduleDetailView:UIStackView{
         self.addArrangedSubview(classesView)
         rebuild()
         
+    }
+    
+    func setupParent(parent:UIViewController){
+        self.parent = parent
     }
     
     private func setupHours(){
@@ -106,6 +112,7 @@ class ScheduleDetailView:UIStackView{
         setupHours()
         setupDividers()
     }
+
     
     func setupClasses(classes:[ClassDetail]){
         rebuild()
@@ -131,6 +138,11 @@ class ScheduleDetailView:UIStackView{
             
             classView.setClassName(text: classDetail.nombre ?? "")
             classView.setTimeName(text: classDetail.horaInicio! + " - " + classDetail.horaFin!)
+            
+            classView.setClickListener {
+                let vc = ClassDetailPageController()
+                self.parent.navigationController?.present(vc, animated: true, completion: nil)
+            }
 
             
             NSLayoutConstraint.activate([

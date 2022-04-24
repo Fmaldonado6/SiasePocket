@@ -26,9 +26,10 @@ class HomePageController : UIViewController{
     }()
 
     
-    private let todaysClassesView:TodayClassesView = {
+    private lazy var todaysClassesView:TodayClassesView = {
         let view = TodayClassesView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.setupClassViewParent(parent: self)
         return view
     }()
     
@@ -85,8 +86,8 @@ class HomePageController : UIViewController{
         todaysClassesView.fullScheduleButtonClickListener {
             let vc = ScheduleDetailController()
             vc.fullSchedule = self.viewModel.getFullSchedule()
-            self.tabBarController?.tabBar.isHidden = true
-            self.navigationController?.pushViewController(vc, animated: true)
+            let nav = UINavigationController(rootViewController: vc)
+            self.present(nav, animated: true, completion: nil)
         }
     
         

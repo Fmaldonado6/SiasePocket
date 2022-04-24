@@ -31,17 +31,18 @@ class LoginViewController: UIViewController {
         spinner.translatesAutoresizingMaskIntoConstraints = false
         return spinner
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .systemBackground
         setupViews()
-
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-                
+        let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        
         viewModel.bindStatus = { status in
             self.changeStatus(status: self.viewModel.status)
         }
@@ -50,24 +51,26 @@ class LoginViewController: UIViewController {
             if(selection == nil){
                 return
             }
-                        
-            if(selection!){
+            
+            if(!selection!){
                 let vc = MainCareerSelectionController()
+                let nav = UINavigationController(rootViewController:vc)
                 vc.modalPresentationStyle = .fullScreen
-                self.navigate(screen: vc)
+                delegate?.setRootViewController(nav)
             }else{
                 let vc = MainViewController()
                 vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true, completion: nil)
+                delegate?.setRootViewController(vc)
+                
             }
         }
         
         viewModel.checkSession()
-
+        
     }
     
     private func changeStatus(status:Status){
-
+        
         if(status == Status.Completed){
             viewModel.checkIfNeedsSelection()
             return
@@ -81,10 +84,10 @@ class LoginViewController: UIViewController {
         if(status == Status.Loading){
             loadingSpinnerView.startAnimating()
         }
-       else{
+        else{
             loadingSpinnerView.stopAnimating()
         }
-
+        
     }
     
     
@@ -93,7 +96,7 @@ class LoginViewController: UIViewController {
         view.addSubview(stackView)
         view.addSubview(label)
         view.addSubview(loadingSpinnerView)
-
+        
         view.layoutMargins = UIEdgeInsets.init(top: 50, left:10,bottom: 10,right: 10);
         
         stackView.setLoginClickListener {
@@ -107,10 +110,10 @@ class LoginViewController: UIViewController {
             ) {
                 return
             }
-                
+            
             self.viewModel.login(username: username!, password: password!)
         }
-
+        
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -20),
@@ -120,15 +123,15 @@ class LoginViewController: UIViewController {
             label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -40),
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
-
-
+            
+            
         ])
         
-            
         
-
+        
+        
     }
-
-
+    
+    
 }
 

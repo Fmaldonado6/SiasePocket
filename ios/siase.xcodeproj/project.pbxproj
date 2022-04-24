@@ -61,6 +61,7 @@
 		AC3EDA8E2814A976009E6D32 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = AC3EDA8D2814A976009E6D32 /* OrderedCollections */; };
 		AC3EDA912814B107009E6D32 /* SubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA902814B107009E6D32 /* SubjectView.swift */; };
 		AC3EDA932814B1D5009E6D32 /* SubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */; };
+		AC3EDA962814BD47009E6D32 /* ClassDetailPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA952814BD47009E6D32 /* ClassDetailPageController.swift */; };
 		AC6F404D2808D123007281BB /* CareerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F404C2808D123007281BB /* CareerView.swift */; };
 		AC6F40502808ED44007281BB /* MainScheduleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F404F2808ED44007281BB /* MainScheduleSelectionViewController.swift */; };
 		AC6F4052280A2082007281BB /* MainScheduleSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F4051280A2082007281BB /* MainScheduleSelectionViewModel.swift */; };
@@ -146,6 +147,7 @@
 		AC057D4227CDEDA1008CBD68 /* MainScheduleClassesDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleClassesDao.swift; sourceTree = "<group>"; };
 		AC3EDA902814B107009E6D32 /* SubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectView.swift; sourceTree = "<group>"; };
 		AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectCell.swift; sourceTree = "<group>"; };
+		AC3EDA952814BD47009E6D32 /* ClassDetailPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailPageController.swift; sourceTree = "<group>"; };
 		AC6F404C2808D123007281BB /* CareerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerView.swift; sourceTree = "<group>"; };
 		AC6F404F2808ED44007281BB /* MainScheduleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleSelectionViewController.swift; sourceTree = "<group>"; };
 		AC6F4051280A2082007281BB /* MainScheduleSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleSelectionViewModel.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 		AC057CF427CB3E31008CBD68 /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				AC3EDA942814BD36009E6D32 /* classDetail */,
 				AC03B147281349E000287C05 /* kardex */,
 				AC03B12E2810E15500287C05 /* careerDetail */,
 				AC03B13B2812636600287C05 /* scheduleDetail */,
@@ -501,6 +504,14 @@
 			path = views;
 			sourceTree = "<group>";
 		};
+		AC3EDA942814BD36009E6D32 /* classDetail */ = {
+			isa = PBXGroup;
+			children = (
+				AC3EDA952814BD47009E6D32 /* ClassDetailPageController.swift */,
+			);
+			path = classDetail;
+			sourceTree = "<group>";
+		};
 		AC6F404E2808ED35007281BB /* mainScheduleSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -665,6 +676,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC3EDA962814BD47009E6D32 /* ClassDetailPageController.swift in Sources */,
 				AC03B1302810E16800287C05 /* CareerDetailPageController.swift in Sources */,
 				AC03B149281349EC00287C05 /* KardexPageController.swift in Sources */,
 				AC057D0E27CB529E008CBD68 /* Models.swift in Sources */,

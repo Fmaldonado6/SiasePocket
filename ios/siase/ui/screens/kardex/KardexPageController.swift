@@ -38,6 +38,12 @@ class KardexPageController : UIViewController{
         return view
     }()
     
+    private let loadingSpinnerView : UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        return spinner
+    }()
+    
     private var subjects:[[Subject]] = [[Subject]]()
     private var currentSemester:[Subject] = [Subject]()
     
@@ -56,25 +62,28 @@ class KardexPageController : UIViewController{
             self.setupSegmentedControl()
         }
         
+        viewModel.bindStatus = {status in
+            self.changeStatus(status: status)
+        }
+        
         viewModel.getkardex(career: career)
     }
     
     private func setupSegmentedControl(){
         
         for (index,semester) in subjects.enumerated(){
-            
             segmentedControl.insertSegment(
                 withTitle: "Semestre \(semester.first!.semestreMateria ?? "")",
                 at: index, animated: true
             )
-            
         }
         
+        segmentedControl.selectedSegmentIndex = 0
     }
     
     private func setupViews(){
         view.addSubview(segmentedContainer)
-        
+        view.addSubview(loadingSpinnerView)
         view.addSubview(tableView)
         
         segmentedContainer.addSubview(segmentedControl)
@@ -82,6 +91,9 @@ class KardexPageController : UIViewController{
         segmentedControl.addTarget(self, action: #selector(self.segmentAction(_:)), for: .valueChanged)
         
         NSLayoutConstraint.activate([
+            loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            
             segmentedContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             segmentedContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             segmentedContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -96,6 +108,19 @@ class KardexPageController : UIViewController{
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         ])
+    }
+    
+    private func changeStatus(status:Status){
+        tableView.isHidden = status != Status.Loaded
+        loadingSpinnerView.isHidden = status != Status.Loading
+        
+        if(status == Status.Loading){
+            loadingSpinnerView.startAnimating()
+        }
+        else{
+            loadingSpinnerView.stopAnimating()
+        }
+        
     }
     
     @objc func segmentAction(_ segmentedControl: UISegmentedControl) {
