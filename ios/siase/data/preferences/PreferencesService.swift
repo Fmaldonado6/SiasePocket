@@ -48,6 +48,7 @@ class PreferencesService{
     func delete(){
         if let appDomain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: appDomain)
+            UserDefaults.standard.synchronize()
         }
     }
     

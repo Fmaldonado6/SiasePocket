@@ -36,8 +36,6 @@ class LoginViewModel : BaseViewModel {
         }
     }
     
-    
-        
     var bindPermissionRequested:((Bool?)->()) = {bool in}
     
     func requestNotificationPermission(){
@@ -52,9 +50,10 @@ class LoginViewModel : BaseViewModel {
         if(hasSession){
             authRepository.restoreSession(){response,error in
                 if(error != nil){
-                    self.status = Status.Loaded
+                    self.status = Status.Failed
                     return
                 }
+                
                 self.status = Status.Completed
             }
         }else{
@@ -69,7 +68,7 @@ class LoginViewModel : BaseViewModel {
         authRepository.login(username: username, password: password) { loginResponse, error in
             
             if(error != nil){
-                self.status = Status.Loaded
+                self.status = Status.Error
                 return
             }
             

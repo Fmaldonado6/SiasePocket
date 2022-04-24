@@ -83,7 +83,9 @@ class MorePageController : UIViewController{
                     icon: "power",
                     subtitle: "Cierra la sesión actual",
                     action: {
+                        self.viewModel.signOut()
                         
+                        self.navigateToTop(screen: LoginViewController())
                     }
                 ),
             ]
@@ -165,27 +167,18 @@ class MorePageController : UIViewController{
                 guard let done = done else{
                     return
                 }
-                
-                let alert = UIAlertController()
-                
-                
                 if(!done) {
-                    alert.title = "Ocurrió un error"
-                    alert.message = "Ocurrió un error al calendarizar las notificaciones"
+                    self.showAlert(
+                        title: "Ocurrió un error",
+                        description: "Ocurrió un error al calendarizar las notificaciones"
+                    )
                 }else{
-                    alert.title = "Notificaciones Calendarizadas"
-                    alert.message = "Las notificaciones se han calendarizado correctamente"
+                    self.showAlert(
+                        title: "Notificaciones Calendarizadas",
+                        description: "Las notificaciones se han calendarizado correctamente"
+                    )
                 }
-                
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
-                    alert.dismiss(animated: true, completion: nil)
-                }))
-                
-                
-                self.present(alert, animated: true, completion: nil)
             }
-            
-            
         }
         
         viewModel.bindMainSchedule = {schedule in
@@ -203,6 +196,8 @@ class MorePageController : UIViewController{
         viewModel.getMainCareer()
         viewModel.getMainSchedule()
     }
+    
+    
     
     private func setupViews(){
         view.addSubview(tableView)

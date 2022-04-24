@@ -44,6 +44,12 @@ class ScheduleDetailController:UIViewController{
         return spinner
     }()
     
+    private let errorView : ErrorView = {
+        let view = ErrorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
@@ -100,14 +106,22 @@ class ScheduleDetailController:UIViewController{
     private func setupViews(){
         view.addSubview(segmentedControl)
         view.addSubview(loadingSpinnerView)
+        view.addSubview(errorView)
         view.addSubview(scrollView)
 
         scrollView.addSubview(scheduleDetailView)
         segmentedControl.addTarget(self, action: #selector(self.segmentAction(_:)), for: .valueChanged)
         
+        errorView.setOnClickListener {
+            self.viewModel.getScheduleDetail(schedule: self.schedule!)
+        }
+        
         NSLayoutConstraint.activate([
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            
+            errorView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            errorView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             
             segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 5),
             segmentedControl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
@@ -127,7 +141,7 @@ class ScheduleDetailController:UIViewController{
     private func changeStatus(status:Status){
         scrollView.isHidden = status != Status.Loaded
         loadingSpinnerView.isHidden = status != Status.Loading
-        
+        errorView.isHidden = status != Status.Error
         if(status == Status.Loading){
             loadingSpinnerView.startAnimating()
         }

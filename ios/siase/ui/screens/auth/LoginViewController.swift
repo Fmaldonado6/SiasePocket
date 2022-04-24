@@ -73,6 +73,10 @@ class LoginViewController: UIViewController {
         viewModel.requestNotificationPermission()
         
     }
+
+    private func shouldShowContenet(status:Status)->Bool{
+        return status != Status.Loaded && status != Status.Failed && status != Status.Error
+    }
     
     private func changeStatus(status:Status){
         
@@ -81,9 +85,32 @@ class LoginViewController: UIViewController {
             return
         }
         
+        if(status == Status.Error){
+            self.showAlert(
+                title: "Ocurró un error",
+                description: "Usuario o contraseña incorrectos"
+            )
+        }
         
-        stackView.isHidden = status != Status.Loaded
-        label.isHidden = status != Status.Loaded
+        if(status == Status.Failed){
+            self.showAlert(
+                title: "Ocurró un error",
+                description: "Ocurrió un error al recuperar su sesión",
+                [
+                    UIAlertAction(
+                        title: "Reintentar", style: .default, handler: {alert in
+                            self.viewModel.checkSession()
+                        }
+                    ),
+                    UIAlertAction(
+                        title: "Cancelar", style: .destructive, handler: {alert in}
+                    )
+                ]
+            )
+        }
+        
+        stackView.isHidden = shouldShowContenet(status: status)
+        label.isHidden = shouldShowContenet(status: status)
         loadingSpinnerView.isHidden = status != Status.Loading
         
         if(status == Status.Loading){
@@ -129,11 +156,7 @@ class LoginViewController: UIViewController {
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
             
-            
         ])
-        
-        
-        
         
     }
     

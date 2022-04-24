@@ -40,6 +40,11 @@ class ScheduleSelectionController:UIViewController{
         return spinner
     }()
     
+    private let errorView : ErrorView = {
+        let view = ErrorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private var schedules:[Schedule] = [Schedule]()
     var index:Int!
@@ -69,11 +74,19 @@ class ScheduleSelectionController:UIViewController{
         
         view.addSubview(loadingSpinnerView)
         view.addSubview(tableView)
+        view.addSubview(errorView)
+        
+        errorView.setOnClickListener {
+            self.viewModel.getSchedules(index: self.index)
+        }
         
         NSLayoutConstraint.activate([
             
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            
+            errorView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            errorView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 0),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -87,7 +100,7 @@ class ScheduleSelectionController:UIViewController{
         
         tableView.isHidden = status != Status.Loaded
         loadingSpinnerView.isHidden = status != Status.Loading
-        
+        errorView.isHidden = status != Status.Error
         if(status == Status.Loading){
             loadingSpinnerView.startAnimating()
         }

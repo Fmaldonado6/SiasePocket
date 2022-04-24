@@ -27,6 +27,7 @@ class KardexPageController : UIViewController{
         return view
     }()
     
+    
     private lazy var tableView:UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -42,6 +43,12 @@ class KardexPageController : UIViewController{
         let spinner = UIActivityIndicatorView()
         spinner.translatesAutoresizingMaskIntoConstraints = false
         return spinner
+    }()
+    
+    private let errorView : ErrorView = {
+        let view = ErrorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private var subjects:[[Subject]] = [[Subject]]()
@@ -84,15 +91,23 @@ class KardexPageController : UIViewController{
     private func setupViews(){
         view.addSubview(segmentedContainer)
         view.addSubview(loadingSpinnerView)
+        view.addSubview(errorView)
         view.addSubview(tableView)
         
         segmentedContainer.addSubview(segmentedControl)
         
         segmentedControl.addTarget(self, action: #selector(self.segmentAction(_:)), for: .valueChanged)
         
+        errorView.setOnClickListener {
+            self.viewModel.getkardex(career: self.career)
+        }
+        
         NSLayoutConstraint.activate([
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            
+            errorView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            errorView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             
             segmentedContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             segmentedContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -113,7 +128,7 @@ class KardexPageController : UIViewController{
     private func changeStatus(status:Status){
         tableView.isHidden = status != Status.Loaded
         loadingSpinnerView.isHidden = status != Status.Loading
-        
+        errorView.isHidden = status != Status.Error
         if(status == Status.Loading){
             loadingSpinnerView.startAnimating()
         }

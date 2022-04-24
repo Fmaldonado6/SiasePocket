@@ -11,12 +11,15 @@ import Foundation
 class MorePageViewModel:BaseViewModel{
     
     private let mainCareerRepository:MainCareerRepository
+    private let scheduleRepository:ScheduleRepository
     
      init(
         authRepository: AuthRepository = DIContainer.shared.resolve(type: AuthRepository.self)!,
-        mainCareerRepository:MainCareerRepository = DIContainer.shared.resolve(type: MainCareerRepository.self)!
+        mainCareerRepository:MainCareerRepository = DIContainer.shared.resolve(type: MainCareerRepository.self)!,
+        scheduleRepository:ScheduleRepository = DIContainer.shared.resolve(type: ScheduleRepository.self)!
      ) {
          self.mainCareerRepository = mainCareerRepository
+         self.scheduleRepository = scheduleRepository
     }
     
     private(set) var mainCareer:Career? = nil
@@ -58,6 +61,11 @@ class MorePageViewModel:BaseViewModel{
             self.notificationsDone = true
             self.notificationsDone = nil
         })
+    }
+    
+    func signOut(){
+        authRepository.signOut()
+        scheduleRepository.resetSchedule()
     }
     
     func getMainSchedule(){

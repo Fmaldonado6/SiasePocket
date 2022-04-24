@@ -40,6 +40,13 @@ class HomePageController : UIViewController{
     }()
     
     
+    private let errorView : ErrorView = {
+        let view = ErrorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +86,7 @@ class HomePageController : UIViewController{
     private func setupViews(){
         view.addSubview(scrollView)
         view.addSubview(loadingSpinnerView)
-        
+        view.addSubview(errorView)
         scrollView.addSubview(nextClassView)
         scrollView.addSubview(todaysClassesView)
         
@@ -100,6 +107,10 @@ class HomePageController : UIViewController{
             self.navigationController?.present(nav, animated: true, completion: nil)
         }
         
+        errorView.setOnClickListener {
+            self.viewModel.getTodaySchedule()
+        }
+        
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -115,7 +126,10 @@ class HomePageController : UIViewController{
             todaysClassesView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            loadingSpinnerView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            loadingSpinnerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            errorView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             
         ])
         
@@ -124,6 +138,7 @@ class HomePageController : UIViewController{
     private func changeStatus(status:Status){
         scrollView.isHidden = status != Status.Loaded
         loadingSpinnerView.isHidden = status != Status.Loading
+        errorView.isHidden = status != Status.Error
         
         if(status == Status.Loading){
             loadingSpinnerView.startAnimating()

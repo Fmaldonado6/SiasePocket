@@ -67,6 +67,7 @@
 		AC3EDA9F2814FD9A009E6D32 /* ClassDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA9E2814FD9A009E6D32 /* ClassDetailCell.swift */; };
 		AC3EDAA2281507F0009E6D32 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDAA1281507F0009E6D32 /* NotificationService.swift */; };
 		AC3EDAA42815094D009E6D32 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDAA32815094D009E6D32 /* Notifications.swift */; };
+		AC3EDAA628152210009E6D32 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDAA528152210009E6D32 /* ErrorView.swift */; };
 		AC6F404D2808D123007281BB /* CareerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F404C2808D123007281BB /* CareerView.swift */; };
 		AC6F40502808ED44007281BB /* MainScheduleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F404F2808ED44007281BB /* MainScheduleSelectionViewController.swift */; };
 		AC6F4052280A2082007281BB /* MainScheduleSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F4051280A2082007281BB /* MainScheduleSelectionViewModel.swift */; };
@@ -158,6 +159,7 @@
 		AC3EDA9E2814FD9A009E6D32 /* ClassDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailCell.swift; sourceTree = "<group>"; };
 		AC3EDAA1281507F0009E6D32 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		AC3EDAA32815094D009E6D32 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		AC3EDAA528152210009E6D32 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		AC6F404C2808D123007281BB /* CareerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerView.swift; sourceTree = "<group>"; };
 		AC6F404F2808ED44007281BB /* MainScheduleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleSelectionViewController.swift; sourceTree = "<group>"; };
 		AC6F4051280A2082007281BB /* MainScheduleSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleSelectionViewModel.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				AC03B125280A31DB00287C05 /* ScheduleView.swift */,
 				AC03B137281247DF00287C05 /* BottomSheet.swift */,
 				AC03B145281289F500287C05 /* NoSwipeSegmentedControl.swift */,
+				AC3EDAA528152210009E6D32 /* ErrorView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -740,6 +743,7 @@
 				AC03B126280A31DB00287C05 /* ScheduleView.swift in Sources */,
 				AC970B6F27DC2DD000D133F7 /* MainCareerRepository.swift in Sources */,
 				AC03B133281209C700287C05 /* GenericCard.swift in Sources */,
+				AC3EDAA628152210009E6D32 /* ErrorView.swift in Sources */,
 				AC6F40502808ED44007281BB /* MainScheduleSelectionViewController.swift in Sources */,
 				AC6F404D2808D123007281BB /* CareerView.swift in Sources */,
 				AC057D2B27CDA15D008CBD68 /* PreferencesService.swift in Sources */,

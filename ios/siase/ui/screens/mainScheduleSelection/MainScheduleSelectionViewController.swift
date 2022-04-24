@@ -46,6 +46,12 @@ class MainScheduleSelectionViewController : UIViewController{
     }()
     
     
+    private let errorView : ErrorView = {
+        let view = ErrorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     
     override func viewDidLoad() {
         view.backgroundColor = .systemGroupedBackground
@@ -80,12 +86,24 @@ class MainScheduleSelectionViewController : UIViewController{
     private func setupViews(){
         view.addSubview(tableView)
         view.addSubview(loadingSpinnerView)
+        view.addSubview(errorView)
+        
+        errorView.setOnClickListener {
+            self.viewModel.getSchedules(career: self.career)
+        }
         
         NSLayoutConstraint.activate([
             loadingSpinnerView.centerYAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.centerYAnchor
             ),
             loadingSpinnerView.centerXAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.centerXAnchor
+            ),
+            
+            errorView.centerYAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.centerYAnchor
+            ),
+            errorView.centerXAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.centerXAnchor
             ),
             
@@ -106,7 +124,7 @@ class MainScheduleSelectionViewController : UIViewController{
         
         tableView.isHidden = status != Status.Loaded
         loadingSpinnerView.isHidden = status != Status.Loading
-        
+        errorView.isHidden = status != Status.Error
         if(status == Status.Loading){
             loadingSpinnerView.startAnimating()
         }
