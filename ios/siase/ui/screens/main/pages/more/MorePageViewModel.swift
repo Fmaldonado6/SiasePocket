@@ -34,11 +34,30 @@ class MorePageViewModel:BaseViewModel{
         }
     }
 
+    private(set) var notificationsDone:Bool? = nil
+    {
+        didSet{
+            bindNotificationsDone(notificationsDone)
+        }
+    }
+
+    
     var bindMainCareer:(Career?)->Void = {career in}
+    var bindNotificationsDone:(Bool?)->Void = {done in}
     var bindMainSchedule:(Schedule?)->Void = {schedule in}
     
     func getMainCareer(){
         mainCareer = mainCareerRepository.getMainCareer()
+    }
+    
+    func activateNotifications(){
+        guard let detail = mainCareerRepository.getMainScheduleDetail() else{
+            return
+        }
+        mainCareerRepository.activateNotifications(schedule: detail, completer: {
+            self.notificationsDone = true
+            self.notificationsDone = nil
+        })
     }
     
     func getMainSchedule(){

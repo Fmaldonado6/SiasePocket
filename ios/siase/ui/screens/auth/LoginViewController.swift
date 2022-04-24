@@ -46,6 +46,8 @@ class LoginViewController: UIViewController {
             self.changeStatus(status: self.viewModel.status)
         }
         
+     
+        
         viewModel.bindNeedsSelection = { selection in
             if(selection == nil){
                 return
@@ -61,7 +63,14 @@ class LoginViewController: UIViewController {
             }
         }
         
-        viewModel.checkSession()
+        viewModel.bindPermissionRequested = { permission in
+            //Required since we scheduled notification in background thread
+            DispatchQueue.main.async {
+                self.viewModel.checkSession()
+            }
+        }
+        
+        viewModel.requestNotificationPermission()
         
     }
     

@@ -29,7 +29,7 @@ class ClassDetailCell:UITableViewCell{
         config.secondaryTextProperties.color = .systemGray
         
         self.contentConfiguration = config
-        self.selectionStyle = .default
+        self.selectionStyle = .none
 
         if(index == 0){
             self.layer.cornerRadius = 15

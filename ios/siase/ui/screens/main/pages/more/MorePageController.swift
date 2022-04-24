@@ -71,6 +71,14 @@ class MorePageController : UIViewController{
                     }
                 ),
                 SettingsModel(
+                    label: "Calendarizar notificaciones",
+                    icon: "bell",
+                    subtitle: "Se vuelven a calendarizar las notificaciones",
+                    action: {
+                        self.viewModel.activateNotifications()
+                    }
+                ),
+                SettingsModel(
                     label: "Cerrar Sesión",
                     icon: "power",
                     subtitle: "Cierra la sesión actual",
@@ -149,6 +157,35 @@ class MorePageController : UIViewController{
                     .subtitle = name!
                 
             }
+        }
+        
+        viewModel.bindNotificationsDone = {done in
+            
+            DispatchQueue.main.async {
+                guard let done = done else{
+                    return
+                }
+                
+                let alert = UIAlertController()
+                
+                
+                if(!done) {
+                    alert.title = "Ocurrió un error"
+                    alert.message = "Ocurrió un error al calendarizar las notificaciones"
+                }else{
+                    alert.title = "Notificaciones Calendarizadas"
+                    alert.message = "Las notificaciones se han calendarizado correctamente"
+                }
+                
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
+                    alert.dismiss(animated: true, completion: nil)
+                }))
+                
+                
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+            
         }
         
         viewModel.bindMainSchedule = {schedule in

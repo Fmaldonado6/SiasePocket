@@ -44,6 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             type: PreferencesService.self,
             component: PreferencesService()
         )
+        DIContainer.shared.register(
+            type: NotificationService.self,
+            component: NotificationService()
+        )
         //-------
         
         //--DataSources--

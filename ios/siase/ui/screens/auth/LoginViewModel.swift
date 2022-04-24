@@ -25,7 +25,26 @@ class LoginViewModel : BaseViewModel {
         }
     }
     
+    
+        
     var bindNeedsSelection:((Bool?)->()) = {bool in}
+    
+    private(set) var permissionRequested:Bool?
+    {
+        didSet{
+            self.bindPermissionRequested(permissionRequested)
+        }
+    }
+    
+    
+        
+    var bindPermissionRequested:((Bool?)->()) = {bool in}
+    
+    func requestNotificationPermission(){
+        mainCareerRepository.requestNotificationPermission(completer: {permission,_ in
+            self.permissionRequested = permission
+        })
+    }
     
     func checkSession(){
         self.status = Status.Loading

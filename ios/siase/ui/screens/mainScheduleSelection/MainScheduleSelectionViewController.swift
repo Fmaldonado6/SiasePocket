@@ -29,7 +29,7 @@ class MainScheduleSelectionViewController : UIViewController{
         view.font = view.font.withSize(14)
         view.textColor = Colors.Light.primaryColor | Colors.Dark.primaryColor
         view.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return view
     }()
     
@@ -53,26 +53,34 @@ class MainScheduleSelectionViewController : UIViewController{
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic;
         
+        
+        
         viewModel.bindStatus = {status in
-            self.changeStatus(status: status)
-            
+            //Required since we scheduled notification in background thread
+            DispatchQueue.main.async {
+                self.changeStatus(status: status)
+            }
         }
         
         viewModel.bindSchedule = {schedules in
-            self.schedules = schedules
-            self.tableView.reloadData()
+            //Required since we scheduled notification in background thread
+            DispatchQueue.main.async {
+                self.schedules = schedules
+                self.tableView.reloadData()
+            }
+            
         }
         
         self.viewModel.getSchedules(career: career)
         
         setupViews()
-
+        
     }
     
     private func setupViews(){
         view.addSubview(tableView)
         view.addSubview(loadingSpinnerView)
-
+        
         NSLayoutConstraint.activate([
             loadingSpinnerView.centerYAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.centerYAnchor
@@ -89,7 +97,7 @@ class MainScheduleSelectionViewController : UIViewController{
     }
     
     private func changeStatus(status:Status){
-
+        
         if(status == Status.Completed){
             let vc  = MainViewController()
             self.navigateToTop(screen: vc)
@@ -102,10 +110,10 @@ class MainScheduleSelectionViewController : UIViewController{
         if(status == Status.Loading){
             loadingSpinnerView.startAnimating()
         }
-       else{
+        else{
             loadingSpinnerView.stopAnimating()
         }
-
+        
     }
 }
 
