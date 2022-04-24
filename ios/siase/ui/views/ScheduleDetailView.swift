@@ -141,7 +141,12 @@ class ScheduleDetailView:UIStackView{
             
             classView.setClickListener {
                 let vc = ClassDetailPageController()
-                self.parent.navigationController?.present(vc, animated: true, completion: nil)
+                let nav = UINavigationController(rootViewController: vc)
+                vc.classDetail = classDetail
+                if let sheet = nav.sheetPresentationController{
+                    sheet.detents = [.medium(),.large()]
+                }
+                self.parent.navigationController?.present(nav, animated: true, completion: nil)
             }
 
             

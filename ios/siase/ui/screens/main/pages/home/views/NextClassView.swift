@@ -10,6 +10,7 @@ import UIKit
 
 class NextClassView:UIStackView{
     
+    private var nextClass:ClassDetail? = nil
     
     private let nextClassLabel:UILabel = {
         let view = UILabel()
@@ -35,6 +36,16 @@ class NextClassView:UIStackView{
         return view
     }()
     
+    func setNextClassClickListener(listener:@escaping(ClassDetail)->Void){
+        nextClassView.setClickListener {
+            guard let nextClass = self.nextClass else {
+                return
+            }
+            
+            listener(nextClass)
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addArrangedSubview(nextClassLabel)
@@ -48,11 +59,14 @@ class NextClassView:UIStackView{
         distribution = .fill
         alignment = .fill
         
+        
         NSLayoutConstraint.activate([
             nextClassView.heightAnchor.constraint(equalToConstant: 78),
             noNextClassLabel.heightAnchor.constraint(equalToConstant: 78)
         ])
     }
+    
+  
     
     func setupNextClass(nextClass:ClassDetail?){
         guard let nextClass = nextClass else {
@@ -60,7 +74,7 @@ class NextClassView:UIStackView{
             self.nextClassView.isHidden = true
             return
         }
-        
+        self.nextClass = nextClass
         self.noNextClassLabel.isHidden = true
         self.nextClassView.isHidden = false
         

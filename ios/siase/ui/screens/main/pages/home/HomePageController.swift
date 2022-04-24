@@ -14,7 +14,7 @@ class HomePageController : UIViewController{
     
     
     private lazy var  scrollView:UIScrollView = {
-       let view = UIScrollView()
+        let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -24,7 +24,7 @@ class HomePageController : UIViewController{
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     
     private lazy var todaysClassesView:TodayClassesView = {
         let view = TodayClassesView()
@@ -79,7 +79,7 @@ class HomePageController : UIViewController{
     private func setupViews(){
         view.addSubview(scrollView)
         view.addSubview(loadingSpinnerView)
-
+        
         scrollView.addSubview(nextClassView)
         scrollView.addSubview(todaysClassesView)
         
@@ -89,7 +89,17 @@ class HomePageController : UIViewController{
             let nav = UINavigationController(rootViewController: vc)
             self.present(nav, animated: true, completion: nil)
         }
-    
+        
+        nextClassView.setNextClassClickListener(){classDetail in
+            let vc = ClassDetailPageController()
+            let nav = UINavigationController(rootViewController: vc)
+            vc.classDetail = classDetail
+            if let sheet = nav.sheetPresentationController{
+                sheet.detents = [.medium(),.large()]
+            }
+            self.navigationController?.present(nav, animated: true, completion: nil)
+        }
+        
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -99,14 +109,14 @@ class HomePageController : UIViewController{
             
             nextClassView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             nextClassView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-
+            
             todaysClassesView.topAnchor.constraint(equalTo: nextClassView.bottomAnchor),
             todaysClassesView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             todaysClassesView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-      
+            
         ])
         
     }
@@ -118,11 +128,11 @@ class HomePageController : UIViewController{
         if(status == Status.Loading){
             loadingSpinnerView.startAnimating()
         }
-       else{
+        else{
             loadingSpinnerView.stopAnimating()
         }
-
+        
     }
     
-   
+    
 }
