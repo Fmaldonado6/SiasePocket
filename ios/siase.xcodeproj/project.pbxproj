@@ -62,6 +62,8 @@
 		AC3EDA912814B107009E6D32 /* SubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA902814B107009E6D32 /* SubjectView.swift */; };
 		AC3EDA932814B1D5009E6D32 /* SubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */; };
 		AC3EDA962814BD47009E6D32 /* ClassDetailPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA952814BD47009E6D32 /* ClassDetailPageController.swift */; };
+		AC3EDA992814DF80009E6D32 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA982814DF80009E6D32 /* SettingsCell.swift */; };
+		AC3EDA9B2814EF95009E6D32 /* MorePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA9A2814EF95009E6D32 /* MorePageViewModel.swift */; };
 		AC6F404D2808D123007281BB /* CareerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F404C2808D123007281BB /* CareerView.swift */; };
 		AC6F40502808ED44007281BB /* MainScheduleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F404F2808ED44007281BB /* MainScheduleSelectionViewController.swift */; };
 		AC6F4052280A2082007281BB /* MainScheduleSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F4051280A2082007281BB /* MainScheduleSelectionViewModel.swift */; };
@@ -148,6 +150,8 @@
 		AC3EDA902814B107009E6D32 /* SubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectView.swift; sourceTree = "<group>"; };
 		AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectCell.swift; sourceTree = "<group>"; };
 		AC3EDA952814BD47009E6D32 /* ClassDetailPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailPageController.swift; sourceTree = "<group>"; };
+		AC3EDA982814DF80009E6D32 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		AC3EDA9A2814EF95009E6D32 /* MorePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePageViewModel.swift; sourceTree = "<group>"; };
 		AC6F404C2808D123007281BB /* CareerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerView.swift; sourceTree = "<group>"; };
 		AC6F404F2808ED44007281BB /* MainScheduleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleSelectionViewController.swift; sourceTree = "<group>"; };
 		AC6F4051280A2082007281BB /* MainScheduleSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScheduleSelectionViewModel.swift; sourceTree = "<group>"; };
@@ -455,7 +459,9 @@
 		AC057D2227CB79FB008CBD68 /* more */ = {
 			isa = PBXGroup;
 			children = (
+				AC3EDA972814DEF6009E6D32 /* views */,
 				AC057D2327CB7A0E008CBD68 /* MorePageController.swift */,
+				AC3EDA9A2814EF95009E6D32 /* MorePageViewModel.swift */,
 			);
 			path = more;
 			sourceTree = "<group>";
@@ -510,6 +516,14 @@
 				AC3EDA952814BD47009E6D32 /* ClassDetailPageController.swift */,
 			);
 			path = classDetail;
+			sourceTree = "<group>";
+		};
+		AC3EDA972814DEF6009E6D32 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				AC3EDA982814DF80009E6D32 /* SettingsCell.swift */,
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 		AC6F404E2808ED35007281BB /* mainScheduleSelection */ = {
@@ -722,8 +736,10 @@
 				AC057D1127CB54A6008CBD68 /* AuthRepository.swift in Sources */,
 				AC057D4327CDEDA1008CBD68 /* MainScheduleClassesDao.swift in Sources */,
 				AC6F4055280A20B4007281BB /* BaseViewModel.swift in Sources */,
+				AC3EDA992814DF80009E6D32 /* SettingsCell.swift in Sources */,
 				AC057D0527CB50D3008CBD68 /* DIContainer.swift in Sources */,
 				AC03B14B2813572F00287C05 /* KardexPageViewModel.swift in Sources */,
+				AC3EDA9B2814EF95009E6D32 /* MorePageViewModel.swift in Sources */,
 				AC057D3027CDB5B1008CBD68 /* DataExtensions.swift in Sources */,
 				AC057D1D27CB72BF008CBD68 /* HomePageController.swift in Sources */,
 				AC057D2D27CDB2B3008CBD68 /* ScheduleRepository.swift in Sources */,

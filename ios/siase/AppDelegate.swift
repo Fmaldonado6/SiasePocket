@@ -109,6 +109,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             type: KardexPageViewModel.self,
             component: KardexPageViewModel()
         )
+        DIContainer.shared.register(
+            type: MorePageViewModel.self,
+            component: MorePageViewModel()
+        )
         //------
         
       

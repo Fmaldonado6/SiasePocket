@@ -60,8 +60,9 @@ class MainCareerRepository{
             index: index!,
             periodo: schedule.periodo!,
             completer: {(detail,error) in
-    
+                
                 do{
+                    try self.mainScheduleClassesDao.deleteClasses()
                     try self.mainScheduleClassesDao.insertClasses(
                         classes: detail!.lunes,
                         weekDay: 2

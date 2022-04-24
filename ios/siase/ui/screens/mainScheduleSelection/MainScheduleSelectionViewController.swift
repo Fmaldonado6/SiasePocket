@@ -63,7 +63,7 @@ class MainScheduleSelectionViewController : UIViewController{
             self.tableView.reloadData()
         }
         
-        self.viewModel.getSchedules(index: index)
+        self.viewModel.getSchedules(career: career)
         
         setupViews()
 

@@ -32,16 +32,16 @@ class MainScheduleSelectionViewModel  : BaseViewModel {
     
     var bindSchedule:([Schedule])->Void = {schedules in}
     
-    func getSchedules(index:Int){
+    func getSchedules(career:Career){
         self.status = Status.Loading
-        scheduleRepository.getSchedule(index: index){ schedules,error in
+        scheduleRepository.getSchedule(career: career){ schedules,error in
             guard schedules == nil else {
                 self.processResponse(schedules: schedules!)
                 return
                 
             }
             guard error == nil else {
-                self.processError(index:index,error: error!)
+                self.processError(career: career,error: error!)
                 return
             }
         }
@@ -66,7 +66,7 @@ class MainScheduleSelectionViewModel  : BaseViewModel {
                     self.status = Status.Error
                     return
                 }
-                
+                self.scheduleRepository.resetSchedule()
                 self.status = Status.Completed
                 
             }
@@ -75,11 +75,11 @@ class MainScheduleSelectionViewModel  : BaseViewModel {
         
     }
     
-    private func processError(index:Int,error:AppError){
+    private func processError(career:Career,error:AppError){
         
         if(error is Unauthorized){
             self.restoreSession {
-                self.getSchedules(index: index)
+                self.getSchedules(career: career)
             }
         }else{
             self.status = Status.Error

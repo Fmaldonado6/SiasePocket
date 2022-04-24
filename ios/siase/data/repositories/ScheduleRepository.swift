@@ -28,6 +28,12 @@ class ScheduleRepository{
         self.networkDataSource = networkDataSource
     }
     
+    func resetSchedule(){
+        todaySchedule = nil
+        fullSchedule = nil
+        dayOfWeek = nil
+    }
+    
     func requiresFetch() -> Bool{
         let calendar = Calendar.current
         let today = calendar.component(.weekday,from: Date.now)
@@ -98,6 +104,17 @@ class ScheduleRepository{
     
     func getSchedule(index:Int,completer:@escaping([Schedule]?,AppError? )->Void){
         
+        networkDataSource.getSchedules(index: index, completer: completer)
+        
+    }
+    
+    func getSchedule(career:Career,completer:@escaping([Schedule]?,AppError? )->Void){
+        guard let index = authRepository.currentSession?.carreras.firstIndex(where: { e in
+             return e.claveCarrera == career.claveCarrera && e.claveDependencia == career.claveDependencia
+        })else{
+            completer(nil,AppError(message:"Couldn't find career"))
+            return
+        }
         networkDataSource.getSchedules(index: index, completer: completer)
         
     }
