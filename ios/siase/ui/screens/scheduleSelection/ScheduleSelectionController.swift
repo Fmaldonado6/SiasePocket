@@ -139,12 +139,16 @@ extension ScheduleSelectionController:UITableViewDelegate,UITableViewDataSource{
         cell.backgroundColor = .systemGroupedBackground
         let schedule = schedules[indexPath.row]
         config.text = schedule.nombre
-        config.textProperties.font = config.textProperties.font.withSize(15)
-        let imageConfiguration:UIImage.Configuration = UIImage.SymbolConfiguration(scale: .small)
+        config.textProperties.font = config.textProperties.font.withSize(16)
+        let imageConfiguration:UIImage.Configuration = UIImage.SymbolConfiguration(scale: .medium)
         config.image = UIImage(systemName: "clock",withConfiguration: imageConfiguration)
-        config.image?.withTintColor(Colors.Light.secondary | Colors.Dark.secondary)
+        config.imageProperties.tintColor = Colors.Light.secondary | Colors.Dark.secondary
         cell.contentConfiguration = config
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45
     }
     
 }

@@ -8,14 +8,19 @@
 import Foundation
 import UIKit
 
+enum SettingsSections:Int{
+    case  Settings = 0
+    case About
+}
+
 enum SettingsSectionKeys:Int{
     case MainCareer = 0
     case MainSchedule
     case SignOut
 }
 
-enum AbutAppSectionKeys{
-    case Developer
+enum AboutAppSectionKeys:Int{
+    case Developer = 0
     case Designer
     case AppName
     case Version
@@ -83,7 +88,7 @@ class MorePageController : UIViewController{
                     icon: "person",
                     subtitle: "Fernando Maldonado",
                     action: {
-                        
+                        self.openUrl(url: "https://twitter.com/Fmaldonado4202")
                     }
                 ),
                 SettingsModel(
@@ -91,7 +96,7 @@ class MorePageController : UIViewController{
                     icon: "person",
                     subtitle: "David Lázaro",
                     action: {
-                        
+                        self.openUrl(url: "https://twitter.com/DavidLazaroFern")
                     }
                 ),
                 SettingsModel(
@@ -112,11 +117,21 @@ class MorePageController : UIViewController{
                     label: "Código Fuente",
                     icon: "chevron.left.forwardslash.chevron.right",
                     subtitle: "Github",
-                    action: {}
+                    action: {
+                        self.openUrl(url: "https://github.com/Fmaldonado6/SiasePocket")
+                    }
                 ),
             ]
         )
     ]
+    
+    private func openUrl(url:String){
+        UIApplication.shared.open(
+            NSURL(string:url)! as URL,
+            options: [.universalLinksOnly: false],
+            completionHandler: nil
+        )
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,6 +158,11 @@ class MorePageController : UIViewController{
                     .subtitle = schedule.nombre!
             }
         }
+        
+        self.settings[SettingsSections.About.rawValue]
+            .settings[AboutAppSectionKeys.Version.rawValue]
+            .subtitle = UIApplication.appVersion()
+        
         viewModel.getMainCareer()
         viewModel.getMainSchedule()
     }

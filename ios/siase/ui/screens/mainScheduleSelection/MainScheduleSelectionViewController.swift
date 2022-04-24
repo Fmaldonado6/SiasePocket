@@ -27,7 +27,7 @@ class MainScheduleSelectionViewController : UIViewController{
         let view = UILabel()
         view.text = "Selecciona la carrera que está cursando actualmente"
         view.font = view.font.withSize(14)
-        view.textColor = Colors.Light.onPrimaryContainer
+        view.textColor = Colors.Light.primaryColor | Colors.Dark.primaryColor
         view.translatesAutoresizingMaskIntoConstraints = false
 
         return view
@@ -122,7 +122,6 @@ extension MainScheduleSelectionViewController : UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected")
         viewModel.setMainSchedule(career: career, schedule: schedules[indexPath.row])
     }
     

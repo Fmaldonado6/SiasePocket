@@ -19,7 +19,7 @@ class MainCareerSelectionController : UIViewController{
         let view = UILabel()
         view.text = "Selecciona la carrera que está cursando actualmente"
         view.font = view.font.withSize(14)
-        view.textColor = Colors.Light.onPrimaryContainer
+        view.textColor = Colors.Light.onPrimaryContainer | Colors.Dark.onPrimaryContainer
         view.translatesAutoresizingMaskIntoConstraints = false
 
         return view
