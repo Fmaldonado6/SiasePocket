@@ -41,7 +41,6 @@ class LoginViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
         
         viewModel.bindStatus = { status in
             self.changeStatus(status: self.viewModel.status)
@@ -52,16 +51,13 @@ class LoginViewController: UIViewController {
                 return
             }
             
-            if(!selection!){
+            if(selection!){
                 let vc = MainCareerSelectionController()
                 let nav = UINavigationController(rootViewController:vc)
-                vc.modalPresentationStyle = .fullScreen
-                delegate?.setRootViewController(nav)
+                self.navigateToTop(screen: nav)
             }else{
                 let vc = MainViewController()
-                vc.modalPresentationStyle = .fullScreen
-                delegate?.setRootViewController(vc)
-                
+                self.navigateToTop(screen: vc)
             }
         }
         

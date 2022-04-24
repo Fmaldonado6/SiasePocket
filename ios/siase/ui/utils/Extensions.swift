@@ -78,10 +78,10 @@ extension UIView {
 }
 
 extension UIViewController{
-    func navigate(screen:UIViewController,type:UIModalPresentationStyle = .fullScreen){
-        let nvc = UINavigationController(rootViewController: screen)
-        nvc.modalPresentationStyle = type
-        self.present(nvc, animated: true,completion: nil)
+    func navigateToTop(screen:UIViewController,type:UIModalPresentationStyle = .fullScreen){
+        let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        screen.modalPresentationStyle = type
+        delegate?.setRootViewController(screen)
     }
 }
 
