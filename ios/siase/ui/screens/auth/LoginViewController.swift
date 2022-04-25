@@ -31,36 +31,95 @@ class LoginViewController: UIViewController {
         spinner.translatesAutoresizingMaskIntoConstraints = false
         return spinner
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .systemBackground
-            
+        setupViews()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
         viewModel.bindStatus = { status in
             self.changeStatus(status: self.viewModel.status)
         }
-        viewModel.checkSession()
-        setupViews()
+        
+     
+        
+        viewModel.bindNeedsSelection = { selection in
+            if(selection == nil){
+                return
+            }
+            
+            if(selection!){
+                let vc = MainCareerSelectionController()
+                let nav = UINavigationController(rootViewController:vc)
+                self.navigateToTop(screen: nav)
+            }else{
+                let vc = MainViewController()
+                self.navigateToTop(screen: vc)
+            }
+        }
+        
+        viewModel.bindPermissionRequested = { permission in
+            //Required since we scheduled notification in background thread
+            DispatchQueue.main.async {
+                self.viewModel.checkSession()
+            }
+        }
+        
+        viewModel.requestNotificationPermission()
+        
+    }
 
+    private func shouldShowContenet(status:Status)->Bool{
+        return status != Status.Loaded && status != Status.Failed && status != Status.Error
     }
     
     private func changeStatus(status:Status){
-        stackView.isHidden = status != Status.Loaded
-        label.isHidden = status != Status.Loaded
-        loadingSpinnerView.isHidden = status != Status.Loading
         
         if(status == Status.Completed){
-            navigate(screen: MainViewController())
+            viewModel.checkIfNeedsSelection()
+            return
         }
+        
+        if(status == Status.Error){
+            self.showAlert(
+                title: "Ocurró un error",
+                description: "Usuario o contraseña incorrectos"
+            )
+        }
+        
+        if(status == Status.Failed){
+            self.showAlert(
+                title: "Ocurró un error",
+                description: "Ocurrió un error al recuperar su sesión",
+                [
+                    UIAlertAction(
+                        title: "Reintentar", style: .default, handler: {alert in
+                            self.viewModel.checkSession()
+                        }
+                    ),
+                    UIAlertAction(
+                        title: "Cancelar", style: .destructive, handler: {alert in}
+                    )
+                ]
+            )
+        }
+        
+        stackView.isHidden = shouldShowContenet(status: status)
+        label.isHidden = shouldShowContenet(status: status)
+        loadingSpinnerView.isHidden = status != Status.Loading
         
         if(status == Status.Loading){
             loadingSpinnerView.startAnimating()
         }
-       else{
+        else{
             loadingSpinnerView.stopAnimating()
         }
-
+        
     }
     
     
@@ -69,7 +128,7 @@ class LoginViewController: UIViewController {
         view.addSubview(stackView)
         view.addSubview(label)
         view.addSubview(loadingSpinnerView)
-
+        
         view.layoutMargins = UIEdgeInsets.init(top: 50, left:10,bottom: 10,right: 10);
         
         stackView.setLoginClickListener {
@@ -83,10 +142,10 @@ class LoginViewController: UIViewController {
             ) {
                 return
             }
-                
+            
             self.viewModel.login(username: username!, password: password!)
         }
-
+        
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -20),
@@ -96,15 +155,11 @@ class LoginViewController: UIViewController {
             label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -40),
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
-
-
+            
         ])
         
-            
-        
-
     }
-
-
+    
+    
 }
 

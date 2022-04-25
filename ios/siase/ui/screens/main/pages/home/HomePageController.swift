@@ -10,97 +10,144 @@ import UIKit
 
 class HomePageController : UIViewController{
     
-    private lazy var contentSize = CGSize(
-        width: self.view.frame.width,
-        height: self.view.frame.height + 1700
-    )
+    private let viewModel:HomePageVieModel = DIContainer.shared.resolve(type: HomePageVieModel.self)!
+    
     
     private lazy var  scrollView:UIScrollView = {
-       let view = UIScrollView()
+        let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let nextClassLabel:UILabel = {
-        let view = UILabel()
-        view.text = "Siguiente clase"
-        view.font = view.font.withSize(20)
-        return view
-    }()
-    
-    private let todaysClassesLabel:UILabel = {
-        let view = UILabel()
-        view.text = "Clases de hoy"
-        view.font = view.font.withSize(17)
-        return view
-    }()
-    
-    private let nextClasView:ClassView = {
-        let view = ClassView()
-        
-        view.setClassName(text: "Inteligencia Artificial")
-        view.setTimeName(text: "7:00 - 10:00")
-        return view
-    }()
-    
-    private let stackView : UIStackView = {
-        let view = UIStackView()
+    private let nextClassView:NextClassView = {
+        let view = NextClassView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.isLayoutMarginsRelativeArrangement = true
-        view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-
-        view.spacing = 20
-        view.axis = .vertical
-        view.distribution = .equalSpacing
         return view
     }()
     
-    private let classesView : ScheduleDetailView = {
-        let view = ScheduleDetailView()
+    
+    private lazy var todaysClassesView:TodayClassesView = {
+        let view = TodayClassesView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.isLayoutMarginsRelativeArrangement = true
-
+        view.setupClassViewParent(parent: self)
         return view
     }()
+    
+    private let loadingSpinnerView : UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        return spinner
+    }()
+    
+    
+    private let errorView : ErrorView = {
+        let view = ErrorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let name = viewModel.currentSession.nombre.split(separator: " ").first ?? ""
+        
         view.backgroundColor = .systemGroupedBackground
-        navigationItem.title = "¡Hola Fernando!"
+        navigationItem.title = "¡Hola, " + name + "!"
         tabBarItem.title = "inicio"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic;
+        
+        
+        viewModel.bindTodaySchedule = { classes in
+            guard let todayClasses = classes else { return}
+            self.todaysClassesView.setupClasses(classes: todayClasses)
+        }
+        
+        viewModel.bindStatus = {status in
+            self.changeStatus(status: status)
+        }
+        
+        viewModel.bindNextClass = { nextClass in
+            self.nextClassView.setupNextClass(nextClass: nextClass)
+        }
+        
+        viewModel.getTodaySchedule()
+        
+        
         setupViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     private func setupViews(){
-        
-  
-        
         view.addSubview(scrollView)
+        view.addSubview(loadingSpinnerView)
+        view.addSubview(errorView)
+        scrollView.addSubview(nextClassView)
+        scrollView.addSubview(todaysClassesView)
         
-        scrollView.addSubview(stackView)
-        scrollView.addSubview(classesView)
-       
-        stackView.addArrangedSubview(nextClassLabel)
-        stackView.addArrangedSubview(nextClasView)
-        stackView.addArrangedSubview(todaysClassesLabel)
-
+        todaysClassesView.fullScheduleButtonClickListener {
+            let vc = ScheduleDetailController()
+            vc.fullSchedule = self.viewModel.getFullSchedule()
+            let nav = UINavigationController(rootViewController: vc)
+            self.present(nav, animated: true, completion: nil)
+        }
+        
+        nextClassView.setNextClassClickListener(){classDetail in
+            let vc = ClassDetailPageController()
+            let nav = UINavigationController(rootViewController: vc)
+            vc.classDetail = classDetail
+            if let sheet = nav.sheetPresentationController{
+                sheet.detents = [.medium(),.large()]
+            }
+            self.navigationController?.present(nav, animated: true, completion: nil)
+        }
+        
+        errorView.setOnClickListener {
+            self.viewModel.getTodaySchedule()
+        }
+        
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            classesView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
-            classesView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            classesView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-      
+            
+            nextClassView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            nextClassView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            todaysClassesView.topAnchor.constraint(equalTo: nextClassView.bottomAnchor),
+            todaysClassesView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            todaysClassesView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            
+            loadingSpinnerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loadingSpinnerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            errorView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            
         ])
         
     }
     
-   
+    private func changeStatus(status:Status){
+        scrollView.isHidden = status != Status.Loaded
+        loadingSpinnerView.isHidden = status != Status.Loading
+        errorView.isHidden = status != Status.Error
+        
+        if(status == Status.Loading){
+            loadingSpinnerView.startAnimating()
+        }
+        else{
+            loadingSpinnerView.stopAnimating()
+        }
+        
+    }
+    
+    
 }

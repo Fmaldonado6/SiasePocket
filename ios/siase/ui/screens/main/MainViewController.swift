@@ -22,7 +22,7 @@ class MainViewController : UITabBarController{
     }()
     
     private let careersPage:UINavigationController = {
-        let careersPage = CaareersPageController()
+        let careersPage = CareersPageController()
         let imageConfiguration:UIImage.Configuration = UIImage.SymbolConfiguration(scale: .medium)
         let navController = UINavigationController(rootViewController: careersPage)
         navController.tabBarItem.title = "Carreras"
@@ -35,6 +35,7 @@ class MainViewController : UITabBarController{
         let imageConfiguration:UIImage.Configuration = UIImage.SymbolConfiguration(scale: .medium)
         let navController = UINavigationController(rootViewController: morePage)
         navController.tabBarItem.title = "Más"
+        
         navController.tabBarItem.image = UIImage(systemName: "ellipsis",withConfiguration: imageConfiguration)
         return navController
     }()
@@ -42,11 +43,9 @@ class MainViewController : UITabBarController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UITabBar.appearance().tintColor = Colors.Light.secondary | Colors.Dark.secondary
         viewControllers = [homePage,careersPage,morePage]
         
     }
-    
-    
-    
  
 }

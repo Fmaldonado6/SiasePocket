@@ -8,43 +8,74 @@
 import Foundation
 import UIKit
 
-class ClassView : UIStackView{
+class ClassView : UIView{
     
     private let classLabel:UILabel = {
         let view = UILabel()
         view.font = view.font.withSize(15)
+        view.translatesAutoresizingMaskIntoConstraints = false
+
         return view
     }()
     
     private let timeLabel:UILabel = {
         let view = UILabel()
         view.font = view.font.withSize(12)
-        view.textColor = Colors.Light.onPrimaryContainer
+        view.textColor = .systemGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+
         return view
     }()
     
     func setClassName(text:String){
-        classLabel.text = text
+        classLabel.text = text.lowercased().capitalized
     }
     
     func setTimeName(text:String){
         timeLabel.text = text
     }
     
+    private var listener:(()->())? = nil
+    
+    func setClickListener(listener:@escaping()->()){
+        self.listener = listener
+    }
+
+    
     override init(frame: CGRect) {
         
         super.init(frame: frame)
-        self.backgroundColor = Colors.Light.surfaceVariant
-        self.addArrangedSubview(classLabel)
-        self.addArrangedSubview(timeLabel)
-        self.isLayoutMarginsRelativeArrangement = true
-        self.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
-        self.spacing = 5
-        self.axis = .vertical
-        self.distribution = .equalSpacing
-        self.alignment = .fill
+        self.backgroundColor = Colors.Light.surfaceVariant | Colors.Dark.surfaceVariant
+        self.addSubview(classLabel)
+        self.addSubview(timeLabel)
+        
+        
+        
+        NSLayoutConstraint.activate([
+            
+            classLabel.topAnchor.constraint(equalTo: self.topAnchor,constant: 20),
+            classLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
+            classLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -20),
+            
+            timeLabel.topAnchor.constraint(equalTo: classLabel.bottomAnchor,constant: 5),
+            timeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
+            timeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -20)
+
+
+        ])
+  
         self.layer.cornerRadius = 15
         
+        addTapGesture(tapNumber: 1, target: self, action: #selector(clickListener))
+        
+    }
+    
+    @objc private func clickListener(){
+        guard let listener = listener else {
+            return
+        }
+
+        listener()
     }
     
     required init(coder: NSCoder) {

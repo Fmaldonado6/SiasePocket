@@ -70,6 +70,18 @@ struct ScheduleDetail:Codable{
     var jueves: [ClassDetail] = []
     var viernes: [ClassDetail] = []
     var sabado: [ClassDetail] = []
-    
-    
+}
+
+struct Kardex:Codable{
+    var nombreAlumno: String?
+    var carrera: String?
+    var planEstudios: String?
+    var materias: [Subject] = []
+}
+
+struct Subject:Codable{
+    var semestreMateria: String?
+    var claveMateria: String?
+    var nombre: String?
+    var oportunidades:[String] = []
 }

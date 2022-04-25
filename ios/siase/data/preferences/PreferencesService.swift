@@ -40,14 +40,13 @@ class PreferencesService{
             savedPreferences.session = try? jsonDecoder.decode(LoginResponse.self, from: json!)
         }
         
-        
-        
         return savedPreferences
     }
     
     func delete(){
         if let appDomain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: appDomain)
+            UserDefaults.standard.synchronize()
         }
     }
     
