@@ -76,10 +76,9 @@ class MainScheduleSelectionViewModel  : BaseViewModel {
     }
     
     private func processError(career:Career,error:AppError){
-        
         if(error is Unauthorized){
-            self.restoreSession {
-                self.getSchedules(career: career)
+            self.restoreSession  {
+                self.getSchedules(career: career)                
             }
         }else{
             self.status = Status.Error

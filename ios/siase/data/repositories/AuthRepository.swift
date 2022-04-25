@@ -17,9 +17,19 @@ class AuthRepository{
     private let mainScheduleDao:MainScheduleDao
     private let mainSheduleClassesDao:MainScheduleClassesDao
     
-    lazy var currentSession:LoginResponse? = {
-        preferencesService.getPreferences().session
-    }()
+    var currentSession:LoginResponse?
+    {
+        set{
+            var preferences = self.preferencesService.getPreferences()
+            preferences.session = newValue
+            self.preferencesService.savePreferences(newPreferences: preferences)
+        }
+        get{
+            self.preferencesService.getPreferences().session
+        }
+    }
+    
+    
     
     init(
         networkDataSource:NetworkDataSource =
@@ -48,7 +58,6 @@ class AuthRepository{
         if(preferences.user == nil || preferences.password == nil){
             return false
         }
-        print("HAS SESSION")
         
         return true
     }
@@ -76,12 +85,12 @@ class AuthRepository{
                 return completer(nil,error)
             }
             
-            self.currentSession = response
             var preferences = Preferences()
             preferences.user = username
             preferences.password = password
             preferences.session = response
             self.preferencesService.savePreferences(newPreferences: preferences)
+            
             completer(response,nil)
         }
     }

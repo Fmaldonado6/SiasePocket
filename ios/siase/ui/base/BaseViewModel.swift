@@ -33,11 +33,8 @@ class BaseViewModel{
                 self.status = Status.Error
                 return
             }
-            
             process()
-            
-            self.status = Status.Loaded
         })
     }
-
+    
 }

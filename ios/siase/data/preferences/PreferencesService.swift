@@ -40,8 +40,6 @@ class PreferencesService{
             savedPreferences.session = try? jsonDecoder.decode(LoginResponse.self, from: json!)
         }
         
-        
-        
         return savedPreferences
     }
     

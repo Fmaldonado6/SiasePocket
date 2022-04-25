@@ -10,10 +10,13 @@ import Alamofire
 class NetworkDataSource{
     private let urlBase = "https://siaseapi.herokuapp.com/api/"
     private let preferencesService:PreferencesService
-    private lazy var token:String? = {
-        let preferences = preferencesService.getPreferences()
-        return preferences.session?.token
-    }()
+    private var token:String?
+    {
+        get{
+            let preferences = preferencesService.getPreferences()
+            return preferences.session?.token
+        }
+    }
     
     init(
         preferencesService:PreferencesService =
@@ -73,7 +76,8 @@ class NetworkDataSource{
         case .success(let data):
             completer(data,nil)
         case .failure(let error):
-            let code  = error.responseCode
+            let code  = response.response?.statusCode
+            
             if(code == 400){
                 return completer(nil,BadInput(message:response.error?.errorDescription ?? ""))
             }
