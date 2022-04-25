@@ -9,6 +9,7 @@ import com.fmaldonado.siase.data.models.Schedule
 import com.fmaldonado.siase.data.network.Unauthorized
 import com.fmaldonado.siase.data.repositories.AuthRepository
 import com.fmaldonado.siase.data.repositories.MainCareerRepository
+import com.fmaldonado.siase.data.repositories.PreferencesRepository
 import com.fmaldonado.siase.data.repositories.ScheduleRepository
 import com.fmaldonado.siase.ui.base.BaseViewModel
 import com.fmaldonado.siase.ui.utils.Status
@@ -24,8 +25,9 @@ class MainScheduleSelectionViewModel
 constructor(
     private val scheduleRepository: ScheduleRepository,
     private val mainCareerRepository: MainCareerRepository,
-    private val authRepository: AuthRepository
-) : BaseViewModel(authRepository) {
+    private val authRepository: AuthRepository,
+    preferencesRepository: PreferencesRepository
+) : BaseViewModel(authRepository,preferencesRepository) {
 
 
     val schedules = MutableLiveData<List<Schedule>>()

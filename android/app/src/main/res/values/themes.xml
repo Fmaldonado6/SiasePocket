@@ -31,6 +31,8 @@
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     </style>
 
+
+
     <style name="Theme.Siase.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

@@ -9,6 +9,7 @@ import com.fmaldonado.siase.data.models.ScheduleDetail
 import com.fmaldonado.siase.data.network.AppError
 import com.fmaldonado.siase.data.network.Unauthorized
 import com.fmaldonado.siase.data.repositories.AuthRepository
+import com.fmaldonado.siase.data.repositories.PreferencesRepository
 import com.fmaldonado.siase.data.repositories.ScheduleRepository
 import com.fmaldonado.siase.ui.base.BaseViewModel
 import com.fmaldonado.siase.ui.utils.Status
@@ -23,8 +24,9 @@ class HomeFragmentViewModel
 @Inject
 constructor(
     private val authRepository: AuthRepository,
-    private val scheduleRepository: ScheduleRepository
-) : BaseViewModel(authRepository) {
+    private val scheduleRepository: ScheduleRepository,
+    preferencesRepository: PreferencesRepository
+) : BaseViewModel(authRepository,preferencesRepository) {
 
     val nextClass = MutableLiveData<ClassDetail?>()
     val todaySchedule = MutableLiveData<List<ClassDetail>?>()

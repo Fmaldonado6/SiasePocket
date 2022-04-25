@@ -2,6 +2,8 @@ package com.fmaldonado.siase.ui.screens.mainCareerSelection
 
 import androidx.lifecycle.ViewModel
 import com.fmaldonado.siase.data.repositories.AuthRepository
+import com.fmaldonado.siase.data.repositories.PreferencesRepository
+import com.fmaldonado.siase.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -9,8 +11,9 @@ import javax.inject.Inject
 class MainCareerSelectionViewModel
 @Inject
 constructor(
-    private val authRepository: AuthRepository
-) : ViewModel() {
+    authRepository: AuthRepository,
+    preferencesRepository: PreferencesRepository
+) : BaseViewModel(authRepository, preferencesRepository) {
 
     val careers = authRepository.signedInUser!!.carreras
 

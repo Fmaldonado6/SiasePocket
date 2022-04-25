@@ -8,6 +8,7 @@ import com.fmaldonado.siase.R
 import com.fmaldonado.siase.data.models.Careers
 import com.fmaldonado.siase.data.models.Schedule
 import com.fmaldonado.siase.databinding.ActivityMainScheduleSelectionBinding
+import com.fmaldonado.siase.ui.base.BaseActivity
 import com.fmaldonado.siase.ui.screens.home.HomeActivity
 import com.fmaldonado.siase.ui.screens.mainScheduleSelection.adapters.MainScheduleAdapter
 import com.fmaldonado.siase.ui.utils.ParcelKeys
@@ -15,10 +16,10 @@ import com.fmaldonado.siase.ui.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainScheduleSelection : AppCompatActivity() {
+class MainScheduleSelection : BaseActivity() {
     private lateinit var binding: ActivityMainScheduleSelectionBinding
     private lateinit var career: Careers
-    private val viewModel: MainScheduleSelectionViewModel by viewModels()
+    override val viewModel: MainScheduleSelectionViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainScheduleSelectionBinding.inflate(layoutInflater)

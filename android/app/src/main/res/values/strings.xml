@@ -64,5 +64,6 @@
     <string name="scheduleText">Horario</string>
     <string name="notificationsText">Notificaciones</string>
     <string name="notificationsDescriptionText">Notificaciones del horario principal</string>
-
+    <string name="changeThemeText">Aplicar colores dinámicos</string>
+    <string name="changeThemeDescription">Se aplican los colores del sistema</string>
 </resources>

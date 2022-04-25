@@ -12,7 +12,10 @@ import com.fmaldonado.siase.data.network.AppError
 import com.fmaldonado.siase.data.preferences.PreferencesService
 import com.fmaldonado.siase.data.repositories.AuthRepository
 import com.fmaldonado.siase.data.repositories.MainCareerRepository
+import com.fmaldonado.siase.data.repositories.PreferencesRepository
 import com.fmaldonado.siase.data.repositories.ScheduleRepository
+import com.fmaldonado.siase.ui.base.BaseActivity
+import com.fmaldonado.siase.ui.base.BaseViewModel
 import com.fmaldonado.siase.ui.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,11 +29,10 @@ class MainActivityViewModel
 constructor(
     private val authRepository: AuthRepository,
     private val mainCareerRepository: MainCareerRepository,
-    private val scheduleRepository: ScheduleRepository
-) : ViewModel() {
-
-    val status = MutableLiveData(Status.Loading)
-
+    private val scheduleRepository: ScheduleRepository,
+    preferencesRepository: PreferencesRepository
+) : BaseViewModel(authRepository, preferencesRepository) {
+    
     val needsSelection = MutableLiveData<Boolean>()
 
     val snackBar = MutableLiveData<Triple<Int, Int?, (() -> Unit)?>>()

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.fmaldonado.siase.data.models.ClassDetail
 import com.fmaldonado.siase.data.repositories.AuthRepository
 import com.fmaldonado.siase.data.repositories.MainCareerRepository
+import com.fmaldonado.siase.data.repositories.PreferencesRepository
 import com.fmaldonado.siase.ui.base.BaseViewModel
 import com.fmaldonado.siase.ui.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +19,9 @@ class HomeActivityViewModel
 @Inject
 constructor(
     private val authRepository: AuthRepository,
+    private val preferencesRepository: PreferencesRepository,
     private val mainCareerRepository: MainCareerRepository
-) : BaseViewModel(authRepository) {
+) : BaseViewModel(authRepository, preferencesRepository) {
 
     val classDetail = MutableLiveData<ClassDetail>()
 

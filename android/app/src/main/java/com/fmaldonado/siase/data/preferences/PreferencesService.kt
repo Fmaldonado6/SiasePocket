@@ -4,6 +4,7 @@ import android.content.Context
 import com.fmaldonado.siase.data.models.Preferences
 import com.fmaldonado.siase.data.models.PreferencesKeys
 import com.fmaldonado.siase.data.models.SignInResponse
+import com.fmaldonado.siase.data.models.Themes
 import com.fmaldonado.siase.ui.SiaseApplication
 import com.google.gson.Gson
 import javax.inject.Inject
@@ -34,6 +35,7 @@ constructor(
             this.putString(PreferencesKeys.Password.name, newPreferences.password)
             this.putString(PreferencesKeys.Session.name, gson.toJson(newPreferences.session))
             this.putBoolean(PreferencesKeys.Notifications.name, newPreferences.notifications)
+            this.putInt(PreferencesKeys.SelectedTheme.name,newPreferences.selectedTheme)
             apply()
         }
     }
@@ -42,6 +44,10 @@ constructor(
         val savedPreferences = Preferences()
         savedPreferences.user = preferences.getString(PreferencesKeys.User.name, null)
         savedPreferences.password = preferences.getString(PreferencesKeys.Password.name, null)
+        savedPreferences.selectedTheme = preferences.getInt(
+            PreferencesKeys.SelectedTheme.name,
+            Themes.Default.ordinal
+        )
         savedPreferences.notifications = preferences.getBoolean(
             PreferencesKeys.Notifications.name,
             true

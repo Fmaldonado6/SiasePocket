@@ -8,6 +8,7 @@ import com.fmaldonado.siase.R
 import com.fmaldonado.siase.data.models.Careers
 import com.fmaldonado.siase.data.models.Subject
 import com.fmaldonado.siase.databinding.ActivityKardexDetailBinding
+import com.fmaldonado.siase.ui.base.BaseActivity
 import com.fmaldonado.siase.ui.screens.kardexDetail.adapters.KardexViewPagerAdapter
 import com.fmaldonado.siase.ui.screens.scheduleDetail.adapters.ScheduleViewPagerAdapter
 import com.fmaldonado.siase.ui.utils.ParcelKeys
@@ -18,9 +19,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class KardexDetailActivity : AppCompatActivity() {
+class KardexDetailActivity : BaseActivity() {
     private lateinit var binding: ActivityKardexDetailBinding
-    private val viewModel: KardexDetailViewModel by viewModels()
+    override val viewModel: KardexDetailViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityKardexDetailBinding.inflate(layoutInflater)

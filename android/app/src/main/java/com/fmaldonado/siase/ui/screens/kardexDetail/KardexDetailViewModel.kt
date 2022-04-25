@@ -10,6 +10,7 @@ import com.fmaldonado.siase.data.models.Subject
 import com.fmaldonado.siase.data.network.Unauthorized
 import com.fmaldonado.siase.data.repositories.AuthRepository
 import com.fmaldonado.siase.data.repositories.KardexRepository
+import com.fmaldonado.siase.data.repositories.PreferencesRepository
 import com.fmaldonado.siase.ui.base.BaseViewModel
 import com.fmaldonado.siase.ui.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,8 +24,9 @@ class KardexDetailViewModel
 @Inject
 constructor(
     private val kardexRepository: KardexRepository,
-    private val authRepository: AuthRepository
-) : BaseViewModel(authRepository) {
+    private val authRepository: AuthRepository,
+    preferencesRepository: PreferencesRepository
+) : BaseViewModel(authRepository,preferencesRepository) {
 
     val kardexList = MutableLiveData<List<List<Subject>>>()
 

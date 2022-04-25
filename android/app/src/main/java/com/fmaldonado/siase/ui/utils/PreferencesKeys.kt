@@ -9,5 +9,6 @@ enum class PreferencesKeys(val key: String) {
     Schedule("schedule"),
     Version("version"),
     SourceCode("sourceCode"),
-    Notifications("notifications")
+    Notifications("notifications"),
+    Theme("theme")
 }

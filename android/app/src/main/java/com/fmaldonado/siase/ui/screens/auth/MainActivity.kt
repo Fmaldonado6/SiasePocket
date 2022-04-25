@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import com.fmaldonado.siase.R
 import com.fmaldonado.siase.databinding.ActivityMainBinding
+import com.fmaldonado.siase.ui.base.BaseActivity
 import com.fmaldonado.siase.ui.screens.home.HomeActivity
 import com.fmaldonado.siase.ui.screens.mainCareerSelection.MainCareerSelection
 import com.fmaldonado.siase.ui.utils.Status
@@ -15,11 +16,11 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val viewModel: MainActivityViewModel by viewModels()
+    override val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

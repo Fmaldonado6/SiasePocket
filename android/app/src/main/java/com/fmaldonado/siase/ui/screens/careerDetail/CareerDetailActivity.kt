@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.fmaldonado.siase.data.models.Careers
 import com.fmaldonado.siase.databinding.ActivityCareerDetailBinding
+import com.fmaldonado.siase.ui.base.BaseActivity
 import com.fmaldonado.siase.ui.base.BaseViewModel
 import com.fmaldonado.siase.ui.fragments.scheduleBottomSheet.SchedulesBottomSheet
 import com.fmaldonado.siase.ui.screens.kardexDetail.KardexDetailActivity
@@ -13,9 +14,9 @@ import com.fmaldonado.siase.ui.utils.ParcelKeys
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CareerDetailActivity : AppCompatActivity() {
+class CareerDetailActivity : BaseActivity() {
 
-    val viewModel: CareerDetailViewModel by viewModels()
+    override val viewModel: CareerDetailViewModel by viewModels()
 
     private lateinit var binding: ActivityCareerDetailBinding
 

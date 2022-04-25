@@ -10,20 +10,6 @@ data class SignInRequest(
     val password: String
 )
 
-data class Preferences(
-    var user: String? = null,
-    var password: String? = null,
-    var session: SignInResponse? = null,
-    var notifications: Boolean = true
-)
-
-enum class PreferencesKeys {
-    User,
-    Password,
-    Session,
-    Notifications
-}
-
 data class SignInResponse(
     val nombre: String,
     val matricula: String,

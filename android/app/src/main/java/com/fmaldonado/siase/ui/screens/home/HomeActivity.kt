@@ -10,15 +10,16 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.fmaldonado.siase.R
 import com.fmaldonado.siase.data.models.Notifications
+import com.fmaldonado.siase.ui.base.BaseActivity
 import com.fmaldonado.siase.ui.fragments.classDetail.ClassDetailFragment
 import com.fmaldonado.siase.ui.utils.ParcelKeys
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
     private lateinit var binding: ActivityHomeBinding
-    private val viewModel: HomeActivityViewModel by viewModels()
+    override val viewModel: HomeActivityViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)

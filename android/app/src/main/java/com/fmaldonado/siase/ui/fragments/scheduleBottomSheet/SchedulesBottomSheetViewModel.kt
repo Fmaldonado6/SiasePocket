@@ -8,6 +8,7 @@ import com.fmaldonado.siase.data.models.Careers
 import com.fmaldonado.siase.data.models.Schedule
 import com.fmaldonado.siase.data.network.Unauthorized
 import com.fmaldonado.siase.data.repositories.AuthRepository
+import com.fmaldonado.siase.data.repositories.PreferencesRepository
 import com.fmaldonado.siase.data.repositories.ScheduleRepository
 import com.fmaldonado.siase.ui.base.BaseViewModel
 import com.fmaldonado.siase.ui.utils.Status
@@ -22,8 +23,9 @@ class SchedulesBottomSheetViewModel
 @Inject
 constructor(
     authRepository: AuthRepository,
+    preferencesRepository: PreferencesRepository,
     private val scheduleRepository: ScheduleRepository,
-) : BaseViewModel(authRepository) {
+) : BaseViewModel(authRepository,preferencesRepository) {
 
     val schedules = MutableLiveData<List<Schedule>>()
 

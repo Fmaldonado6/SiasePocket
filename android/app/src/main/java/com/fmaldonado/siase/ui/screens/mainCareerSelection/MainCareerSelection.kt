@@ -6,15 +6,16 @@ import androidx.activity.viewModels
 import com.fmaldonado.siase.R
 import com.fmaldonado.siase.data.models.Careers
 import com.fmaldonado.siase.databinding.ActivityMainCareerSelectionBinding
+import com.fmaldonado.siase.ui.base.BaseActivity
 import com.fmaldonado.siase.ui.screens.mainCareerSelection.adapters.MainCareerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainCareerSelection : AppCompatActivity() {
+class MainCareerSelection : BaseActivity() {
 
     private lateinit var binding: ActivityMainCareerSelectionBinding
 
-    private val viewModel: MainCareerSelectionViewModel by viewModels()
+    override val viewModel: MainCareerSelectionViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

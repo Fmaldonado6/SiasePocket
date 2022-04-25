@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Only in Android 12 -->
+    <style name="Theme.Siase.Dynamic">
+        <item name="colorPrimary">@color/accent_dynamic</item>
+        <item name="colorOnPrimary">@color/on_accent_dynamic</item>
+        <item name="colorTertiary">@color/tertiary_dynamic</item>
+        <item name="colorOnTertiary">@color/on_tertiary_dynamic</item>
+        <item name="colorSurface">@color/surface_dynamic</item>
+        <item name="colorOnSurface">@color/on_surface_dynamic</item>
+        <item name="colorSurfaceVariant">@color/surface_variant_dynamic</item>
+        <item name="android:colorBackground">@color/background_dynamic</item>
+        <item name="colorOnBackground">@color/on_background_dynamic</item>
+        <item name="android:divider">@color/divider_dynamic</item>
+    </style>
+
+</resources>

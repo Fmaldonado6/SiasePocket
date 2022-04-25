@@ -11,6 +11,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.fmaldonado.siase.BuildConfig
 import com.fmaldonado.siase.R
+import com.fmaldonado.siase.data.models.Themes
 import com.fmaldonado.siase.ui.screens.auth.MainActivity
 import com.fmaldonado.siase.ui.screens.home.HomeActivity
 import com.fmaldonado.siase.ui.screens.mainCareerSelection.MainCareerSelection
@@ -43,6 +44,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             notifPref?.isChecked = it
         }
 
+        viewModel.currentTheme.observe(viewLifecycleOwner) {
+            val themePref =
+                findPreference(PreferencesKeys.Theme.key) as SwitchPreference?
+            themePref?.isChecked = it == Themes.Dynamic.ordinal
+        }
+
         viewModel.status.observe(viewLifecycleOwner) {
             when (it) {
                 Status.Completed -> {
@@ -56,6 +63,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     }
 
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preferences)
         val pref = findPreference(PreferencesKeys.Version.key) as Preference?
@@ -63,6 +71,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         viewModel.getCurrentCareer()
         viewModel.getCurrentSchedule()
         viewModel.getNotificationsPreferences()
+        viewModel.getThemePreference()
 
         pref?.let {
             it.summary = BuildConfig.VERSION_NAME
@@ -88,6 +97,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     PreferencesKeys.Notifications.key
                 ) as SwitchPreference?
                 viewModel.setNotificationsPreferences(notifPref!!.isChecked)
+            }
+            PreferencesKeys.Theme.key -> {
+                val themePref = findPreference(
+                    PreferencesKeys.Theme.key
+                ) as SwitchPreference?
+                viewModel.setThemePreferences(themePref!!.isChecked)
+
+                activity?.recreate()
             }
 
             else -> Log.d(this.tag, "Unregistered preference")

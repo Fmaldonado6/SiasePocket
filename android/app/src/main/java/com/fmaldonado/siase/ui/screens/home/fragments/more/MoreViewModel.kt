@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fmaldonado.siase.data.models.Careers
 import com.fmaldonado.siase.data.models.Schedule
+import com.fmaldonado.siase.data.models.Themes
 import com.fmaldonado.siase.data.repositories.AuthRepository
 import com.fmaldonado.siase.data.repositories.MainCareerRepository
+import com.fmaldonado.siase.data.repositories.PreferencesRepository
 import com.fmaldonado.siase.data.repositories.ScheduleRepository
 import com.fmaldonado.siase.ui.base.BaseViewModel
 import com.fmaldonado.siase.ui.utils.Status
@@ -21,13 +23,14 @@ class MoreViewModel
 constructor(
     private val authRepository: AuthRepository,
     private val scheduleRepository: ScheduleRepository,
-    private val mainCareerRepository: MainCareerRepository
-) : BaseViewModel(authRepository) {
+    private val mainCareerRepository: MainCareerRepository,
+    private val preferencesRepository: PreferencesRepository
+) : BaseViewModel(authRepository, preferencesRepository) {
 
     val currentUser = authRepository.signedInUser!!
 
     val mainCareer = MutableLiveData<Careers>()
-
+    val currentTheme = MutableLiveData<Int>()
     val mainSchedule = MutableLiveData<Schedule>()
     val notifications = MutableLiveData<Boolean>()
 
@@ -57,16 +60,28 @@ constructor(
         }
     }
 
+
     fun getNotificationsPreferences() {
         val hasNotifications = mainCareerRepository.getNotificationsPreferences()
         notifications.postValue(hasNotifications)
     }
 
-    fun setNotificationsPreferences(checked:Boolean){
+    fun getThemePreference(){
+        val theme = preferencesRepository.getTheme()
+        this.currentTheme.postValue(theme)
+    }
+
+    fun setNotificationsPreferences(checked: Boolean) {
         viewModelScope.launch {
             mainCareerRepository.setNotificationsPreferences(checked)
             notifications.postValue(checked)
         }
+    }
+
+    fun setThemePreferences(checked: Boolean) {
+        val theme = if (checked) Themes.Dynamic.ordinal else Themes.Default.ordinal
+        preferencesRepository.changeTheme(theme)
+        currentTheme.postValue(theme)
     }
 
 }

@@ -8,6 +8,7 @@ import com.fmaldonado.siase.data.models.ClassDetail
 import com.fmaldonado.siase.data.models.Schedule
 import com.fmaldonado.siase.data.models.ScheduleDetail
 import com.fmaldonado.siase.databinding.ActivityScheduleDetailBinding
+import com.fmaldonado.siase.ui.base.BaseActivity
 import com.fmaldonado.siase.ui.screens.scheduleDetail.adapters.ScheduleViewPagerAdapter
 import com.fmaldonado.siase.ui.utils.ParcelKeys
 import com.fmaldonado.siase.ui.utils.WeekDays
@@ -18,10 +19,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ScheduleDetailActivity : AppCompatActivity() {
+class ScheduleDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityScheduleDetailBinding
-    private val viewModel: ScheduleDetailViewModel by viewModels()
+    override val viewModel: ScheduleDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
