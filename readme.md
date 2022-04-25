@@ -30,12 +30,24 @@
 
 <!-- ABOUT THE PROJECT -->
 
-
-<!-- <p align="center">
-<a href="https://play.google.com/store/apps/details?id=com.logic.random_waifu">
-<img src="https://cdn.rawgit.com/steverichey/google-play-badge-svg/master/img/en_get.svg" width="30%">
+<p align="center">
+<a href="https://play.google.com/store/apps/details?id=com.fmaldonado.siase">
+<img src="assets/google-play-badge.png" width="30%">
 </a>
-</p> -->
+<a  href="https://apps.apple.com/us/app/siase-pocket/id1620928248">
+<img src="assets/app-store-badge.png" width="30%" >
+</a>
+</p>
+
+<p align="center">
+    <img  src="assets/github_android_light.png" alt="Logo" width="33%" >
+  <img  src="assets/github_android_dark.png" alt="Logo" width="33%" >
+</p>
+<p align="center">
+   <img  src="assets/github_ios_dark.png" alt="Logo" width="33%" >
+    <img  src="assets/github_ios_light.png" alt="Logo" width="33%" >
+</p>
+<br>
 
 ## Acerca del proyecto
 
@@ -62,12 +74,11 @@ La aplicación cuenta con notificaciones para que nunca olvides llegar a tu sigu
 - Arquitectura MVVM
 
 #### App de iOS
+
 - Swift
 - AlamoFire
 - CoreData
 - Arquitectura MVVM
-
-
 
 ### Contribuciones
 
@@ -82,6 +93,7 @@ La aplicación cuenta con notificaciones para que nunca olvides llegar a tu sigu
 <br>
 
 ## ☕ ¡Apoya al Proyecto!
+
 <br>
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/U7U54JOMU)
