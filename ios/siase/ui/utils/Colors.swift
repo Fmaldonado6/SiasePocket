@@ -18,6 +18,7 @@ class Colors{
         static let onSecondaryContainer = UIColor(hex: "#001C37FF")!
         static let surface = UIColor(hex: "#FCFCFFFF")!
         static let surfaceVariant = UIColor(hex: "#EEE1CFFF")!
+        static let surfaceCardVariant = UIColor(hex: "#EBE8DDFF")!
     }
     
     class Dark{
@@ -29,5 +30,6 @@ class Colors{
         static let onSecondaryContainer = UIColor(hex: "#D0E4FFFF")!
         static let surface = UIColor(hex: "#1A1C1EFF")!
         static let surfaceVariant = UIColor(hex: "#4E4639FF")!
+        static let surfaceCardVariant = UIColor(hex: "#24241CFF")!
     }
 }

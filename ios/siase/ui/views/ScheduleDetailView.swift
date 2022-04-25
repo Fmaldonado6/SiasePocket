@@ -149,7 +149,7 @@ class ScheduleDetailView:UIStackView{
                 self.parent.navigationController?.present(nav, animated: true, completion: nil)
             }
 
-            
+            classView.backgroundColor = Colors.Light.surfaceCardVariant | Colors.Dark.surfaceCardVariant
             NSLayoutConstraint.activate([
                 container.heightAnchor.constraint(equalToConstant: height),
                 container.widthAnchor.constraint(equalTo: classesView.widthAnchor),
