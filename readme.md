@@ -34,7 +34,7 @@
 <a href="https://play.google.com/store/apps/details?id=com.fmaldonado.siase">
 <img src="assets/google-play-badge.png" width="30%">
 </a>
-<a  href="#">
+<a  href="https://apps.apple.com/us/app/siase-pocket/id1620928248">
 <img src="assets/app-store-badge.png" width="30%" >
 </a>
 </p>
