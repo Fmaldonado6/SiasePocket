@@ -16,9 +16,7 @@ class SiaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        DynamicColors.applyToActivitiesIfAvailable(
-            this
-        )
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.notificationsChannelName)

@@ -66,11 +66,13 @@ data class ScheduleDetail(
         var currentSubject = detail.first()
 
         for (classDetail in detail) {
-            if (classDetail.claveMateria != currentSubject.claveMateria) {
-                newDetail.add(currentSubject)
-            } else {
+            if (classDetail.claveMateria == currentSubject.claveMateria
+                && currentSubject.horaFin == classDetail.horaInicio
+            ) {
                 classDetail.horaInicio = currentSubject.horaInicio
                 currentSubject.horaFin = classDetail.horaFin
+            } else {
+                newDetail.add(currentSubject)
             }
             currentSubject = classDetail
         }

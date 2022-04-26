@@ -1,5 +1,6 @@
 package com.fmaldonado.siase.ui.screens.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -28,10 +29,11 @@ class HomeActivity : BaseActivity() {
         val extras = intent.extras
 
         extras?.let {
-            val notification = it.getParcelable<Notifications>(ParcelKeys.ClassDetail)
-            Log.d("Clave",notification!!.claveMateria)
-            if (notification != null)
-                viewModel.openFragment(notification.claveMateria)
+
+            val notification =
+                it.getParcelable<Notifications?>(ParcelKeys.ClassDetail) ?: return@let
+            viewModel.openFragment(notification.claveMateria)
+            intent.removeExtra(ParcelKeys.ClassDetail)
         }
 
         viewModel.classDetail.observe(this) {
