@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
         override fun onReceive(context: Context?, intent: Intent) {
             val message = intent.getStringExtra(ParcelKeys.ServiceMessage)
             val todaySchedule = Gson().fromJson(message, Array<ClassDetail>::class.java).toList()
+            Log.d("Size",todaySchedule.size.toString())
             viewModel.setTodaySchedule(todaySchedule)
         }
     }

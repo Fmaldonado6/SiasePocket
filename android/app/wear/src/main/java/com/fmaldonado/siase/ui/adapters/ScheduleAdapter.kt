@@ -1,5 +1,6 @@
 package com.fmaldonado.siase.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,7 @@ class ScheduleAdapter(
     }
 
     override fun getItemCount(): Int {
+        Log.d("SIZE",list.size.toString())
         return list.size
     }
 }
