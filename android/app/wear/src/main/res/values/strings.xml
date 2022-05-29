@@ -11,4 +11,8 @@
     <string name="todaysClasses">Clases de hoy</string>
     <string name="nextClass">Siguiente Clase</string>
     <string name="noClassesToday">No tienes clases el día de hoy</string>
+    <string name="cancel_text">Cancelar</string>
+    <string name="retry_text">Reintentar</string>
+    <string name="download_text">Descargue en su teléfono para obtener el horario de hoy</string>
+    <string name="phone_text">Teléfono no detectado</string>
 </resources>

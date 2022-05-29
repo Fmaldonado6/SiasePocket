@@ -18,6 +18,10 @@
         <variable
             name="classDetail"
             type="ClassDetail" />
+
+        <variable
+            name="phoneConnected"
+            type="Boolean" />
     </data>
 
     <androidx.wear.widget.BoxInsetLayout
@@ -26,6 +30,7 @@
         android:padding="@dimen/box_inset_layout_padding"
         tools:context=".ui.screens.main.MainActivity"
         tools:deviceIds="wear">
+
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
@@ -42,6 +47,7 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -121,6 +127,18 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.core.widget.NestedScrollView>
 
+        <ImageView
+            android:id="@+id/phone_disabled"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_background"
+            android:padding="5dp"
+            android:visibility="@{phoneConnected ? View.GONE : View.VISIBLE}"
+            app:srcCompat="@drawable/phone_disabled" />
+        />
+
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
@@ -143,5 +161,7 @@
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="18sp"
             android:visibility="@{status == Status.Empty ? View.VISIBLE : View.GONE}" />
+
+
     </androidx.wear.widget.BoxInsetLayout>
 </layout>

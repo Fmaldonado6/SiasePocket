@@ -1,5 +1,8 @@
 package com.fmaldonado.siase.ui.screens.main
 
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,11 +32,21 @@ constructor(
 
     private val todaySchedule = MutableLiveData<List<ClassDetail>>()
 
+    private val isPhoneConnected = MutableLiveData(true)
+
+    private val isAppInstalled = MutableLiveData(true)
+
+    private val messageTimer = Handler(Looper.getMainLooper())
+
     fun getStatus() = status as LiveData<Status>
 
     fun getTodayClass() = todayClass as LiveData<ClassDetail?>
 
     fun getTodaySchedule() = todaySchedule as LiveData<List<ClassDetail>>
+
+    fun getIsPhoneConnected() = isPhoneConnected as LiveData<Boolean>
+
+    fun getIsAppInstalled() = isAppInstalled as LiveData<Boolean>
 
     fun loadCacheSchedule() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -50,6 +63,19 @@ constructor(
             setSchedule(schedule)
         }
 
+    }
+
+    fun setIsAppInstalled(installed: Boolean) {
+        isAppInstalled.postValue(installed)
+
+    }
+
+    fun setIsPhoneConnected(connected: Boolean) {
+        isPhoneConnected.postValue(connected)
+    }
+
+    fun setStatus(status: Status) {
+        this.status.postValue(status)
     }
 
     private fun setSchedule(schedule: List<ClassDetail>) {
@@ -75,6 +101,20 @@ constructor(
         todayClass.postValue(nextClass)
         todaySchedule.postValue(schedule)
         status.postValue(Status.Loaded)
+    }
+
+    fun startMessageTimer() {
+        messageTimer.removeCallbacksAndMessages(null)
+        messageTimer.postDelayed({
+            isPhoneConnected.postValue(false)
+            isAppInstalled.postValue(false)
+
+
+        }, 5000)
+    }
+
+    fun stopTimer() {
+        messageTimer.removeCallbacksAndMessages(null)
     }
 
 }

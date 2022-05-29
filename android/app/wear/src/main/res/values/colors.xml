@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="md_theme_primary">#FFBB00</color>
+    <color name="snackbar_bg">#272727</color>
     <color name="md_theme_onPrimary">#422D00</color>
     <color name="md_theme_primaryContainer">#816A33</color>
     <color name="md_theme_onPrimaryContainer">#FFDE9F</color>

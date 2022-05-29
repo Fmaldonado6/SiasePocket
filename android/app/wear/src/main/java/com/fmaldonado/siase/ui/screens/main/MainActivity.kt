@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.InputDeviceCompat
@@ -20,6 +21,7 @@ import com.fmaldonado.siase.data.models.ClassDetail
 import com.fmaldonado.siase.data.models.Preferences
 import com.fmaldonado.siase.databinding.ActivityMainBinding
 import com.fmaldonado.siase.ui.adapters.ScheduleAdapter
+import com.fmaldonado.siase.ui.screens.alert.AlertActivity
 import com.fmaldonado.siase.ui.utils.ParcelKeys
 import com.fmaldonado.siase.ui.utils.Status
 import com.google.android.gms.wearable.Wearable
@@ -29,6 +31,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.lang.Exception
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
@@ -37,6 +40,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel: MainActivityViewModel by viewModels()
+
+    private val getRetryResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+            viewModel.setStatus(Status.Loading)
+            sendMessage()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +70,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.getIsPhoneConnected().observe(this) {
+            binding.phoneConnected = it
+            Log.d("IsConnected", it.toString())
+        }
+
         binding.nestedScrollView.setOnGenericMotionListener { v, ev ->
             if (ev.action == MotionEvent.ACTION_SCROLL &&
                 ev.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)
@@ -75,6 +90,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.phoneDisabled.setOnClickListener {
+            val intent = Intent(this, AlertActivity::class.java)
+            getRetryResult.launch(intent)
+        }
+
+        viewModel.getIsAppInstalled().observe(this) {
+            if (it) return@observe
+            val intent = Intent(this, AlertActivity::class.java)
+            getRetryResult.launch(intent)
+            viewModel.setIsAppInstalled(true)
+        }
 
         viewModel.getTodaySchedule().observe(this) {
             binding.list.adapter = ScheduleAdapter(it)
@@ -93,23 +119,33 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
 
 
-            val nodes = Wearable.getNodeClient(applicationContext).connectedNodes
-            val nodesList = nodes.await()
+            try {
+                val nodes = Wearable.getNodeClient(applicationContext).connectedNodes
+                val nodesList = nodes.await()
+                if (nodesList.isEmpty()) {
+                    viewModel.setIsPhoneConnected(false)
+                    viewModel.loadCacheSchedule()
+                    return@launch
+                }
 
-            if (nodesList.isEmpty()) {
-                viewModel.loadCacheSchedule()
-                return@launch
-            }
+                val nearbyDevices = nodesList.filter { it.isNearby }
 
-            for (node in nodesList) {
+                if (nearbyDevices.isEmpty()) {
+                    viewModel.setIsPhoneConnected(false)
+                    viewModel.loadCacheSchedule()
+                    return@launch
+                }
 
-                if (node.isNearby) {
+                viewModel.setIsPhoneConnected(true)
+                viewModel.startMessageTimer()
+                for (node in nearbyDevices) {
                     val task = Wearable.getMessageClient(applicationContext)
                         .sendMessage(node.id, "/message_path", "asd".encodeToByteArray())
                     task.await()
-                } else {
-                    viewModel.loadCacheSchedule()
                 }
+            } catch (e: Exception) {
+                viewModel.setIsPhoneConnected(false)
+                viewModel.loadCacheSchedule()
             }
         }
     }
@@ -118,8 +154,9 @@ class MainActivity : AppCompatActivity() {
         override fun onReceive(context: Context?, intent: Intent) {
             val message = intent.getStringExtra(ParcelKeys.ServiceMessage)
             val todaySchedule = Gson().fromJson(message, Array<ClassDetail>::class.java).toList()
-            Log.d("Size",todaySchedule.size.toString())
             viewModel.setTodaySchedule(todaySchedule)
+            viewModel.stopTimer()
+
         }
     }
 }
