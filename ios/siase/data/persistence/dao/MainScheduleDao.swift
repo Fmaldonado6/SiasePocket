@@ -19,7 +19,7 @@ class MainScheduleDao{
     }
     
     func getMainSchedule() throws -> Schedule? {
-        let schedule = try container.viewContext.fetch(MainSchedule.fetchRequest()).first
+        let schedule = try container.viewContext.fetch(MainSchedule.fetchRequest()).first as MainSchedule?
         
         if(schedule == nil) {
             return nil
@@ -42,7 +42,7 @@ class MainScheduleDao{
     
     
     func addMainSchedule(schedule:Schedule) throws {
-        let schedules = try container.viewContext.fetch(MainSchedule.fetchRequest())
+        let schedules = try container.viewContext.fetch(MainSchedule.fetchRequest()) as [MainSchedule]
         var mainSchedule = schedules.first
         
         if(schedules.isEmpty){

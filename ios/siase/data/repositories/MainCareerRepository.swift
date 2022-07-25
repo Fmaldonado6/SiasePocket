@@ -149,7 +149,7 @@ class MainCareerRepository{
                 for classDetail in weekDays{
                     let date = Date.parseTime(time: classDetail.horaInicio!)
                     
-                    var components = calendar.dateComponents([.weekday,.hour,.minute,.second], from: Date.now)
+                    var components = calendar.dateComponents([.weekday,.hour,.minute,.second], from: Date())
                     
                     components.weekday = key
                     components.hour = date.hour

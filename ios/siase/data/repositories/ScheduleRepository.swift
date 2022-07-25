@@ -36,7 +36,7 @@ class ScheduleRepository{
     
     func requiresFetch() -> Bool{
         let calendar = Calendar.current
-        let today = calendar.component(.weekday,from: Date.now)
+        let today = calendar.component(.weekday,from: Date())
         
         if (today != dayOfWeek) {
             return true
@@ -61,7 +61,7 @@ class ScheduleRepository{
         
         let calendar = Calendar.current
         
-        dayOfWeek = calendar.component(.weekday, from: Date.now)
+        dayOfWeek = calendar.component(.weekday, from: Date())
         guard let fullSchedule = try? mainScheduleClassesDao.getClasses() else{ return [] }
         self.fullSchedule = fullSchedule
         todaySchedule = getScheduleByDay(day: dayOfWeek ?? 0, schedule: fullSchedule)
@@ -88,7 +88,7 @@ class ScheduleRepository{
             return nil
         }
         
-        let now = Calendar.current.dateComponents([.hour,.minute], from: Date.now)
+        let now = Calendar.current.dateComponents([.hour,.minute], from: Date())
         
         for classDetail in schedule{
             let startTime = Date.parseTime(time: classDetail.horaInicio!)

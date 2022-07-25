@@ -75,7 +75,7 @@ class NetworkDataSource{
         switch(response.result){
         case .success(let data):
             completer(data,nil)
-        case .failure(let error):
+        case .failure(_):
             let code  = response.response?.statusCode
             
             if(code == 400){

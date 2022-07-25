@@ -20,7 +20,7 @@ class MainScheduleClassesDao{
     
     func insertClasses(classes:[ClassDetail],weekDay:Int) throws {
         for classDetail in classes{
-            var newClass = MainScheduleClasses(context: container.viewContext)
+            let newClass = MainScheduleClasses(context: container.viewContext)
             
             newClass.weekDay = Int64(weekDay)
             newClass.oportunidad = classDetail.oportunidad
@@ -41,7 +41,7 @@ class MainScheduleClassesDao{
     
     
     func getClasses() throws -> ScheduleDetail{
-        let classes = try container.viewContext.fetch(MainScheduleClasses.fetchRequest())
+        let classes = try container.viewContext.fetch(MainScheduleClasses.fetchRequest()) as [MainScheduleClasses]
         
         var detail = ScheduleDetail()
         

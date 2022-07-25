@@ -50,6 +50,14 @@ class ScheduleDetailController:UIViewController{
         return view
     }()
     
+    private let emptyView : EmptyView = {
+        let view = EmptyView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var classesMap = [Int : [ClassDetail]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
@@ -78,7 +86,7 @@ class ScheduleDetailController:UIViewController{
     }
     
     private func setupSegmentedControl(scheduleDetail:[[ClassDetail]]){
-        
+        var size = 0
         for (index,detail) in scheduleDetail.enumerated(){
             
             if(detail.isEmpty){
@@ -89,17 +97,23 @@ class ScheduleDetailController:UIViewController{
                 withTitle: DateHelpers.weekDays[index],
                 at: index, animated: true
             )
+            classesMap[size] = scheduleDetail[index]
+            size += 1
         }
+        
+        if(size == 0){
+            self.viewModel.setStatus(status: .Empty)
+            return
+        }
+        
         self.segmentedControl.selectedSegmentIndex = 0
         setupSchedule(index: 0)
     }
     
     private func setupSchedule(index:Int){
-        guard let scheduleDetail = scheduleDetail else {
+        guard let detail = classesMap[index] else {
             return
         }
-
-        let detail = scheduleDetail[index]
         self.scheduleDetailView.setupClasses(classes: detail)
     }
     
@@ -107,6 +121,7 @@ class ScheduleDetailController:UIViewController{
         view.addSubview(segmentedControl)
         view.addSubview(loadingSpinnerView)
         view.addSubview(errorView)
+        view.addSubview(emptyView)
         view.addSubview(scrollView)
 
         scrollView.addSubview(scheduleDetailView)
@@ -122,6 +137,9 @@ class ScheduleDetailController:UIViewController{
             
             errorView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             errorView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            
+            emptyView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            emptyView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             
             segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 5),
             segmentedControl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
@@ -139,9 +157,12 @@ class ScheduleDetailController:UIViewController{
     }
     
     private func changeStatus(status:Status){
+        print(status)
         scrollView.isHidden = status != Status.Loaded
         loadingSpinnerView.isHidden = status != Status.Loading
         errorView.isHidden = status != Status.Error
+        emptyView.isHidden = status != Status.Empty
+
         if(status == Status.Loading){
             loadingSpinnerView.startAnimating()
         }

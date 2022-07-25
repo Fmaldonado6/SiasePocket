@@ -13,4 +13,5 @@ enum Status{
     case Completed
     case Error
     case Failed
+    case Empty
 }

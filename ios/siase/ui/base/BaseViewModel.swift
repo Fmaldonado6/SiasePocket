@@ -17,7 +17,7 @@ class BaseViewModel{
         self.authRepository = authRepository
     }
     
-    internal(set) var status:Status = Status.Loading
+    var status:Status = Status.Loading
     {
         didSet{
             self.bindStatus(status)

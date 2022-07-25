@@ -54,6 +54,10 @@ class ScheduleDetailViewModel:BaseViewModel{
         }
     }
     
+    func setStatus(status:Status){
+        self.status = status
+    }
+    
     func processResponse(scheduleDetail:ScheduleDetail){
         self.status = Status.Loading
         var list = [[ClassDetail]]()
@@ -64,8 +68,9 @@ class ScheduleDetailViewModel:BaseViewModel{
         list.append(scheduleDetail.viernes.getFormattedDetail())
         list.append(scheduleDetail.sabado.getFormattedDetail())
         
-        self.scheduleDetail = list
         self.status = Status.Loaded
+        self.scheduleDetail = list
+
     }
     
     

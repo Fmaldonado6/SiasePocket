@@ -21,7 +21,7 @@ class MainCareerDao{
     }
     
     func getMainCareer() throws -> Career? {
-        let career = try container.viewContext.fetch(MainCareer.fetchRequest()).first
+        let career = try container.viewContext.fetch(MainCareer.fetchRequest()).first as MainCareer?
         
         if(career == nil) {
             return nil
@@ -41,7 +41,7 @@ class MainCareerDao{
     }
     
     func addMainClass(career:Career) throws {
-        let careers = try container.viewContext.fetch(MainCareer.fetchRequest())
+        let careers = try container.viewContext.fetch(MainCareer.fetchRequest()) as [MainCareer]
         var mainCareer = careers.first
         
         if(careers.isEmpty){

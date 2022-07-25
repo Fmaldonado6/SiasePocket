@@ -101,10 +101,14 @@ class HomePageController : UIViewController{
             let vc = ClassDetailPageController()
             let nav = UINavigationController(rootViewController: vc)
             vc.classDetail = classDetail
-            if let sheet = nav.sheetPresentationController{
-                sheet.detents = [.medium(),.large()]
-            }
-            self.navigationController?.present(nav, animated: true, completion: nil)
+            #if targetEnvironment(macCatalyst)
+                print("Not available")
+            #else
+                if let sheet = nav.sheetPresentationController{
+                    sheet.detents = [.medium(),.large()]
+                }
+                self.navigationController?.present(nav, animated: true, completion: nil)
+            #endif
         }
         
         errorView.setOnClickListener {

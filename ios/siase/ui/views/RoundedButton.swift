@@ -13,7 +13,7 @@ class RoundedButton : UIButton {
     
     override var isHighlighted: Bool {
         didSet {
-            self.backgroundColor = isHovered ?
+            self.backgroundColor = self.isHighlighted ?
                 self.backgroundColor!.withAlphaComponent(0.15) :
                 self.backgroundColor
 
