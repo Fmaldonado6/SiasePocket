@@ -66,4 +66,5 @@
     <string name="notificationsDescriptionText">Notificaciones del horario principal</string>
     <string name="changeThemeText">Aplicar colores dinámicos</string>
     <string name="changeThemeDescription">Se aplican los colores del sistema</string>
+    <string name="noClassesText">No tienes clases presenciales en este horario</string>
 </resources>

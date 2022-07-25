@@ -12,16 +12,21 @@ class ScheduleViewPagerAdapter(
 ) :
     FragmentStateAdapter(fa) {
 
+    private val detailMap = HashMap<Int, List<ClassDetail>>()
+
     override fun getItemCount(): Int {
         var size = 0
-        for (classDetail in detail) {
-            if (classDetail.isNotEmpty()) size++
+        for ((i, classDetail) in detail.withIndex()) {
+            if (classDetail.isNotEmpty()) {
+                detailMap[size] = classDetail
+                size++
+            }
         }
 
         return size
     }
 
     override fun createFragment(position: Int): Fragment =
-        ScheduleDetailFragment.newInstance(detail[position])
+        ScheduleDetailFragment.newInstance(detailMap[position])
 
 }

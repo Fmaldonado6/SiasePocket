@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getIsPhoneConnected().observe(this) {
             binding.phoneConnected = it
-            Log.d("IsConnected", it.toString())
         }
 
         binding.nestedScrollView.setOnGenericMotionListener { v, ev ->

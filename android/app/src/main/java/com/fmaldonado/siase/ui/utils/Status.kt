@@ -6,4 +6,5 @@ enum class Status {
     Completed,
     Error,
     Failed,
+    Empty
 }

@@ -26,7 +26,7 @@ constructor(
     private val scheduleRepository: ScheduleRepository,
     private val authRepository: AuthRepository,
     preferencesRepository: PreferencesRepository
-) : BaseViewModel(authRepository,preferencesRepository) {
+) : BaseViewModel(authRepository, preferencesRepository) {
 
     val schedule = MutableLiveData<List<List<ClassDetail>>>()
 
@@ -50,6 +50,10 @@ constructor(
     private suspend fun getScheduleProcess(careers: Careers, periodo: String) {
         val detail = scheduleRepository.getScheduleDetail(careers, periodo)
         getScheduleList(detail)
+    }
+
+    fun setStatus(status: Status) {
+        this.status.postValue(status)
     }
 
     fun getScheduleList(detail: ScheduleDetail) {

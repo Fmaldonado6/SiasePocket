@@ -96,5 +96,27 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             app:visibility="@{status == Status.Error ? View.VISIBLE : View.GONE}" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/emptyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
+            app:visibility="@{status == Status.Empty ? View.VISIBLE : View.GONE}">
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="55dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/errorDescription"
+                android:layout_marginBottom="15dp"
+                app:srcCompat="@drawable/calendar_icon" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:text="@string/noClassesText"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -2,7 +2,9 @@ package com.fmaldonado.siase.ui.screens.scheduleDetail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
+import androidx.core.view.size
 import com.fmaldonado.siase.data.models.Careers
 import com.fmaldonado.siase.data.models.ClassDetail
 import com.fmaldonado.siase.data.models.Schedule
@@ -11,6 +13,7 @@ import com.fmaldonado.siase.databinding.ActivityScheduleDetailBinding
 import com.fmaldonado.siase.ui.base.BaseActivity
 import com.fmaldonado.siase.ui.screens.scheduleDetail.adapters.ScheduleViewPagerAdapter
 import com.fmaldonado.siase.ui.utils.ParcelKeys
+import com.fmaldonado.siase.ui.utils.Status
 import com.fmaldonado.siase.ui.utils.WeekDays
 import com.fmaldonado.siase.ui.utils.safeLet
 import com.google.android.material.tabs.TabItem
@@ -23,6 +26,8 @@ class ScheduleDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityScheduleDetailBinding
     override val viewModel: ScheduleDetailViewModel by viewModels()
+
+    private val daysString = HashMap<Int, String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,19 +59,21 @@ class ScheduleDetailActivity : BaseActivity() {
 
     private fun setupTabs(detail: List<List<ClassDetail>>) {
         val tabs = binding.tabs
-
+        var tabNumber = 0
         for ((i, classDetail) in detail.withIndex()) {
 
             if (classDetail.isEmpty()) continue
+            daysString[tabNumber++] = resources.getString(WeekDays.days[i])
             val newTab = tabs.newTab()
-            newTab.text = resources.getString(WeekDays.days[i])
             tabs.addTab(newTab)
         }
 
         binding.viewPager.adapter = ScheduleViewPagerAdapter(this, detail)
 
+        if(tabNumber == 0) viewModel.setStatus(Status.Empty)
+
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab: TabLayout.Tab, i: Int ->
-            tab.text = resources.getString(WeekDays.days[i])
+            tab.text = daysString[i]
         }.attach()
 
     }
