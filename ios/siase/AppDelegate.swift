@@ -84,6 +84,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             type: LoginViewModel.self,
             component: LoginViewModel()
         )
+        
+        DIContainer.shared.register(
+            type: MainSidebarViewModel.self,
+            component: MainSidebarViewModel()
+        )
+        
         DIContainer.shared.register(
             type: MainCareerSelectionViewModel.self,
             component: MainCareerSelectionViewModel()

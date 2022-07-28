@@ -77,6 +77,9 @@
 		AC981B9C27CE004000616DE9 /* Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC981B9B27CE004000616DE9 /* Exceptions.swift */; };
 		ACC83BF22807BEC9003E3E54 /* MainCareerSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC83BF12807BEC9003E3E54 /* MainCareerSelectionViewModel.swift */; };
 		ACC83BF42807C4D9003E3E54 /* CareerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC83BF32807C4D9003E3E54 /* CareerCell.swift */; };
+		ACF679AC288FB651006CE563 /* MainViewControllerSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF679AB288FB651006CE563 /* MainViewControllerSidebar.swift */; };
+		ACF679AE288FC331006CE563 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF679AD288FC331006CE563 /* Sidebar.swift */; };
+		ACF679B028926318006CE563 /* MainSidebarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF679AF28926318006CE563 /* MainSidebarViewModel.swift */; };
 		ACFAAC0C288EE1360080D0D6 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFAAC0B288EE1360080D0D6 /* EmptyView.swift */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +173,9 @@
 		AC981B9B27CE004000616DE9 /* Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exceptions.swift; sourceTree = "<group>"; };
 		ACC83BF12807BEC9003E3E54 /* MainCareerSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCareerSelectionViewModel.swift; sourceTree = "<group>"; };
 		ACC83BF32807C4D9003E3E54 /* CareerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerCell.swift; sourceTree = "<group>"; };
+		ACF679AB288FB651006CE563 /* MainViewControllerSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerSidebar.swift; sourceTree = "<group>"; };
+		ACF679AD288FC331006CE563 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
+		ACF679AF28926318006CE563 /* MainSidebarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSidebarViewModel.swift; sourceTree = "<group>"; };
 		ACFAAC0B288EE1360080D0D6 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		ACFAAC0D288F3AF50080D0D6 /* siase.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = siase.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -364,6 +370,7 @@
 				AC03B137281247DF00287C05 /* BottomSheet.swift */,
 				AC03B145281289F500287C05 /* NoSwipeSegmentedControl.swift */,
 				AC3EDAA528152210009E6D32 /* ErrorView.swift */,
+				ACF679AD288FC331006CE563 /* Sidebar.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -439,6 +446,8 @@
 			children = (
 				AC057D1B27CB72AF008CBD68 /* pages */,
 				AC057D1727CB5DAC008CBD68 /* MainViewController.swift */,
+				ACF679AB288FB651006CE563 /* MainViewControllerSidebar.swift */,
+				ACF679AF28926318006CE563 /* MainSidebarViewModel.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -772,6 +781,7 @@
 				AC03B146281289F500287C05 /* NoSwipeSegmentedControl.swift in Sources */,
 				AC03B129280B60BC00287C05 /* NextClassView.swift in Sources */,
 				AC03B12D280FAA2100287C05 /* CareersPageViewModel.swift in Sources */,
+				ACF679B028926318006CE563 /* MainSidebarViewModel.swift in Sources */,
 				AC057D1827CB5DAC008CBD68 /* MainViewController.swift in Sources */,
 				AC970B7127DC33EF00D133F7 /* MainCareerSelectionController.swift in Sources */,
 				AC03B13F281263FB00287C05 /* ScheduleDetailViewModel.swift in Sources */,
@@ -783,6 +793,7 @@
 				AC3EDA9F2814FD9A009E6D32 /* ClassDetailCell.swift in Sources */,
 				AC6F4055280A20B4007281BB /* BaseViewModel.swift in Sources */,
 				AC3EDA992814DF80009E6D32 /* SettingsCell.swift in Sources */,
+				ACF679AE288FC331006CE563 /* Sidebar.swift in Sources */,
 				AC057D0527CB50D3008CBD68 /* DIContainer.swift in Sources */,
 				AC03B14B2813572F00287C05 /* KardexPageViewModel.swift in Sources */,
 				AC3EDA9B2814EF95009E6D32 /* MorePageViewModel.swift in Sources */,
@@ -794,6 +805,7 @@
 				AC3EDA932814B1D5009E6D32 /* SubjectCell.swift in Sources */,
 				AC057D2427CB7A0E008CBD68 /* MorePageController.swift in Sources */,
 				ACC83BF22807BEC9003E3E54 /* MainCareerSelectionViewModel.swift in Sources */,
+				ACF679AC288FB651006CE563 /* MainViewControllerSidebar.swift in Sources */,
 				AC057CF927CB41D0008CBD68 /* RoundedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

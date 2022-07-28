@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import SwiftUI
 
 class LoginViewController: UIViewController {
     
     private let viewModel:LoginViewModel = DIContainer.shared.resolve(type: LoginViewModel.self)!
+    
+    var horizontalSizeClass : UIUserInterfaceSizeClass?
     
     private let stackView:LoginStackView = {
         let view = LoginStackView()
@@ -34,6 +37,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        horizontalSizeClass = self.view.traitCollection.horizontalSizeClass
         
         view.backgroundColor = .systemBackground
         setupViews()
@@ -54,11 +58,12 @@ class LoginViewController: UIViewController {
             }
             
             if(selection!){
-                let vc = MainCareerSelectionController()
+                let vc =  MainCareerSelectionController()
+                
                 let nav = UINavigationController(rootViewController:vc)
                 self.navigateToTop(screen: nav)
             }else{
-                let vc = MainViewController()
+                let vc = self.horizontalSizeClass == .regular ? MainViewControllerSidebar() : MainViewController()
                 self.navigateToTop(screen: vc)
             }
         }
