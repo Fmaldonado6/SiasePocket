@@ -17,6 +17,7 @@ import com.fmaldonado.siase.data.repositories.ScheduleRepository
 import com.fmaldonado.siase.ui.base.BaseActivity
 import com.fmaldonado.siase.ui.base.BaseViewModel
 import com.fmaldonado.siase.ui.utils.Status
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -57,6 +58,7 @@ constructor(
                 snackBar.postValue(Triple(R.string.sessionError, R.string.retryText) {
                     checkSession()
                 })
+                FirebaseCrashlytics.getInstance().recordException(e)
                 status.postValue(Status.Loaded)
 
             }

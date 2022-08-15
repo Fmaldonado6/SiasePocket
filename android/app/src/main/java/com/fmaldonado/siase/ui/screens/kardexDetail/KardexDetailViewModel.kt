@@ -13,6 +13,7 @@ import com.fmaldonado.siase.data.repositories.KardexRepository
 import com.fmaldonado.siase.data.repositories.PreferencesRepository
 import com.fmaldonado.siase.ui.base.BaseViewModel
 import com.fmaldonado.siase.ui.utils.Status
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ constructor(
     private val kardexRepository: KardexRepository,
     private val authRepository: AuthRepository,
     preferencesRepository: PreferencesRepository
-) : BaseViewModel(authRepository,preferencesRepository) {
+) : BaseViewModel(authRepository, preferencesRepository) {
 
     val kardexList = MutableLiveData<List<List<Subject>>>()
 
@@ -40,7 +41,10 @@ constructor(
                 Log.e("Error", "e", e)
                 when (e) {
                     is Unauthorized -> restoreSession { getKardexProcess(career) }
-                    else -> status.postValue(Status.Error)
+                    else -> {
+                        FirebaseCrashlytics.getInstance().recordException(e)
+                        status.postValue(Status.Error)
+                    }
                 }
             }
         }

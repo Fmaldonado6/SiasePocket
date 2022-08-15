@@ -7,6 +7,7 @@ import com.fmaldonado.siase.data.preferences.PreferencesService
 import com.fmaldonado.siase.data.repositories.AuthRepository
 import com.fmaldonado.siase.data.repositories.PreferencesRepository
 import com.fmaldonado.siase.ui.utils.Status
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -31,6 +32,7 @@ abstract class BaseViewModel(
             process()
             status.postValue(Status.Loaded)
         } catch (e: Exception) {
+            FirebaseCrashlytics.getInstance().recordException(e)
             status.postValue(Status.Error)
         }
     }

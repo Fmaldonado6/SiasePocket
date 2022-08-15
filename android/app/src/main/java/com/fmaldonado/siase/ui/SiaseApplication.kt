@@ -9,6 +9,7 @@ import android.os.Build
 import com.fmaldonado.siase.R
 import com.fmaldonado.siase.data.services.NotificationsService
 import com.google.android.material.color.DynamicColors
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
