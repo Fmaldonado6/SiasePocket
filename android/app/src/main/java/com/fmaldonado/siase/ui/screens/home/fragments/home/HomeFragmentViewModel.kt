@@ -13,10 +13,12 @@ import com.fmaldonado.siase.data.repositories.PreferencesRepository
 import com.fmaldonado.siase.data.repositories.ScheduleRepository
 import com.fmaldonado.siase.ui.base.BaseViewModel
 import com.fmaldonado.siase.ui.utils.Status
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.lang.RuntimeException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,7 +45,10 @@ constructor(
             } catch (e: Exception) {
                 when (e) {
                     is Unauthorized -> restoreSession { getTodayScheduleProcess() }
-                    else -> status.postValue(Status.Error)
+                    else -> {
+                        FirebaseCrashlytics.getInstance().recordException(e)
+                        status.postValue(Status.Error)
+                    }
                 }
             }
         }

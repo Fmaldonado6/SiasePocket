@@ -13,7 +13,7 @@ android {
         applicationId "com.fmaldonado.siase"
         minSdk 30
         targetSdk 31
-        versionCode 28
+        versionCode 30
         versionName "1.3"
 
     }
