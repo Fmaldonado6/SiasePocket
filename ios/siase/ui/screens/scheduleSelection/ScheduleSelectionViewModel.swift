@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import FirebaseCrashlytics
 class ScheduleSelectionViewModel:BaseViewModel{
     
     let scheduleRepository:ScheduleRepository
@@ -55,6 +55,7 @@ class ScheduleSelectionViewModel:BaseViewModel{
                 self.getSchedules(index: index)
             }
         }else{
+            Crashlytics.crashlytics().record(error: error)
             self.status = Status.Error
         }
         

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import FirebaseCrashlytics
 class ScheduleDetailViewModel:BaseViewModel{
     
     
@@ -50,6 +50,7 @@ class ScheduleDetailViewModel:BaseViewModel{
                 self.getScheduleDetail(schedule: schedule)
             }
         }else{
+            Crashlytics.crashlytics().record(error: error)
             self.status = Status.Error
         }
     }

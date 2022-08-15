@@ -110,6 +110,7 @@ class HomePageController : UIViewController{
                 self.navigationController?.present(nav, animated: true, completion: nil)
             #endif
         }
+
         
         errorView.setOnClickListener {
             self.viewModel.getTodaySchedule()

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import FirebaseCrashlytics
 class HomePageVieModel:BaseViewModel{
     
     private let scheduleRepository:ScheduleRepository

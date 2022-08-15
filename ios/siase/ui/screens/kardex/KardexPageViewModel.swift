@@ -7,7 +7,7 @@
 
 import Foundation
 import OrderedCollections
-
+import FirebaseCrashlytics
 class KardexPageViewModel:BaseViewModel{
     
     private let kardexRepository:KardexRepository
@@ -49,6 +49,7 @@ class KardexPageViewModel:BaseViewModel{
                 self.getkardex(career: career)
             }
         }else{
+            Crashlytics.crashlytics().record(error: error)
             self.status = Status.Error
         }
     }
