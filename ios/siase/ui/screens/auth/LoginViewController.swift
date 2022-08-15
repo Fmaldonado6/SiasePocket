@@ -90,6 +90,9 @@ class LoginViewController: UIViewController {
             return
         }
         
+        #if targetEnvironment(macCatalyst)
+            print("Not available")
+        #else
         if(status == Status.Error){
             self.showAlert(
                 title: "Ocurró un error",
@@ -113,6 +116,7 @@ class LoginViewController: UIViewController {
                 ]
             )
         }
+        #endif
         
         stackView.isHidden = shouldShowContenet(status: status)
         label.isHidden = shouldShowContenet(status: status)
@@ -151,7 +155,7 @@ class LoginViewController: UIViewController {
             self.viewModel.login(username: username!, password: password!)
         }
         
-        NSLayoutConstraint.activate([
+        let mobileConstraints = [
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -20),
             stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor,constant: -50),
@@ -161,7 +165,22 @@ class LoginViewController: UIViewController {
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
             
-        ])
+        ]
+        
+        let catalystConstraints = [
+            stackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor,constant: -50),
+            stackView.widthAnchor.constraint(equalToConstant: 500),
+            label.bottomAnchor.constraint(equalTo: stackView.topAnchor,constant: -30),
+            label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 40),
+            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -40),
+            loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
+            
+        ]
+        
+        
+        NSLayoutConstraint.activate(self.horizontalSizeClass == .regular ? catalystConstraints : mobileConstraints)
         
     }
     

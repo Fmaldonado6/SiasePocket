@@ -194,6 +194,8 @@ class Sidebar : UIViewController{
 
 @available(iOS 14, *)
 extension Sidebar: UICollectionViewDelegate {
+    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let sidebarItem = dataSource.itemIdentifier(for: indexPath) else { return }
 
