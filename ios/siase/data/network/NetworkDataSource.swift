@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 class NetworkDataSource{
-    private let urlBase = "https://siaseapi.herokuapp.com/api/"
+    private let urlBase = "https://siase-api.azurewebsites.net/api/"
     private let preferencesService:PreferencesService
     private var token:String?
     {
