@@ -18,24 +18,19 @@ class MainViewControllerSidebar : UISplitViewController,UISplitViewControllerDel
     
     private var sidebar = Sidebar()
     
-    private var currentVC:UIViewController!
+    private var navController:UINavigationController!
     
     private func loadViewControllers() {
         self.primaryViewController = HomePageController()
-        self.currentVC = self.primaryViewController
-        var navController = UINavigationController(rootViewController: self.primaryViewController)
+        self.navController = UINavigationController(rootViewController: self.primaryViewController)
         self.primaryBackgroundStyle = .sidebar
         
         sidebar.setMenuItemSelected(listener: {vc in
-            if(vc == self.currentVC) {
-                return
-                
-            }
-            self.currentVC = vc
-            navController.setViewControllers([vc], animated: false)
-
+            self.navController.setViewControllers([vc], animated: false)
         })
         
+        self.maximumPrimaryColumnWidth = self.view.bounds.size.width;
+
         
         self.setViewController(self.sidebar, for: .primary)
         self.setViewController(navController, for: .secondary)
@@ -49,7 +44,40 @@ class MainViewControllerSidebar : UISplitViewController,UISplitViewControllerDel
             self.viewModel.getCareers()
         }
             
+        self.sidebar.setCareerOptionSelected{ item in
+            if(item.type == SidebarItemType.scheduleRow){
+                self.viewModel.getCareerSchedules(sidebarItem: item)
+            }
+            
+            if(item.type == SidebarItemType.scheduleRow){
+            }
+            
+        }
         
+        self.sidebar.setOnScheduleSelected{ item in
+            let vc = ScheduleDetailController()
+            vc.schedule = Schedule(
+                claveDependencia: item.claveDependencia,
+                claveCarrera: item.claveCarrera,
+                periodo: item.periodo
+            )
+           
+            self.navController.setViewControllers([vc], animated: false)
+        }
+        
+        viewModel.bindCareerSchedule = { item, schedules in
+            
+           let scheduleSidebarItems = schedules.map { schedule in
+               return SidebarItem.scheduleOptionRow(
+                title: schedule.nombre ?? "",
+                image: UIImage(systemName:"clock"),
+                claveCarrera: schedule.claveCarrera,
+                claveDependencia: schedule.claveDependencia,
+                periodo: schedule.periodo
+               )
+            }
+            self.sidebar.appendToCareerSection(sideBarItems: scheduleSidebarItems, to: item,replace: true)
+        }
         
         viewModel.bindCareers = { careers in
             self.sidebar.loadCareers(careers: careers)

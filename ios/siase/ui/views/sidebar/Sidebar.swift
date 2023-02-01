@@ -10,7 +10,7 @@ import UIKit
 
 class Sidebar : UIViewController{
     
-
+    
     
     private struct RowIdentifier {
         static let menu = UUID()
@@ -32,14 +32,18 @@ class Sidebar : UIViewController{
     ]
     
     private let careersHeader = SidebarItem.header(title: "Carreras",id: RowIdentifier.careers)
-
+    
     private var careersSectionSnapshot :NSDiffableDataSourceSectionSnapshot<SidebarItem>!
     
     private var careersSnapshots : [NSDiffableDataSourceSectionSnapshot<SidebarItem>] = []
     private var careerItems:[SidebarItem] = []
     
     private var onMenuItemSelected: (UIViewController)->Void = {vc in}
+    private var onCareerOptionSelected:(SidebarItem)->Void = {item in}
+    private var onScheduleSelected:(SidebarItem)->Void = {item in}
     private var onSidebarLoaded: ()->Void = {}
+    
+    private var careerOptionChildren : [UUID:[SidebarItem]] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +51,22 @@ class Sidebar : UIViewController{
         configureDataSource()
         applyInitialSnapshot()
         onSidebarLoaded()
+    }
+    
+    func setMenuItemSelected(listener:@escaping (UIViewController)->Void){
+        self.onMenuItemSelected = listener
+    }
+    
+    func setCareerOptionSelected(listener:@escaping (SidebarItem)->Void){
+        self.onCareerOptionSelected = listener
+    }
+    
+    func setOnScheduleSelected(listener:@escaping (SidebarItem)->Void){
+        self.onScheduleSelected = listener
+    }
+    
+    func setOnSidebarLoaded(listener:@escaping ()->Void){
+        self.onSidebarLoaded = listener
     }
     
     private func configureCollectionView() {
@@ -79,7 +99,7 @@ class Sidebar : UIViewController{
             contentConfiguration.textProperties.font = .preferredFont(forTextStyle: .subheadline)
             contentConfiguration.textProperties.color = .secondaryLabel
             contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 10, trailing: 0)
-
+            
             cell.contentConfiguration = contentConfiguration
             cell.accessories = [.outlineDisclosure()]
             
@@ -93,7 +113,7 @@ class Sidebar : UIViewController{
             contentConfiguration.secondaryText = item.subtitle
             contentConfiguration.image = item.image
             contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 10, bottom: 10, trailing: 0)
-
+            
             cell.contentConfiguration = contentConfiguration
             cell.accessories = [.outlineDisclosure()]
         }
@@ -106,8 +126,67 @@ class Sidebar : UIViewController{
             contentConfiguration.secondaryText = item.subtitle
             contentConfiguration.image = item.image
             contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0)
-
+            
             cell.contentConfiguration = contentConfiguration
+        }
+        
+        let kardexRowRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, SidebarItem> {
+            (cell, indexPath, item) in
+            
+            var contentConfiguration = UIListContentConfiguration.sidebarSubtitleCell()
+            contentConfiguration.text = item.title
+            contentConfiguration.secondaryText = item.subtitle
+            contentConfiguration.image = item.image
+            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 32, bottom: 10, trailing: 0)
+            
+            cell.contentConfiguration = contentConfiguration
+        }
+        
+        
+        let scheduleOptionRowRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, SidebarItem> {
+            (cell, indexPath, item) in
+            
+            var contentConfiguration = UIListContentConfiguration.sidebarSubtitleCell()
+            contentConfiguration.text = item.title
+            contentConfiguration.secondaryText = item.subtitle
+            contentConfiguration.image = item.image
+            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 32, bottom: 10, trailing: 0)
+            
+            cell.contentConfiguration = contentConfiguration
+        }
+        
+        
+        
+        let loadingRowRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, SidebarItem> {
+            (cell, indexPath, item) in
+            
+            let stackView = {
+                let view = UIStackView()
+                view.axis = .horizontal
+                view.distribution = .equalCentering
+                view.alignment = .center
+                view.translatesAutoresizingMaskIntoConstraints = false
+                
+                return view
+            }()
+            
+            
+            let loading = {
+                let view = UIActivityIndicatorView()
+                view.startAnimating()
+                return view
+            }()
+            
+            stackView.addArrangedSubview(loading)
+            
+            cell.addSubview(stackView)
+            
+            NSLayoutConstraint.activate([
+                stackView.leadingAnchor.constraint(equalTo: cell.leadingAnchor,constant: 0),
+                stackView.trailingAnchor.constraint(equalTo: cell.trailingAnchor,constant: 0),
+                stackView.topAnchor.constraint(equalTo: cell.topAnchor,constant: 10),
+                stackView.bottomAnchor.constraint(equalTo: cell.bottomAnchor,constant: -10)
+            ])
         }
         
         dataSource = UICollectionViewDiffableDataSource<SidebarSection, SidebarItem>(collectionView: collectionView) {
@@ -118,6 +197,14 @@ class Sidebar : UIViewController{
                 return collectionView.dequeueConfiguredReusableCell(using: headerRegistration, for: indexPath, item: item)
             case .expandableRow:
                 return collectionView.dequeueConfiguredReusableCell(using: expandableRowRegistration, for: indexPath, item: item)
+            case .scheduleRow:
+                return collectionView.dequeueConfiguredReusableCell(using: expandableRowRegistration, for: indexPath,item: item)
+            case .kardexRow:
+                return collectionView.dequeueConfiguredReusableCell(using: kardexRowRegistration, for: indexPath, item:item)
+            case .loadingRow:
+                return collectionView.dequeueConfiguredReusableCell(using: loadingRowRegistration, for: indexPath, item:item)
+            case .scheduleOptionRow:
+                return collectionView.dequeueConfiguredReusableCell(using: scheduleOptionRowRegistration, for: indexPath, item:item)
             default:
                 return collectionView.dequeueConfiguredReusableCell(using: rowRegistration, for: indexPath, item: item)
             }
@@ -151,15 +238,6 @@ class Sidebar : UIViewController{
         dataSource.apply(createMenuSnapshot(), to: .menu, animatingDifferences: false)
         dataSource.apply(createCareersSnapshot(), to: .careers, animatingDifferences: false)
     }
-   
-    
-    func setMenuItemSelected(listener:@escaping (UIViewController)->Void){
-        self.onMenuItemSelected = listener
-    }
-    
-    func setOnSidebarLoaded(listener:@escaping ()->Void){
-        self.onSidebarLoaded = listener
-    }
     
     func loadCareers(careers:[Career]){
         
@@ -175,48 +253,69 @@ class Sidebar : UIViewController{
                 id: UUID()
             )
             
-            let kardex = SidebarItem.expandableRow(
+            let kardex = SidebarItem.kardexRow(
                 title: "Kardex",
                 subtitle: nil,
                 image: UIImage(systemName: "text.badge.checkmark"),
+                claveCarrera: career.claveCarrera,
+                claveDependencia: career.claveDependencia,
                 id: UUID()
             )
             
-            let schedule = SidebarItem.expandableRow(
+            let schedule = SidebarItem.scheduleRow(
                 title: "Horarios",
                 subtitle: nil,
                 image: UIImage(systemName: "clock"),
+                claveCarrera: career.claveCarrera,
+                claveDependencia: career.claveDependencia,
                 id: UUID()
             )
             
             careerItems.append(row)
             
-            appendToCareerSection(sideBarItem: row, to: careersHeader)
-            appendToCareerSection(sideBarItem: schedule, to: row)
-            appendToCareerSection(sideBarItem: kardex, to: row)
- 
+            appendToCareerSection(sideBarItems: [row], to: careersHeader)
+            appendToCareerSection(sideBarItems: [schedule,kardex], to: row)
+            appendToCareerSection(sideBarItems: [SidebarItem.loadingRow(title: "Cargando")], to: schedule)
+            
         }
-
-
     }
     
     
-    func appendToCareerSection(sideBarItem:SidebarItem, to:SidebarItem){
-        careersSectionSnapshot.append([sideBarItem],to:to)
+    func appendToCareerSection(sideBarItems:[SidebarItem], to:SidebarItem,replace:Bool = false){
+        if(replace){
+            careersSectionSnapshot.delete(careerOptionChildren[to.id] ?? [])
+        }
+        careerOptionChildren[to.id] = sideBarItems
+        careersSectionSnapshot.append(sideBarItems,to:to)
         dataSource.apply(careersSectionSnapshot,to:.careers,animatingDifferences:true)
         
     }
+    
+    
 }
 
 @available(iOS 14, *)
 extension Sidebar: UICollectionViewDelegate {
     
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let sidebarItem = dataSource.itemIdentifier(for: indexPath) else { return }
+        
+        if(sidebarItem.type == SidebarItemType.loadingRow){
+            collectionView.deselectItem(at: indexPath, animated: false)
+            return
+        }
+        
+        if(sidebarItem.type == SidebarItemType.scheduleOptionRow){
+            self.onScheduleSelected(sidebarItem)
+            return
+        }
+        
+        
         if(indexPath.section == SidebarSection.menu.rawValue) {
             let index = indexPath.row-1
             onMenuItemSelected(menuItems[index].viewController)
+            return
         }
         
         if(indexPath.section == SidebarSection.careers.rawValue){
@@ -228,12 +327,29 @@ extension Sidebar: UICollectionViewDelegate {
     private func didSelectCareer(sidebarItem:SidebarItem){
         if(!careersSectionSnapshot.isExpanded(sidebarItem)){
             careersSectionSnapshot.expand([sidebarItem])
+            checkIfCareerOptionIsEmpty(sidebarItem: sidebarItem)
         }else{
             careersSectionSnapshot.collapse([sidebarItem])
         }
         
         dataSource.apply(careersSectionSnapshot,to:.careers,animatingDifferences:true)
     }
-
+    
+    private func checkIfCareerOptionIsEmpty(sidebarItem:SidebarItem){
+        if(sidebarItem.type != SidebarItemType.kardexRow
+           && sidebarItem.type != SidebarItemType.scheduleRow
+        ){
+            return
+        }
+        
+        guard let children = careerOptionChildren[sidebarItem.id] else { return }
+        
+        
+        if(children.count <= 1){
+            self.onCareerOptionSelected(sidebarItem)
+        }
+        
+    }
+    
     
 }
