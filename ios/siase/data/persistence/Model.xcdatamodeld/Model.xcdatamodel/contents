@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="MainCareer" representedClassName="MainCareer" syncable="YES" codeGenerationType="class">
         <attribute name="claveCarrera" optional="YES" attributeType="String"/>
         <attribute name="claveDependencia" optional="YES" attributeType="String"/>
@@ -35,9 +35,4 @@
         <attribute name="tipo" optional="YES" attributeType="String"/>
         <attribute name="weekDay" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
-    <elements>
-        <element name="MainCareer" positionX="-63" positionY="-18" width="128" height="149"/>
-        <element name="MainSchedule" positionX="-54" positionY="54" width="128" height="164"/>
-        <element name="MainScheduleClasses" positionX="-36" positionY="108" width="128" height="209"/>
-    </elements>
 </model>

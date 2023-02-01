@@ -42,7 +42,6 @@ class AuthRepository{
         DIContainer.shared.resolve(type: MainScheduleDao.self)!,
         mainScheduleClassesDao:MainScheduleClassesDao =
         DIContainer.shared.resolve(type: MainScheduleClassesDao.self)!
-        
     ){
         self.networkDataSource = networkDataSource
         self.preferencesService = preferencesService
@@ -54,8 +53,7 @@ class AuthRepository{
     func checkSession() -> Bool{
         let preferences = preferencesService.getPreferences()
         
-        
-        if(preferences.user == nil || preferences.password == nil){
+        if(preferences.session == nil){
             return false
         }
         
@@ -94,6 +92,7 @@ class AuthRepository{
             completer(response,nil)
         }
     }
+    
     
     func signOut(){
         self.preferencesService.delete()
