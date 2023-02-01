@@ -10,34 +10,7 @@ import UIKit
 
 class Sidebar : UIViewController{
     
-    private enum SidebarItemType: Int {
-        case header, expandableRow, row
-    }
-    
-    private enum SidebarSection: Int {
-        case menu, careers
-    }
-    
-    private struct SidebarItem: Hashable, Identifiable {
-        let id: UUID
-        let type: SidebarItemType
-        let title: String
-        let subtitle: String?
-        let image: UIImage?
-        
-        static func header(title: String, id: UUID = UUID()) -> Self {
-            return SidebarItem(id: id, type: .header, title: title, subtitle: nil, image: nil)
-        }
-        
-        static func expandableRow(title: String, subtitle: String?, image: UIImage?, id: UUID = UUID()) -> Self {
-            return SidebarItem(id: id, type: .expandableRow, title: title, subtitle: subtitle, image: image)
-        }
-        
-        static func row(title: String, subtitle: String?, image: UIImage?, id: UUID = UUID()) -> Self {
-            return SidebarItem(id: id, type: .row, title: title, subtitle: subtitle, image: image)
-        }
-        
-    }
+
     
     private struct RowIdentifier {
         static let menu = UUID()
@@ -58,17 +31,22 @@ class Sidebar : UIViewController{
         Menuitem(name: "Más", iconName: "ellipsis", viewController: MorePageController())
     ]
     
-    private let careersHeader = SidebarItem.header(title: "Carreras")
-    private var careersSnapshot :NSDiffableDataSourceSectionSnapshot<SidebarItem>!
-    private let careerItems:[Menuitem] = []
+    private let careersHeader = SidebarItem.header(title: "Carreras",id: RowIdentifier.careers)
+
+    private var careersSectionSnapshot :NSDiffableDataSourceSectionSnapshot<SidebarItem>!
     
-    var onMenuItemSelected: (UIViewController)->Void = {vc in}
+    private var careersSnapshots : [NSDiffableDataSourceSectionSnapshot<SidebarItem>] = []
+    private var careerItems:[SidebarItem] = []
+    
+    private var onMenuItemSelected: (UIViewController)->Void = {vc in}
+    private var onSidebarLoaded: ()->Void = {}
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
         configureDataSource()
         applyInitialSnapshot()
+        onSidebarLoaded()
     }
     
     private func configureCollectionView() {
@@ -100,9 +78,11 @@ class Sidebar : UIViewController{
             contentConfiguration.text = item.title
             contentConfiguration.textProperties.font = .preferredFont(forTextStyle: .subheadline)
             contentConfiguration.textProperties.color = .secondaryLabel
-            
+            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 10, trailing: 0)
+
             cell.contentConfiguration = contentConfiguration
             cell.accessories = [.outlineDisclosure()]
+            
         }
         
         let expandableRowRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, SidebarItem> {
@@ -112,7 +92,7 @@ class Sidebar : UIViewController{
             contentConfiguration.text = item.title
             contentConfiguration.secondaryText = item.subtitle
             contentConfiguration.image = item.image
-            cell.layoutMargins = UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 20)
+            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 10, bottom: 10, trailing: 0)
 
             cell.contentConfiguration = contentConfiguration
             cell.accessories = [.outlineDisclosure()]
@@ -125,8 +105,8 @@ class Sidebar : UIViewController{
             contentConfiguration.text = item.title
             contentConfiguration.secondaryText = item.subtitle
             contentConfiguration.image = item.image
-            cell.layoutMargins = UIEdgeInsets.init(top: 10, left: 0, bottom: 10, right: 0)
-            
+            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0)
+
             cell.contentConfiguration = contentConfiguration
         }
         
@@ -161,10 +141,10 @@ class Sidebar : UIViewController{
     }
     
     private func createCareersSnapshot() -> NSDiffableDataSourceSectionSnapshot<SidebarItem> {
-        careersSnapshot = NSDiffableDataSourceSectionSnapshot<SidebarItem>()
-        careersSnapshot.append([careersHeader])
-        careersSnapshot.expand([careersHeader])
-        return careersSnapshot
+        careersSectionSnapshot = NSDiffableDataSourceSectionSnapshot<SidebarItem>()
+        careersSectionSnapshot.append([careersHeader])
+        careersSectionSnapshot.expand([careersHeader])
+        return careersSectionSnapshot
     }
     
     private func applyInitialSnapshot() {
@@ -176,19 +156,55 @@ class Sidebar : UIViewController{
     func setMenuItemSelected(listener:@escaping (UIViewController)->Void){
         self.onMenuItemSelected = listener
     }
+    
+    func setOnSidebarLoaded(listener:@escaping ()->Void){
+        self.onSidebarLoaded = listener
+    }
+    
     func loadCareers(careers:[Career]){
-        var items = [SidebarItem]()
+        
+        
         for  career in careers{
             let careerNameSplit = career.nombre?.split(separator: "-")
             let careerName = careerNameSplit?.last?.trimmingCharacters(in: .whitespacesAndNewlines).capitalized
             let dependencyName = careerNameSplit?.first?.trimmingCharacters(in: .whitespacesAndNewlines)
-            items.append(.expandableRow(title: careerName ?? "", subtitle: dependencyName, image: UIImage(systemName: "graduationcap")))
+            let row = SidebarItem.expandableRow(
+                title: careerName ?? "",
+                subtitle: dependencyName,
+                image: UIImage(systemName: "graduationcap"),
+                id: UUID()
+            )
+            
+            let kardex = SidebarItem.expandableRow(
+                title: "Kardex",
+                subtitle: nil,
+                image: UIImage(systemName: "text.badge.checkmark"),
+                id: UUID()
+            )
+            
+            let schedule = SidebarItem.expandableRow(
+                title: "Horarios",
+                subtitle: nil,
+                image: UIImage(systemName: "clock"),
+                id: UUID()
+            )
+            
+            careerItems.append(row)
+            
+            appendToCareerSection(sideBarItem: row, to: careersHeader)
+            appendToCareerSection(sideBarItem: schedule, to: row)
+            appendToCareerSection(sideBarItem: kardex, to: row)
+ 
         }
-        careersSnapshot.append(items, to: careersHeader)
 
 
-        dataSource.apply(careersSnapshot,to:.careers,animatingDifferences:true)
-
+    }
+    
+    
+    func appendToCareerSection(sideBarItem:SidebarItem, to:SidebarItem){
+        careersSectionSnapshot.append([sideBarItem],to:to)
+        dataSource.apply(careersSectionSnapshot,to:.careers,animatingDifferences:true)
+        
     }
 }
 
@@ -198,13 +214,26 @@ extension Sidebar: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let sidebarItem = dataSource.itemIdentifier(for: indexPath) else { return }
-
-        print("HOLA")
         if(indexPath.section == SidebarSection.menu.rawValue) {
-            onMenuItemSelected(menuItems[indexPath.row-1].viewController)
+            let index = indexPath.row-1
+            onMenuItemSelected(menuItems[index].viewController)
+        }
+        
+        if(indexPath.section == SidebarSection.careers.rawValue){
+            didSelectCareer(sidebarItem: sidebarItem)
         }
     }
     
+    
+    private func didSelectCareer(sidebarItem:SidebarItem){
+        if(!careersSectionSnapshot.isExpanded(sidebarItem)){
+            careersSectionSnapshot.expand([sidebarItem])
+        }else{
+            careersSectionSnapshot.collapse([sidebarItem])
+        }
+        
+        dataSource.apply(careersSectionSnapshot,to:.careers,animatingDifferences:true)
+    }
 
     
 }

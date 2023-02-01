@@ -18,28 +18,43 @@ class MainViewControllerSidebar : UISplitViewController,UISplitViewControllerDel
     
     private var sidebar = Sidebar()
     
+    private var currentVC:UIViewController!
+    
     private func loadViewControllers() {
         self.primaryViewController = HomePageController()
-        let navController = UINavigationController(rootViewController: self.primaryViewController)
+        self.currentVC = self.primaryViewController
+        var navController = UINavigationController(rootViewController: self.primaryViewController)
         self.primaryBackgroundStyle = .sidebar
         
         sidebar.setMenuItemSelected(listener: {vc in
-            self.viewControllers = [self.sidebar, UINavigationController(rootViewController: vc)]
+            if(vc == self.currentVC) {
+                return
+                
+            }
+            self.currentVC = vc
+            navController.setViewControllers([vc], animated: false)
 
         })
- 
-        self.viewControllers = [sidebar, navController]
+        
+        
+        self.setViewController(self.sidebar, for: .primary)
+        self.setViewController(navController, for: .secondary)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()        
         loadViewControllers()
         
+        self.sidebar.setOnSidebarLoaded {
+            self.viewModel.getCareers()
+        }
+            
+        
+        
         viewModel.bindCareers = { careers in
             self.sidebar.loadCareers(careers: careers)
         }
         
-        viewModel.getCareers()
         
     }
 

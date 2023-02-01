@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
                 let nav = UINavigationController(rootViewController:vc)
                 self.navigateToTop(screen: nav)
             }else{
-                let vc = self.horizontalSizeClass == .regular ? MainViewControllerSidebar() : MainViewController()
+                let vc = self.horizontalSizeClass == .regular ? MainViewControllerSidebar(style: .doubleColumn) : MainViewController()
                 self.navigateToTop(screen: vc)
             }
         }

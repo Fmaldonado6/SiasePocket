@@ -83,6 +83,6 @@ class ScheduleView :UIView{
     }
     
     required init(coder: NSCoder) {
-        fatalError("Not implementef")
+        fatalError("Not implemented")
     }
 }
