@@ -27,7 +27,7 @@ class Sidebar : UIViewController{
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<SidebarSection, SidebarItem>!
     private let menuItems = [
-        Menuitem(name: "Inicio", iconName: "house", viewController: HomePageController()),
+        Menuitem(name: "Inicio", iconName: "house", viewController: HomePageControllerLarge()),
         Menuitem(name: "Más", iconName: "ellipsis", viewController: MorePageController())
     ]
     

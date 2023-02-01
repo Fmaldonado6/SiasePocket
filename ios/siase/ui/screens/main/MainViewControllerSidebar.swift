@@ -14,14 +14,14 @@ class MainViewControllerSidebar : UISplitViewController,UISplitViewControllerDel
     
     private let viewModel:MainSidebarViewModel = DIContainer.shared.resolve(type: MainSidebarViewModel.self)!
 
-    private var primaryViewController: HomePageController!
+    private var primaryViewController: HomePageControllerLarge!
     
     private var sidebar = Sidebar()
     
     private var navController:UINavigationController!
     
     private func loadViewControllers() {
-        self.primaryViewController = HomePageController()
+        self.primaryViewController = HomePageControllerLarge()
         self.navController = UINavigationController(rootViewController: self.primaryViewController)
         self.primaryBackgroundStyle = .sidebar
         
@@ -55,7 +55,7 @@ class MainViewControllerSidebar : UISplitViewController,UISplitViewControllerDel
         }
         
         self.sidebar.setOnScheduleSelected{ item in
-            let vc = ScheduleDetailController()
+            let vc = ScheduleDetailControllerLarge()
             vc.schedule = Schedule(
                 claveDependencia: item.claveDependencia,
                 claveCarrera: item.claveCarrera,
