@@ -30,10 +30,12 @@ class MainViewControllerSidebar : UISplitViewController,UISplitViewControllerDel
         })
         
         self.maximumPrimaryColumnWidth = self.view.bounds.size.width;
-
+        
         
         self.setViewController(self.sidebar, for: .primary)
         self.setViewController(navController, for: .secondary)
+        
+
     }
     
     override func viewDidLoad() {
