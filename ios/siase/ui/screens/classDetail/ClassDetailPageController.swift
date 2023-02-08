@@ -10,52 +10,76 @@ import UIKit
 
 class ClassDetailPageController:UIViewController{
     
-    var classDetail:ClassDetail!
+    private var classDetail:ClassDetail?
     
-    private lazy var details:[ClassDetailCellModel] = [
-        ClassDetailCellModel(
-            label: classDetail.horaInicio! + " - " + classDetail.horaFin!,
-            subtitle: "Horario"
-        ),
-        ClassDetailCellModel(
-            label: classDetail.modalidad ?? "?",
-            subtitle: "Modalidad"
-        ),
-        ClassDetailCellModel(
-            label: classDetail.grupo ?? "?",
-            subtitle: "Grupo"
-        ),
-        ClassDetailCellModel(
-            label: classDetail.salon ?? "?",
-            subtitle: "Salón"
-        ),
-        ClassDetailCellModel(
-            label: classDetail.claveMateria ?? "?",
-            subtitle: "Clave de materia"
-        )
-    ]
+    private var details:[ClassDetailCellModel] = []
+    
+    private func getDetails() -> [ClassDetailCellModel]{
+        
+        if(classDetail == nil){
+            return []
+        }
+        
+        return [
+            ClassDetailCellModel(
+                label: classDetail!.horaInicio! + " - " + classDetail!.horaFin!,
+                subtitle: "Horario"
+            ),
+            ClassDetailCellModel(
+                label: classDetail!.modalidad ?? "?",
+                subtitle: "Modalidad"
+            ),
+            ClassDetailCellModel(
+                label: classDetail!.grupo ?? "?",
+                subtitle: "Grupo"
+            ),
+            ClassDetailCellModel(
+                label: classDetail!.salon ?? "?",
+                subtitle: "Salón"
+            ),
+            ClassDetailCellModel(
+                label: classDetail!.claveMateria ?? "?",
+                subtitle: "Clave de materia"
+            )
+        ]
+    }
     
     private lazy var tableView:UITableView = {
         let view = UITableView()
         view.backgroundColor = .systemGroupedBackground
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.dataSource = self
         view.delegate = self
         view.separatorStyle = .none
-        
+        view.dataSource = self
         view.register(ClassDetailCell.self, forCellReuseIdentifier: ClassDetailCell.identifier)
         return view
     }()
     
+    private var opportunityLabel = {
+        let view = UILabel()
+        view.font = view.font.withSize(16)
+        view.textColor = .systemGray
+        return view
+    }()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
-        navigationItem.title = classDetail.nombre ?? ""
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = classDetail?.nombre ?? "HOLA"
+
         navigationItem.largeTitleDisplayMode = .never;
         setupViews()
+    }
+    
+    func setClassDetail(classDetail:ClassDetail){
+        self.classDetail = classDetail
+        navigationItem.title = classDetail.nombre ?? ""
+        details = details.map{it in it}
+        self.details = self.getDetails()
+        opportunityLabel.text = "Oportunidad " + (classDetail.oportunidad ?? "?")
+        self.tableView.reloadData()
     }
     
     private func setupViews(){
@@ -71,7 +95,7 @@ class ClassDetailPageController:UIViewController{
         )
         
         labelContainer.backgroundColor = .systemGroupedBackground
-        let label = UILabel(
+        opportunityLabel = UILabel(
             frame: CGRect(
                 x: 15,
                 y: 0,
@@ -79,10 +103,7 @@ class ClassDetailPageController:UIViewController{
                 height: labelContainer.frame.height
             )
         )
-        label.text = "Oportunidad " + (classDetail.oportunidad ?? "?")
-        label.font = label.font.withSize(16)
-        label.textColor = .systemGray
-        labelContainer.addSubview(label)
+        labelContainer.addSubview(opportunityLabel)
         
         tableView.tableHeaderView = labelContainer
         

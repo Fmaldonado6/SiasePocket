@@ -12,6 +12,13 @@ class HomePageControllerLarge : UIViewController{
     
     private let viewModel:HomePageVieModel = DIContainer.shared.resolve(type: HomePageVieModel.self)!
     
+    private var stackViewContainer:UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     
     private lazy var  scrollView:UIScrollView = {
         let view = UIScrollView()
@@ -45,6 +52,19 @@ class HomePageControllerLarge : UIViewController{
         return view
     }()
     
+    private let classDetailPageController = ClassDetailPageController()
+    
+    private lazy var detailViewContainer : DetailViewContainer<UINavigationController> = {
+        let view = DetailViewContainer<UINavigationController>()
+        let navController = UINavigationController(rootViewController: self.classDetailPageController)
+        view.setView(view: navController)
+        view.alpha = 0
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var isDetailHidden = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +76,12 @@ class HomePageControllerLarge : UIViewController{
         tabBarItem.title = "inicio"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic;
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "sidebar.right"),
+            style: .plain,
+            target: self,
+            action: #selector(toggleDetailView)
+        )
         
         
         viewModel.bindTodaySchedule = { classes in
@@ -84,28 +110,29 @@ class HomePageControllerLarge : UIViewController{
     }
     
     private func setupViews(){
-        view.addSubview(scrollView)
+        view.addSubview(stackViewContainer)
         view.addSubview(loadingSpinnerView)
         view.addSubview(errorView)
+        
+        stackViewContainer.addArrangedSubview(scrollView)
+        stackViewContainer.addArrangedSubview(detailViewContainer)
+        
         scrollView.addSubview(nextClassView)
         scrollView.addSubview(todaysClassesView)
         
- 
-        
         nextClassView.setNextClassClickListener(){classDetail in
-            let vc = ClassDetailPageController()
-            let nav = UINavigationController(rootViewController: vc)
-            vc.classDetail = classDetail
-            #if targetEnvironment(macCatalyst)
-                print("Not available")
-            #else
-                if let sheet = nav.sheetPresentationController{
-                    sheet.detents = [.medium(),.large()]
-                }
-                self.navigationController?.present(nav, animated: true, completion: nil)
-            #endif
-        }
+            self.classDetailPageController.setClassDetail(classDetail: classDetail)
+            if(self.isDetailHidden) {self.toggleDetailView()}
 
+        }
+        
+        self.todaysClassesView.setOnClassClicked(){ classDetail in
+            
+            self.classDetailPageController.setClassDetail(classDetail: classDetail)
+            
+            if(self.isDetailHidden) {self.toggleDetailView()}
+        }
+        
         
         errorView.setOnClickListener {
             self.viewModel.getTodaySchedule()
@@ -113,14 +140,16 @@ class HomePageControllerLarge : UIViewController{
         
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            stackViewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            stackViewContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            stackViewContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            stackViewContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            detailViewContainer.widthAnchor.constraint(equalToConstant: 300),
             
             nextClassView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             nextClassView.widthAnchor.constraint(lessThanOrEqualTo: scrollView.widthAnchor, multiplier: 0.5),
-
+            
             
             todaysClassesView.topAnchor.constraint(equalTo: nextClassView.bottomAnchor),
             todaysClassesView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
@@ -147,6 +176,23 @@ class HomePageControllerLarge : UIViewController{
         else{
             loadingSpinnerView.stopAnimating()
         }
+        
+    }
+    
+    @objc private func toggleDetailView(){
+
+        self.isDetailHidden = !self.isDetailHidden
+        UIView.animate(
+            withDuration: 0.3,
+            delay: 0.0,
+            options: .transitionCrossDissolve,
+            animations: {
+                self.stackViewContainer.layoutIfNeeded()
+                self.detailViewContainer.isHidden.toggle()
+                self.detailViewContainer.alpha = self.isDetailHidden ? 0 : 1
+                self.stackViewContainer.layoutIfNeeded()
+
+            })
         
     }
     

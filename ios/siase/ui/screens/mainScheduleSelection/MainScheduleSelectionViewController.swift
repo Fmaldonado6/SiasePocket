@@ -17,6 +17,8 @@ class MainScheduleSelectionViewController : UIViewController{
     
     private var schedules = [Schedule]()
     
+    var horizontalSizeClass : UIUserInterfaceSizeClass?
+    
     private let loadingSpinnerView : UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
         spinner.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +61,8 @@ class MainScheduleSelectionViewController : UIViewController{
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic;
         
-        
+        horizontalSizeClass = self.view.traitCollection.horizontalSizeClass
+
         
         viewModel.bindStatus = {status in
             //Required since we scheduled notification in background thread
@@ -117,7 +120,7 @@ class MainScheduleSelectionViewController : UIViewController{
     private func changeStatus(status:Status){
         
         if(status == Status.Completed){
-            let vc  = MainViewController()
+            let vc = self.horizontalSizeClass == .regular ? MainViewControllerSidebar(style: .doubleColumn) : MainViewController()
             self.navigateToTop(screen: vc)
             return
         }

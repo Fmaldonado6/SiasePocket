@@ -16,6 +16,7 @@ class ScheduleDetailViewLarge:UIStackView{
         let view = UIStackView()
         view.widthAnchor.constraint(equalToConstant: 80).isActive = true
         view.axis = .vertical
+
         return view
     }()
     
@@ -29,55 +30,51 @@ class ScheduleDetailViewLarge:UIStackView{
         let view = UIStackView()
         view.axis = .horizontal
         view.translatesAutoresizingMaskIntoConstraints = false
-        
+        view.isUserInteractionEnabled = true
         return view
     }()
     
+
+    private var onClassClicked:(ClassDetail)-> Void = {classDetail in}
     
-    
-    
-    private weak var parent:UIViewController!
+    func setOnClassClicked(listener: @escaping (ClassDetail) -> Void){
+        self.onClassClicked = listener
+    }
     
     override init(frame: CGRect) {
         
         super.init(frame: frame)
-        
         self.axis = .horizontal
         self.addArrangedSubview(hoursView)
         self.addArrangedSubview(scrollView)
+        
         scrollView.addSubview(scheduleView)
+        
         
         for _ in 0...5{
             let view = UIView()
-            
             view.widthAnchor.constraint(equalToConstant: 300).isActive = true
             scheduleView.addArrangedSubview(view)
-      
         }
         
         NSLayoutConstraint.activate([
             scheduleView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scheduleView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            scheduleView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             scheduleView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             scheduleView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
         ])
         
         rebuild()
-        
-        
-    }
-    
-    
-    func setupParent(parent:UIViewController){
-        self.parent = parent
     }
     
     private func setupDays(container:UIView, day:String){
-
+        
         let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
         text.textAlignment = .center
         text.text = day
-
+        
         container.addSubview(text)
         
         let divider = UIView()
@@ -85,7 +82,9 @@ class ScheduleDetailViewLarge:UIStackView{
         divider.backgroundColor = .systemGray5
         
         container.addSubview(divider)
+        
 
+        
         NSLayoutConstraint.activate([
             text.topAnchor.constraint(equalTo: container.topAnchor,constant: 10),
             text.widthAnchor.constraint(equalTo:container.widthAnchor),
@@ -108,7 +107,7 @@ class ScheduleDetailViewLarge:UIStackView{
         }()
         
         hoursView.addArrangedSubview(spacer)
-
+        
         
         var i = 7.0
         while i  < 22.5{
@@ -190,9 +189,6 @@ class ScheduleDetailViewLarge:UIStackView{
         setupClasses(classContainer: scheduleView.subviews[3], classes: schedule.jueves.getFormattedDetail())
         setupClasses(classContainer: scheduleView.subviews[4], classes: schedule.viernes.getFormattedDetail())
         setupClasses(classContainer: scheduleView.subviews[5], classes: schedule.sabado.getFormattedDetail())
-
-
-        
     }
     
     private func setupClasses(classContainer:UIView,classes:[ClassDetail]){
@@ -212,6 +208,8 @@ class ScheduleDetailViewLarge:UIStackView{
             
         ])
         
+        
+        
         let realHourHeight = hourHeight * 2
         let initialTimeDate = Calendar.current.date(bySettingHour: 7, minute: 0, second: 0, of: Date())!
         let initialTime = Calendar.current.dateComponents([.hour,.minute], from: initialTimeDate)
@@ -222,7 +220,7 @@ class ScheduleDetailViewLarge:UIStackView{
             classView.translatesAutoresizingMaskIntoConstraints = false
             container.addSubview(classView)
             classContainer.addSubview(container)
-
+            
             let startTime = Date.parseTime(time:classDetail.horaInicio!)
             let endTime = Date.parseTime(time:classDetail.horaFin!)
             
@@ -236,21 +234,9 @@ class ScheduleDetailViewLarge:UIStackView{
             classView.setTimeName(text: classDetail.horaInicio! + " - " + classDetail.horaFin!)
             
             classView.setClickListener {
-                let vc = ClassDetailPageController()
-                let nav = UINavigationController(rootViewController: vc)
-                vc.classDetail = classDetail
-                
-                #if targetEnvironment(macCatalyst)
-                    print("Not available")
-                #else
-                if let sheet = nav.sheetPresentationController{
-                    sheet.detents = [.medium(),.large()]
-                }
-                self.parent.navigationController?.present(nav, animated: true, completion: nil)
-                #endif
+                self.onClassClicked(classDetail)
             }
-
-            classView.backgroundColor = Colors.Light.surfaceCardVariant | Colors.Dark.surfaceCardVariant
+            
             NSLayoutConstraint.activate([
                 container.heightAnchor.constraint(equalToConstant: height),
                 container.widthAnchor.constraint(equalTo: classContainer.widthAnchor),
@@ -260,7 +246,7 @@ class ScheduleDetailViewLarge:UIStackView{
                 classView.leadingAnchor.constraint(equalTo:container.leadingAnchor,constant: 10),
                 classView.trailingAnchor.constraint(equalTo:container.trailingAnchor,constant: -10),
                 classView.heightAnchor.constraint(equalToConstant: height-20),
-
+                
             ])
             
         }
@@ -272,7 +258,7 @@ class ScheduleDetailViewLarge:UIStackView{
             subView.removeFromSuperview()
         }
         
-
+        
         for (i,subView) in scheduleView.subviews.enumerated() {
             subView.subviews.forEach{it in it.removeFromSuperview()}
             setupDays(container: subView, day: DateHelpers.weekDays[i])

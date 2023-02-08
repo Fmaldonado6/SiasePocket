@@ -1,17 +1,16 @@
 //
-//  MainViewController.swift
+//  HomePageLargeMainView.swift
 //  siase
 //
-//  Created by Fernando Maldonado on 27/02/22.
+//  Created by Fernando Maldonado on 01/02/23.
 //
 
 import Foundation
 import UIKit
 
-class HomePageController : UIViewController{
-    
+class HomePageLargeMainViewController : UIViewController{
     private let viewModel:HomePageVieModel = DIContainer.shared.resolve(type: HomePageVieModel.self)!
-    
+
     
     private lazy var  scrollView:UIScrollView = {
         let view = UIScrollView()
@@ -26,10 +25,9 @@ class HomePageController : UIViewController{
     }()
     
     
-    private lazy var todaysClassesView:TodayClassesView = {
-        let view = TodayClassesView()
+    private lazy var todaysClassesView:ScheduleDetailViewLarge = {
+        let view = ScheduleDetailViewLarge()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setupClassViewParent(parent: self)
         return view
     }()
     
@@ -61,7 +59,8 @@ class HomePageController : UIViewController{
         
         viewModel.bindTodaySchedule = { classes in
             guard let todayClasses = classes else { return}
-            self.todaysClassesView.setupClasses(classes: todayClasses)
+            guard let fullSchedule = self.viewModel.getFullSchedule() else {return}
+            self.todaysClassesView.setUpSchedule(schedule: fullSchedule)
         }
         
         viewModel.bindStatus = {status in
@@ -90,17 +89,11 @@ class HomePageController : UIViewController{
         scrollView.addSubview(nextClassView)
         scrollView.addSubview(todaysClassesView)
         
-        todaysClassesView.fullScheduleButtonClickListener {
-            let vc = ScheduleDetailController()
-            vc.fullSchedule = self.viewModel.getFullSchedule()
-            let nav = UINavigationController(rootViewController: vc)
-            self.present(nav, animated: true, completion: nil)
-        }
-        
+ 
         nextClassView.setNextClassClickListener(){classDetail in
             let vc = ClassDetailPageController()
             let nav = UINavigationController(rootViewController: vc)
-            vc.setClassDetail(classDetail: classDetail)
+            vc.classDetail = classDetail
             #if targetEnvironment(macCatalyst)
                 print("Not available")
             #else
@@ -124,7 +117,8 @@ class HomePageController : UIViewController{
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             nextClassView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            nextClassView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            nextClassView.widthAnchor.constraint(lessThanOrEqualTo: scrollView.widthAnchor, multiplier: 0.5),
+
             
             todaysClassesView.topAnchor.constraint(equalTo: nextClassView.bottomAnchor),
             todaysClassesView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
@@ -140,7 +134,7 @@ class HomePageController : UIViewController{
         
     }
     
-    private func changeStatus(status:Status){
+    func changeStatus(status:Status){
         scrollView.isHidden = status != Status.Loaded
         loadingSpinnerView.isHidden = status != Status.Loading
         errorView.isHidden = status != Status.Error

@@ -17,7 +17,7 @@ class Sidebar : UIViewController{
         static let careers = UUID()
     }
     
-    private struct Menuitem{
+    public struct Menuitem{
         let name:String
         let iconName:String
         let viewController:UIViewController
@@ -26,12 +26,10 @@ class Sidebar : UIViewController{
     
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<SidebarSection, SidebarItem>!
-    private let menuItems = [
-        Menuitem(name: "Inicio", iconName: "house", viewController: HomePageControllerLarge()),
-        Menuitem(name: "Más", iconName: "ellipsis", viewController: MorePageController())
-    ]
+
     
     private let careersHeader = SidebarItem.header(title: "Carreras",id: RowIdentifier.careers)
+    private var menuItems:[Menuitem] = []
     
     private var careersSectionSnapshot :NSDiffableDataSourceSectionSnapshot<SidebarItem>!
     
@@ -69,12 +67,17 @@ class Sidebar : UIViewController{
         self.onSidebarLoaded = listener
     }
     
+    func setMenuItems(menuItems:[Menuitem]){
+        self.menuItems = menuItems
+    }
+    
     private func configureCollectionView() {
         collectionView = UICollectionView(
-            frame: view.bounds.inset(by: UIEdgeInsets.init(top: 80, left: 0, bottom: 0, right: 0)),
+            frame: view.bounds,
             collectionViewLayout: createLayout()
         )
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
         collectionView.delegate = self
         view.addSubview(collectionView)
     }
@@ -112,10 +115,12 @@ class Sidebar : UIViewController{
             contentConfiguration.text = item.title
             contentConfiguration.secondaryText = item.subtitle
             contentConfiguration.image = item.image
-            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 10, bottom: 10, trailing: 0)
+            
+            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0)
             
             cell.contentConfiguration = contentConfiguration
             cell.accessories = [.outlineDisclosure()]
+            
         }
         
         let rowRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, SidebarItem> {
@@ -125,8 +130,8 @@ class Sidebar : UIViewController{
             contentConfiguration.text = item.title
             contentConfiguration.secondaryText = item.subtitle
             contentConfiguration.image = item.image
-            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0)
             
+            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0)
             cell.contentConfiguration = contentConfiguration
         }
         
@@ -137,7 +142,7 @@ class Sidebar : UIViewController{
             contentConfiguration.text = item.title
             contentConfiguration.secondaryText = item.subtitle
             contentConfiguration.image = item.image
-            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 32, bottom: 10, trailing: 0)
+            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0)
             
             cell.contentConfiguration = contentConfiguration
         }
@@ -150,7 +155,7 @@ class Sidebar : UIViewController{
             contentConfiguration.text = item.title
             contentConfiguration.secondaryText = item.subtitle
             contentConfiguration.image = item.image
-            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 32, bottom: 10, trailing: 0)
+            contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0)
             
             cell.contentConfiguration = contentConfiguration
         }
@@ -311,6 +316,10 @@ extension Sidebar: UICollectionViewDelegate {
             return
         }
         
+        if(sidebarItem.type == SidebarItemType.kardexRow){
+            self.onCareerOptionSelected(sidebarItem)
+            return
+        }
         
         if(indexPath.section == SidebarSection.menu.rawValue) {
             let index = indexPath.row-1

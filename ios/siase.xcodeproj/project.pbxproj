@@ -65,6 +65,8 @@
 		AC3D3455298B11060092C6DF /* HomePageControllerLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3D3454298B11060092C6DF /* HomePageControllerLarge.swift */; };
 		AC3D3457298B11AC0092C6DF /* ScheduleDetailViewLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3D3456298B11AC0092C6DF /* ScheduleDetailViewLarge.swift */; };
 		AC3D3459298B25F30092C6DF /* ScheduleDetailControllerLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3D3458298B25F30092C6DF /* ScheduleDetailControllerLarge.swift */; };
+		AC3D3462298B8EED0092C6DF /* DetailViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3D3461298B8EED0092C6DF /* DetailViewContainer.swift */; };
+		AC3D346429945A850092C6DF /* SubjectGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3D346329945A850092C6DF /* SubjectGridCell.swift */; };
 		AC3EDA8E2814A976009E6D32 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = AC3EDA8D2814A976009E6D32 /* OrderedCollections */; };
 		AC3EDA912814B107009E6D32 /* SubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA902814B107009E6D32 /* SubjectView.swift */; };
 		AC3EDA932814B1D5009E6D32 /* SubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */; };
@@ -167,6 +169,8 @@
 		AC3D3454298B11060092C6DF /* HomePageControllerLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageControllerLarge.swift; sourceTree = "<group>"; };
 		AC3D3456298B11AC0092C6DF /* ScheduleDetailViewLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailViewLarge.swift; sourceTree = "<group>"; };
 		AC3D3458298B25F30092C6DF /* ScheduleDetailControllerLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailControllerLarge.swift; sourceTree = "<group>"; };
+		AC3D3461298B8EED0092C6DF /* DetailViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewContainer.swift; sourceTree = "<group>"; };
+		AC3D346329945A850092C6DF /* SubjectGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectGridCell.swift; sourceTree = "<group>"; };
 		AC3EDA902814B107009E6D32 /* SubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectView.swift; sourceTree = "<group>"; };
 		AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectCell.swift; sourceTree = "<group>"; };
 		AC3EDA952814BD47009E6D32 /* ClassDetailPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailPageController.swift; sourceTree = "<group>"; };
@@ -226,6 +230,7 @@
 			children = (
 				AC03B128280B60BC00287C05 /* NextClassView.swift */,
 				AC03B12A280B693700287C05 /* TodayClassesView.swift */,
+				AC3D3461298B8EED0092C6DF /* DetailViewContainer.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -465,8 +470,8 @@
 		AC057D1E27CB76E6008CBD68 /* home */ = {
 			isa = PBXGroup;
 			children = (
-				AC3D3454298B11060092C6DF /* HomePageControllerLarge.swift */,
 				AC03B127280B60AF00287C05 /* views */,
+				AC3D3454298B11060092C6DF /* HomePageControllerLarge.swift */,
 				AC057D1C27CB72BF008CBD68 /* HomePageController.swift */,
 				AC057D2727CD17B3008CBD68 /* HomePageViewModel.swift */,
 			);
@@ -582,6 +587,7 @@
 			children = (
 				AC3EDA902814B107009E6D32 /* SubjectView.swift */,
 				AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */,
+				AC3D346329945A850092C6DF /* SubjectGridCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -847,6 +853,7 @@
 				AC970B6F27DC2DD000D133F7 /* MainCareerRepository.swift in Sources */,
 				AC03B133281209C700287C05 /* GenericCard.swift in Sources */,
 				AC3EDAA628152210009E6D32 /* ErrorView.swift in Sources */,
+				AC3D3462298B8EED0092C6DF /* DetailViewContainer.swift in Sources */,
 				AC6F40502808ED44007281BB /* MainScheduleSelectionViewController.swift in Sources */,
 				AC6F404D2808D123007281BB /* CareerView.swift in Sources */,
 				AC057D2B27CDA15D008CBD68 /* PreferencesService.swift in Sources */,
@@ -855,6 +862,7 @@
 				AC3D3457298B11AC0092C6DF /* ScheduleDetailViewLarge.swift in Sources */,
 				AC03B14D2813575000287C05 /* KardexRepository.swift in Sources */,
 				AC03B124280A31B000287C05 /* ScheduleCell.swift in Sources */,
+				AC3D346429945A850092C6DF /* SubjectGridCell.swift in Sources */,
 				AC057D1527CB5718008CBD68 /* LoginViewModel.swift in Sources */,
 				AC057CC327CB2CF0008CBD68 /* AppDelegate.swift in Sources */,
 				AC057CC527CB2CF0008CBD68 /* SceneDelegate.swift in Sources */,

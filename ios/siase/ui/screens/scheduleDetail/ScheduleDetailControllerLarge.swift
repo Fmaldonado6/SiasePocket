@@ -27,7 +27,6 @@ class ScheduleDetailControllerLarge:UIViewController{
     private lazy var scheduleDetailView:ScheduleDetailViewLarge = {
         let view = ScheduleDetailViewLarge()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setupParent(parent: self)
         return view
     }()
     

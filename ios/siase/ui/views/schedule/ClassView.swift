@@ -74,7 +74,6 @@ class ClassView : UIView{
         guard let listener = listener else {
             return
         }
-
         listener()
     }
     
