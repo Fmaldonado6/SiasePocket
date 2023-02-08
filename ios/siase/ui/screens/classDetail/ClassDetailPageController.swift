@@ -44,6 +44,17 @@ class ClassDetailPageController:UIViewController{
         ]
     }
     
+    private var emptyText = {
+        let view = UILabel()
+        view.font = view.font.withSize(16)
+        view.textColor = .systemGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.textAlignment = .center
+        view.numberOfLines = 0
+        view.text = "Selecione una clase para ver su información"
+        return view
+    }()
+    
     private lazy var tableView:UITableView = {
         let view = UITableView()
         view.backgroundColor = .systemGroupedBackground
@@ -61,14 +72,14 @@ class ClassDetailPageController:UIViewController{
         view.textColor = .systemGray
         return view
     }()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = classDetail?.nombre ?? "HOLA"
-
+        navigationItem.title = classDetail?.nombre ?? ""
+        
         navigationItem.largeTitleDisplayMode = .never;
         setupViews()
     }
@@ -79,12 +90,14 @@ class ClassDetailPageController:UIViewController{
         details = details.map{it in it}
         self.details = self.getDetails()
         opportunityLabel.text = "Oportunidad " + (classDetail.oportunidad ?? "?")
+        emptyText.isHidden = true
         self.tableView.reloadData()
     }
     
     private func setupViews(){
         view.addSubview(tableView)
-        
+        view.addSubview(emptyText)
+
         let labelContainer = UIView(
             frame: CGRect(
                 x: 0,
@@ -108,6 +121,11 @@ class ClassDetailPageController:UIViewController{
         tableView.tableHeaderView = labelContainer
         
         NSLayoutConstraint.activate([
+            emptyText.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor,constant:-50),
+            emptyText.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 15),
+            emptyText.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -15),
+
+            
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 15),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -15),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
