@@ -31,7 +31,6 @@ class KardexPageController : UIViewController{
     private lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout.init()
         let view = UICollectionView.init(frame: self.view.frame, collectionViewLayout: layout)
-        
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemGroupedBackground
         view.delegate = self
@@ -40,7 +39,6 @@ class KardexPageController : UIViewController{
         return view
     }()
     
-    private var estimateMargin = 0.0
     private var estimateCellWidth = 400.0
     
     private let loadingSpinnerView : UIActivityIndicatorView = {
@@ -105,9 +103,7 @@ class KardexPageController : UIViewController{
         errorView.setOnClickListener {
             self.viewModel.getkardex(career: self.career)
         }
-        
-        self.setupGrid()
-        
+                
         NSLayoutConstraint.activate([
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
@@ -144,11 +140,6 @@ class KardexPageController : UIViewController{
         
     }
     
-    private func setupGrid(){
-        let flow = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        
-    }
-    
     @objc func segmentAction(_ segmentedControl: UISegmentedControl) {
         self.currentSemester = subjects[segmentedControl.selectedSegmentIndex]
         collectionView.reloadData()
@@ -156,12 +147,10 @@ class KardexPageController : UIViewController{
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.setupGrid()
         collectionView.reloadData()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        self.setupGrid()
         collectionView.reloadData()
     }
 }

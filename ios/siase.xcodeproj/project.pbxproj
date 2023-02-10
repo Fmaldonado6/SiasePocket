@@ -67,6 +67,8 @@
 		AC3D3459298B25F30092C6DF /* ScheduleDetailControllerLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3D3458298B25F30092C6DF /* ScheduleDetailControllerLarge.swift */; };
 		AC3D3462298B8EED0092C6DF /* DetailViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3D3461298B8EED0092C6DF /* DetailViewContainer.swift */; };
 		AC3D346429945A850092C6DF /* SubjectGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3D346329945A850092C6DF /* SubjectGridCell.swift */; };
+		AC3D346629946AD00092C6DF /* CareerGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3D346529946AD00092C6DF /* CareerGridCell.swift */; };
+		AC3D346829946AF80092C6DF /* ScheduleGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3D346729946AF80092C6DF /* ScheduleGridCell.swift */; };
 		AC3EDA8E2814A976009E6D32 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = AC3EDA8D2814A976009E6D32 /* OrderedCollections */; };
 		AC3EDA912814B107009E6D32 /* SubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA902814B107009E6D32 /* SubjectView.swift */; };
 		AC3EDA932814B1D5009E6D32 /* SubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */; };
@@ -171,6 +173,8 @@
 		AC3D3458298B25F30092C6DF /* ScheduleDetailControllerLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailControllerLarge.swift; sourceTree = "<group>"; };
 		AC3D3461298B8EED0092C6DF /* DetailViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewContainer.swift; sourceTree = "<group>"; };
 		AC3D346329945A850092C6DF /* SubjectGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectGridCell.swift; sourceTree = "<group>"; };
+		AC3D346529946AD00092C6DF /* CareerGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerGridCell.swift; sourceTree = "<group>"; };
+		AC3D346729946AF80092C6DF /* ScheduleGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGridCell.swift; sourceTree = "<group>"; };
 		AC3EDA902814B107009E6D32 /* SubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectView.swift; sourceTree = "<group>"; };
 		AC3EDA922814B1D5009E6D32 /* SubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectCell.swift; sourceTree = "<group>"; };
 		AC3EDA952814BD47009E6D32 /* ClassDetailPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailPageController.swift; sourceTree = "<group>"; };
@@ -548,6 +552,8 @@
 				AC03B125280A31DB00287C05 /* ScheduleView.swift */,
 				AC03B123280A31B000287C05 /* ScheduleCell.swift */,
 				ACC83BF32807C4D9003E3E54 /* CareerCell.swift */,
+				AC3D346529946AD00092C6DF /* CareerGridCell.swift */,
+				AC3D346729946AF80092C6DF /* ScheduleGridCell.swift */,
 			);
 			path = listItems;
 			sourceTree = "<group>";
@@ -847,6 +853,7 @@
 				AC03B13D2812637F00287C05 /* ScheduleDetailController.swift in Sources */,
 				ACC83BF42807C4D9003E3E54 /* CareerCell.swift in Sources */,
 				ACFAAC0C288EE1360080D0D6 /* EmptyView.swift in Sources */,
+				AC3D346629946AD00092C6DF /* CareerGridCell.swift in Sources */,
 				AC03B13A28124D3500287C05 /* ScheduleSelectionViewModel.swift in Sources */,
 				AC03B12B280B693700287C05 /* TodayClassesView.swift in Sources */,
 				AC03B126280A31DB00287C05 /* ScheduleView.swift in Sources */,
@@ -862,6 +869,7 @@
 				AC3D3457298B11AC0092C6DF /* ScheduleDetailViewLarge.swift in Sources */,
 				AC03B14D2813575000287C05 /* KardexRepository.swift in Sources */,
 				AC03B124280A31B000287C05 /* ScheduleCell.swift in Sources */,
+				AC3D346829946AF80092C6DF /* ScheduleGridCell.swift in Sources */,
 				AC3D346429945A850092C6DF /* SubjectGridCell.swift in Sources */,
 				AC057D1527CB5718008CBD68 /* LoginViewModel.swift in Sources */,
 				AC057CC327CB2CF0008CBD68 /* AppDelegate.swift in Sources */,
