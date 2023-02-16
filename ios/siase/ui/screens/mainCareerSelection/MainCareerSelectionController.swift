@@ -13,8 +13,6 @@ class MainCareerSelectionController : UIViewController{
     private let viewModel:MainCareerSelectionViewModel = DIContainer
         .shared.resolve(type: MainCareerSelectionViewModel.self)!
     
-    
-    
     private let label:UILabel = {
         let view = UILabel()
         view.text = "Selecciona la carrera que está cursando actualmente"
@@ -24,17 +22,6 @@ class MainCareerSelectionController : UIViewController{
 
         return view
     }()
-    
-//    private lazy var tableView:UITableView = {
-//        let view = UITableView()
-//        view.dataSource = self
-//        view.separatorStyle = UITableViewCell.SeparatorStyle.none
-//        view.backgroundColor = .systemGroupedBackground
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//
-//        view.register(CareerCell.self, forCellReuseIdentifier: CareerCell.identifier)
-//        return view
-//    }()
     
     private lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout.init()
@@ -132,10 +119,9 @@ extension MainCareerSelectionController: UICollectionViewDelegateFlowLayout{
         let screenWidth = self.view.frame.size.width
 
         if(screenWidth < 700) {return screenWidth}
-        else if(screenWidth < 1250) {return screenWidth / 2 - 20}
+        else if(screenWidth < 1250) {return screenWidth / 2 - 5}
         
-        return screenWidth / 3 - 20
-        
+        return screenWidth / 3 - 10
     }
     
 }

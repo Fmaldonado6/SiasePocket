@@ -195,9 +195,9 @@ extension KardexPageController: UICollectionViewDelegateFlowLayout{
         let screenWidth = self.view.frame.size.width
 
         if(screenWidth < 700) {return screenWidth}
-        else if(screenWidth < 1250) {return screenWidth / 2 - 20}
+        else if(screenWidth < 1250) {return screenWidth / 2 - 5}
         
-        return screenWidth / 3 - 20
+        return screenWidth / 3 - 10
         
     }
     

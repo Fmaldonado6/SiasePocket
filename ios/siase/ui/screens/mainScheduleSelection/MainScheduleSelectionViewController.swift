@@ -27,23 +27,22 @@ class MainScheduleSelectionViewController : UIViewController{
     
     private let label:UILabel = {
         let view = UILabel()
-        view.text = "Selecciona la carrera que está cursando actualmente"
+        view.text = "Selecciona tu horario actual"
         view.font = view.font.withSize(14)
-        view.textColor = Colors.Light.primaryColor | Colors.Dark.primaryColor
+        view.textColor = Colors.Light.onPrimaryContainer | Colors.Dark.onPrimaryContainer
         view.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return view
     }()
     
-    private lazy var tableView:UITableView = {
-        let view = UITableView()
-        view.dataSource = self
-        view.delegate = self
-        view.separatorStyle = UITableViewCell.SeparatorStyle.none
-        view.backgroundColor = .systemGroupedBackground
+    private lazy var collectionView:UICollectionView = {
+        let layout = UICollectionViewFlowLayout.init()
+        let view = UICollectionView.init(frame: self.view.frame, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.identifier)
+        view.backgroundColor = .systemGroupedBackground
+        view.delegate = self
+        view.dataSource = self
+        view.register(ScheduleGridCell.self, forCellWithReuseIdentifier: ScheduleGridCell.identifier)
         return view
     }()
     
@@ -75,7 +74,7 @@ class MainScheduleSelectionViewController : UIViewController{
             //Required since we scheduled notification in background thread
             DispatchQueue.main.async {
                 self.schedules = schedules
-                self.tableView.reloadData()
+                self.collectionView.reloadData()
             }
             
         }
@@ -87,7 +86,8 @@ class MainScheduleSelectionViewController : UIViewController{
     }
     
     private func setupViews(){
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
+        view.addSubview(label)
         view.addSubview(loadingSpinnerView)
         view.addSubview(errorView)
         
@@ -110,10 +110,15 @@ class MainScheduleSelectionViewController : UIViewController{
                 equalTo: view.safeAreaLayoutGuide.centerXAnchor
             ),
             
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
+            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -20),
+            label.heightAnchor.constraint(equalToConstant: 50),
+
+            collectionView.topAnchor.constraint(equalTo: label.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
     
@@ -125,7 +130,7 @@ class MainScheduleSelectionViewController : UIViewController{
             return
         }
         
-        tableView.isHidden = status != Status.Loaded
+        collectionView.isHidden = status != Status.Loaded
         loadingSpinnerView.isHidden = status != Status.Loading
         errorView.isHidden = status != Status.Error
         if(status == Status.Loading){
@@ -154,5 +159,41 @@ extension MainScheduleSelectionViewController : UITableViewDataSource, UITableVi
         viewModel.setMainSchedule(career: career, schedule: schedules[indexPath.row])
     }
     
+    
+}
+
+
+extension MainScheduleSelectionViewController : UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return schedules.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScheduleGridCell.identifier, for: indexPath) as! ScheduleGridCell
+        cell.configure(index: indexPath.row, schedule: self.schedules[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.setMainSchedule(career: career, schedule: schedules[indexPath.row])
+    }
+    
+}
+
+extension MainScheduleSelectionViewController: UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        collectionView.cellForItem(at: indexPath)?.layoutSubviews()
+        return CGSize(width: self.calculateWidth(), height: 100)
+    }
+    
+    private func calculateWidth() -> CGFloat{
+        let screenWidth = self.view.frame.size.width
+
+        if(screenWidth < 700) {return screenWidth}
+        else if(screenWidth < 1250) {return screenWidth / 2 - 5}
+        
+        return screenWidth / 3 - 10
+    }
     
 }
