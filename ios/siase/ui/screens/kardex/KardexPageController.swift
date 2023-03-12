@@ -28,16 +28,18 @@ class KardexPageController : UIViewController{
     }()
     
     
-    private lazy var tableView:UITableView = {
-        let view = UITableView()
+    private lazy var collectionView:UICollectionView = {
+        let layout = UICollectionViewFlowLayout.init()
+        let view = UICollectionView.init(frame: self.view.frame, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemGroupedBackground
-        view.separatorStyle = UITableViewCell.SeparatorStyle.none
         view.delegate = self
         view.dataSource = self
-        view.register(SubjectCell.self, forCellReuseIdentifier: SubjectCell.identifier)
+        view.register(SubjectGridCell.self, forCellWithReuseIdentifier: SubjectGridCell.identifier)
         return view
     }()
+    
+    private var estimateCellWidth = 400.0
     
     private let loadingSpinnerView : UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
@@ -65,7 +67,7 @@ class KardexPageController : UIViewController{
         viewModel.bindSubjects = {subjects in
             self.subjects = subjects
             self.currentSemester = subjects[0]
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
             self.setupSegmentedControl()
         }
         
@@ -92,7 +94,7 @@ class KardexPageController : UIViewController{
         view.addSubview(segmentedContainer)
         view.addSubview(loadingSpinnerView)
         view.addSubview(errorView)
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
         
         segmentedContainer.addSubview(segmentedControl)
         
@@ -101,7 +103,7 @@ class KardexPageController : UIViewController{
         errorView.setOnClickListener {
             self.viewModel.getkardex(career: self.career)
         }
-        
+                
         NSLayoutConstraint.activate([
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
@@ -118,15 +120,15 @@ class KardexPageController : UIViewController{
             segmentedControl.trailingAnchor.constraint(equalTo: segmentedContainer.trailingAnchor,constant: -20),
             segmentedControl.centerYAnchor.constraint(equalTo: segmentedContainer.centerYAnchor),
             
-            tableView.topAnchor.constraint(equalTo: segmentedContainer.bottomAnchor,constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+            collectionView.topAnchor.constraint(equalTo: segmentedContainer.bottomAnchor,constant: 0),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         ])
     }
     
     private func changeStatus(status:Status){
-        tableView.isHidden = status != Status.Loaded
+        collectionView.isHidden = status != Status.Loaded
         loadingSpinnerView.isHidden = status != Status.Loading
         errorView.isHidden = status != Status.Error
         if(status == Status.Loading){
@@ -140,9 +142,17 @@ class KardexPageController : UIViewController{
     
     @objc func segmentAction(_ segmentedControl: UISegmentedControl) {
         self.currentSemester = subjects[segmentedControl.selectedSegmentIndex]
-        tableView.reloadData()
+        collectionView.reloadData()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.reloadData()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.reloadData()
+    }
 }
 
 extension KardexPageController: UITableViewDelegate,UITableViewDataSource{
@@ -156,5 +166,39 @@ extension KardexPageController: UITableViewDelegate,UITableViewDataSource{
         return cell
     }
     
+    
+}
+
+extension KardexPageController : UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return currentSemester.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubjectGridCell.identifier, for: indexPath) as! SubjectGridCell
+        cell.configure(index: indexPath.row, subject: currentSemester[indexPath.row])
+        return cell
+    }
+    
+    
+}
+
+extension KardexPageController: UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        collectionView.cellForItem(at: indexPath)?.layoutSubviews()
+        return CGSize(width: self.calculateWidth(), height: 100)
+    }
+    
+    private func calculateWidth() -> CGFloat{
+        
+        let screenWidth = self.view.frame.size.width
+
+        if(screenWidth < 700) {return screenWidth}
+        else if(screenWidth < 1250) {return screenWidth / 2 - 5}
+        
+        return screenWidth / 3 - 10
+        
+    }
     
 }

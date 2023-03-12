@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             type: MainScheduleClassesDao.self,
             component: MainScheduleClassesDao()
         )
+        
         //-------
         
         //--Services---

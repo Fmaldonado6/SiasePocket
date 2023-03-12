@@ -25,10 +25,10 @@ class MainScheduleSelection : BaseActivity() {
         binding = ActivityMainScheduleSelectionBinding.inflate(layoutInflater)
         val extras = intent.extras ?: return finish()
         career = extras.getParcelable(ParcelKeys.SelectedCareer) ?: return finish()
-        viewModel.getSchedules(career.claveCarrera)
+        viewModel.getSchedules(career)
 
         binding.errorLayout.retry.setOnClickListener {
-            viewModel.getSchedules(career.claveCarrera)
+            viewModel.getSchedules(career)
         }
 
 

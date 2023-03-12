@@ -33,16 +33,16 @@ constructor(
 
     val schedules = MutableLiveData<List<Schedule>>()
 
-    fun getSchedules(careerId: String) {
+    fun getSchedules(career:Careers) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 status.postValue(Status.Loading)
-                getSchedulesProcess(careerId)
+                getSchedulesProcess(career)
                 status.postValue(Status.Loaded)
 
             } catch (e: Exception) {
                 when (e) {
-                    is Unauthorized -> restoreSession { getSchedulesProcess(careerId) }
+                    is Unauthorized -> restoreSession { getSchedulesProcess(career) }
                     else -> status.postValue(Status.Error)
                 }
 
@@ -50,10 +50,8 @@ constructor(
         }
     }
 
-    private suspend fun getSchedulesProcess(careerId: String) {
-        val careers = authRepository.signedInUser!!.carreras
-        val index = careers.indexOfFirst { it.claveCarrera == careerId }
-        val result = scheduleRepository.getSchedules(index)
+    private suspend fun getSchedulesProcess(career:Careers) {
+        val result = scheduleRepository.getSchedules(career)
         schedules.postValue(result)
     }
 

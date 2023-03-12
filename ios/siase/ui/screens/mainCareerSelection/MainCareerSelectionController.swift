@@ -13,8 +13,6 @@ class MainCareerSelectionController : UIViewController{
     private let viewModel:MainCareerSelectionViewModel = DIContainer
         .shared.resolve(type: MainCareerSelectionViewModel.self)!
     
-    
-    
     private let label:UILabel = {
         let view = UILabel()
         view.text = "Selecciona la carrera que está cursando actualmente"
@@ -25,14 +23,14 @@ class MainCareerSelectionController : UIViewController{
         return view
     }()
     
-    private lazy var tableView:UITableView = {
-        let view = UITableView()
-        view.dataSource = self
-        view.separatorStyle = UITableViewCell.SeparatorStyle.none
-        view.backgroundColor = .systemGroupedBackground
+    private lazy var collectionView:UICollectionView = {
+        let layout = UICollectionViewFlowLayout.init()
+        let view = UICollectionView.init(frame: self.view.frame, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.register(CareerCell.self, forCellReuseIdentifier: CareerCell.identifier)
+        view.backgroundColor = .systemGroupedBackground
+        view.delegate = self
+        view.dataSource = self
+        view.register(CareerGridCell.self, forCellWithReuseIdentifier: CareerGridCell.identifier)
         return view
     }()
     
@@ -40,14 +38,14 @@ class MainCareerSelectionController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
+        collectionView.delegate = self
         view.backgroundColor = .systemGroupedBackground
         navigationItem.title = "Carreras"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic;
         viewModel.bindCareers = {careers in
             self.careers = careers
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         }
         
         viewModel.getCareers()
@@ -58,42 +56,49 @@ class MainCareerSelectionController : UIViewController{
     }
     
     func setupViews(){
-
-        view.addSubview(tableView)
         
-        tableView.tableHeaderView = label
+        view.addSubview(collectionView)
+        view.addSubview(label)
         
         NSLayoutConstraint.activate([
-            
-            label.topAnchor.constraint(equalTo: tableView.topAnchor),
-            label.leadingAnchor.constraint(equalTo: tableView.leadingAnchor,constant: 20),
-            label.trailingAnchor.constraint(equalTo: tableView.trailingAnchor,constant: -20),
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
+            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -20),
             label.heightAnchor.constraint(equalToConstant: 50),
 
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            collectionView.topAnchor.constraint(equalTo: label.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
         
-        tableView.tableHeaderView?.layoutIfNeeded()
-        tableView.tableHeaderView = self.tableView.tableHeaderView
+      
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.reloadData()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.reloadData()
     }
     
 }
 
-extension MainCareerSelectionController : UITableViewDataSource, UITableViewDelegate{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+extension MainCareerSelectionController : UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return careers.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CareerCell.identifier, for: indexPath) as! CareerCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CareerGridCell.identifier, for: indexPath) as! CareerGridCell
         cell.configure(index: indexPath.row, career: self.careers[indexPath.row])
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = MainScheduleSelectionViewController()
         vc.index = indexPath.row
         vc.career = careers[indexPath.row]
@@ -101,5 +106,22 @@ extension MainCareerSelectionController : UITableViewDataSource, UITableViewDele
         navigationController?.pushViewController(vc, animated: true)
     }
     
+}
+
+extension MainCareerSelectionController: UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        collectionView.cellForItem(at: indexPath)?.layoutSubviews()
+        return CGSize(width: self.calculateWidth(), height: 100)
+    }
+    
+    private func calculateWidth() -> CGFloat{
+        let screenWidth = self.view.frame.size.width
+
+        if(screenWidth < 700) {return screenWidth}
+        else if(screenWidth < 1250) {return screenWidth / 2 - 5}
+        
+        return screenWidth / 3 - 10
+    }
     
 }

@@ -119,6 +119,8 @@ class ScheduleRepository{
         
     }
     
+
+    
     func getScheduleDetail(index:Int,periodo:String,completer:@escaping(ScheduleDetail?,AppError? )->Void){
         networkDataSource.getScheduleDetail(index: index, periodo: periodo, completer: completer)
     }

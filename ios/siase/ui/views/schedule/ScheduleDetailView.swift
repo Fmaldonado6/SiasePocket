@@ -141,16 +141,12 @@ class ScheduleDetailView:UIStackView{
             classView.setClickListener {
                 let vc = ClassDetailPageController()
                 let nav = UINavigationController(rootViewController: vc)
-                vc.classDetail = classDetail
-                
-                #if targetEnvironment(macCatalyst)
-                    print("Not available")
-                #else
+                vc.setClassDetail(classDetail: classDetail)
+    
                 if let sheet = nav.sheetPresentationController{
                     sheet.detents = [.medium(),.large()]
                 }
                 self.parent.navigationController?.present(nav, animated: true, completion: nil)
-                #endif
             }
 
             classView.backgroundColor = Colors.Light.surfaceCardVariant | Colors.Dark.surfaceCardVariant

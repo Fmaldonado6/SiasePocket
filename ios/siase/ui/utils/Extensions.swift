@@ -85,10 +85,14 @@ extension UIViewController{
     }
     
     func showAlert(title:String,description:String,_ actions:[UIAlertAction]? = nil){
-        let alert = UIAlertController()
         
-        alert.title = title
-        alert.message = description
+        var alertStyle = UIAlertController.Style.actionSheet
+        if (UIDevice.current.userInterfaceIdiom == .pad) {
+            alertStyle = UIAlertController.Style.alert
+        }
+        
+        let alert = UIAlertController(title: title, message: description, preferredStyle: alertStyle)
+ 
         
         guard let actions = actions else {
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
@@ -101,9 +105,11 @@ extension UIViewController{
         for action in actions{
             alert.addAction(action)
         }
-     
+        
+        
+        
         self.present(alert, animated: true, completion: nil)
-
+        
         
     }
 }

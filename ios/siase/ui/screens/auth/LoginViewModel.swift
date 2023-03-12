@@ -48,14 +48,7 @@ class LoginViewModel : BaseViewModel {
         self.status = Status.Loading
         let hasSession = authRepository.checkSession()
         if(hasSession){
-            authRepository.restoreSession(){response,error in
-                if(error != nil){
-                    self.status = Status.Failed
-                    return
-                }
-                
-                self.status = Status.Completed
-            }
+            self.status = Status.Completed
         }else{
             self.status = Status.Loaded
         }

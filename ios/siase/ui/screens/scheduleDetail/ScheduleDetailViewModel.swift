@@ -26,7 +26,16 @@ class ScheduleDetailViewModel:BaseViewModel{
         }
     }
     
+    private(set) var fullScheduleDetail:ScheduleDetail = ScheduleDetail()
+    {
+        didSet{
+            bindFullScheduleDetail(fullScheduleDetail)
+        }
+    }
+    
     var bindSchedule:([[ClassDetail]])->Void = {scheduleDetail in}
+    var bindFullScheduleDetail:(ScheduleDetail)->Void = {scheduleDetail in}
+
     
     func getScheduleDetail(schedule:Schedule){
         self.status = Status.Loading
@@ -71,6 +80,7 @@ class ScheduleDetailViewModel:BaseViewModel{
         
         self.status = Status.Loaded
         self.scheduleDetail = list
+        self.fullScheduleDetail = scheduleDetail
 
     }
     
