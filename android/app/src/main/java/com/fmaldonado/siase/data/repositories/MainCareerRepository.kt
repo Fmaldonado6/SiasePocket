@@ -1,5 +1,10 @@
 package com.fmaldonado.siase.data.repositories
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.fmaldonado.siase.R
 import com.fmaldonado.siase.data.models.Careers
 import com.fmaldonado.siase.data.models.ClassDetail
@@ -79,9 +84,9 @@ constructor(
         mainScheduleClassesDao.deleteClasses()
         mainScheduleClassesDao.insertClasses(classList)
 
-        val preferences = preferencesService.getPreferences()
+        val notificationsEnabled = getNotificationsPreferences()
 
-        if (!preferences.notifications) return
+        if (notificationsEnabled) return
 
         val oldNotifications = notificationsDao.getNotifications()
         for (oldNotification in oldNotifications) {
@@ -160,21 +165,28 @@ constructor(
     }
 
     fun getNotificationsPreferences(): Boolean {
+        if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(
+                application,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) return false
+
         val preferences = preferencesService.getPreferences()
         return preferences.notifications
     }
 
     suspend fun getNotificationClass(claveMateria: String): ClassDetail? {
-        val entity = mainScheduleClassesDao.getByClaveMateria(claveMateria) ?: return  null
+        val entity = mainScheduleClassesDao.getByClaveMateria(claveMateria) ?: return null
         return MainScheduleClassToEntityMapper.entityToClass(entity)
     }
 
     suspend fun setNotificationsPreferences(enabled: Boolean) {
+
         val preferences = preferencesService.getPreferences()
         preferences.notifications = enabled
         preferencesService.save(preferences)
 
-        if (preferences.notifications)
+        if (enabled)
             enableNotifications()
         else
             disableNotifications()

@@ -48,7 +48,6 @@ constructor(
                 previousSession = authRepository.getSession()
 
                 if (hasSession) {
-                    authRepository.restoreSession()
                     status.postValue(Status.Completed)
                     return@launch
                 }

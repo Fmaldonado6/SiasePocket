@@ -1,10 +1,8 @@
 package com.fmaldonado.siase.ui.screens.scheduleDetail
 
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
-import androidx.core.view.size
 import com.fmaldonado.siase.data.models.Careers
 import com.fmaldonado.siase.data.models.ClassDetail
 import com.fmaldonado.siase.data.models.Schedule
@@ -16,7 +14,6 @@ import com.fmaldonado.siase.ui.utils.ParcelKeys
 import com.fmaldonado.siase.ui.utils.Status
 import com.fmaldonado.siase.ui.utils.WeekDays
 import com.fmaldonado.siase.ui.utils.safeLet
-import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,9 +30,24 @@ class ScheduleDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityScheduleDetailBinding.inflate(layoutInflater)
         val extras = intent?.extras ?: return finish()
-        val detail = extras.getParcelable<ScheduleDetail?>(ParcelKeys.ScheduleDetail)
-        val career = extras.getParcelable<Careers?>(ParcelKeys.SelectedCareer)
-        val schedule = extras.getParcelable<Schedule?>(ParcelKeys.SelectedSchedule)
+        val detail = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            extras.getParcelable(ParcelKeys.ScheduleDetail, ScheduleDetail::class.java)
+        } else {
+            @Suppress("Deprecation")
+            extras.getParcelable(ParcelKeys.ScheduleDetail)
+        }
+        val career = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            extras.getParcelable(ParcelKeys.SelectedCareer, Careers::class.java)
+        } else {
+            @Suppress("Deprecation")
+            extras.getParcelable(ParcelKeys.SelectedCareer)
+        }
+        val schedule = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            extras.getParcelable(ParcelKeys.SelectedSchedule, Schedule::class.java)
+        } else {
+            @Suppress("Deprecation")
+            extras.getParcelable(ParcelKeys.SelectedSchedule)
+        }
 
         detail?.let {
             viewModel.getScheduleList(it)
@@ -70,7 +82,7 @@ class ScheduleDetailActivity : BaseActivity() {
 
         binding.viewPager.adapter = ScheduleViewPagerAdapter(this, detail)
 
-        if(tabNumber == 0) viewModel.setStatus(Status.Empty)
+        if (tabNumber == 0) viewModel.setStatus(Status.Empty)
 
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab: TabLayout.Tab, i: Int ->
             tab.text = daysString[i]

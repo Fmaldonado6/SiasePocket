@@ -1,10 +1,13 @@
 package com.fmaldonado.siase.ui.screens.home.fragments.more
 
+import android.Manifest
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -25,6 +28,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private val viewModel: MoreViewModel by viewModels()
+
+    private val requestPostNotificationsLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            viewModel.setNotificationsPreferences(isGranted)
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -93,10 +103,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
             PreferencesKeys.SourceCode.key -> startURLIntent("https://github.com/Fmaldonado6/SiasePocket")
             PreferencesKeys.Icon.key -> startURLIntent("https://twitter.com/DavidLazaroFern")
             PreferencesKeys.Notifications.key -> {
+
                 val notifPref = findPreference(
                     PreferencesKeys.Notifications.key
                 ) as SwitchPreference?
-                viewModel.setNotificationsPreferences(notifPref!!.isChecked)
+
+                val isChecked = notifPref!!.isChecked
+
+                Log.d("ISCHECKED", isChecked.toString())
+
+                if (isChecked) requestNotificationPermission()
+                else revokeNotificationPermission()
+
             }
             PreferencesKeys.Theme.key -> {
                 val themePref = findPreference(
@@ -125,5 +143,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun <T> startIntent(activity: Class<T>) {
         val intent = Intent(context, activity)
         startActivity(intent)
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT < 33)
+            viewModel.setNotificationsPreferences(true)
+        else
+            requestPostNotificationsLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+    }
+
+    private fun revokeNotificationPermission() {
+        viewModel.setNotificationsPreferences(false)
     }
 }

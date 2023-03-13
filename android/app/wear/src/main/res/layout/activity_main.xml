@@ -137,7 +137,6 @@
             android:padding="5dp"
             android:visibility="@{phoneConnected ? View.GONE : View.VISIBLE}"
             app:srcCompat="@drawable/phone_disabled" />
-        />
 
         <ProgressBar
             android:id="@+id/progressBar"
