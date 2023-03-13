@@ -38,20 +38,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView2"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/logoLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:text="@string/sign_in"
-                android:textSize="25sp"
-                android:visibility="@{status == Status.Loaded ? View.VISIBLE : View.INVISIBLE}"
-                app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toTopOf="@id/materialCardView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/foreground"
+                    app:tint="@color/md_theme_primaryContainer" />
+
+                <TextView
+                    android:id="@+id/appTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:text="Siase Pocket"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    android:textSize="23sp"
+                    android:textAlignment="center" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"
@@ -59,8 +75,8 @@
 
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
                 android:layout_marginBottom="20dp"
                 android:visibility="@{status == Status.Loaded ? View.VISIBLE : View.INVISIBLE}"
                 app:cardElevation="4dp"
@@ -69,7 +85,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2">
+                app:layout_constraintTop_toBottomOf="@+id/logoLayout">
 
                 <LinearLayout
                     android:layout_width="match_parent"
