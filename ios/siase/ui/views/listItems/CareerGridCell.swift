@@ -37,8 +37,8 @@ class CareerGridCell : UICollectionViewCell{
             heightAnchor.constraint(equalToConstant: 95),
             careerView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
             careerView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -20),
-            careerView.topAnchor.constraint(equalTo: self.topAnchor,constant: 10),
-            careerView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -10)
+            careerView.topAnchor.constraint(equalTo: self.topAnchor,constant: 5),
+            careerView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -5)
         ])
     }
     

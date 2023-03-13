@@ -48,11 +48,12 @@ class LoginStackView : UIStackView{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+ 
         self.addArrangedSubview(usernameTextField)
         self.addArrangedSubview(passwordtextField)
         self.addArrangedSubview(button)
         self.isLayoutMarginsRelativeArrangement = true
-
+        
         self.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16)
         self.spacing = 20
         self.axis = .vertical

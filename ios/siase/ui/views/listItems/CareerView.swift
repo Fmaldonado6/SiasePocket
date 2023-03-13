@@ -13,8 +13,7 @@ class CareerView :UIView{
     private let textStackView:UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 2
-        view.distribution = .equalSpacing
+        view.spacing = 0
         view.translatesAutoresizingMaskIntoConstraints = false
 
         return view

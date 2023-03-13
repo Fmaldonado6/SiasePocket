@@ -20,10 +20,23 @@ class LoginViewController: UIViewController {
         return view
     }()
     
+    private let appIcon:UIImageView = {
+        let view = UIImageView()
+        let image = UIImage(named: "AppIconForeground")
+        let templateImage = image?.withRenderingMode(.alwaysTemplate)
+        
+        view.image = templateImage
+        view.tintColor = Colors.Light.primaryContainer | Colors.Dark.primaryContainer
+    
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        return view;
+    }()
+    
     private let label:UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = "Iniciar Sesión"
+        view.text = "Siase Pocket"
         view.textAlignment = .center
         view.font = view.font.withSize(28)
         return view
@@ -79,7 +92,7 @@ class LoginViewController: UIViewController {
         
     }
 
-    private func shouldShowContenet(status:Status)->Bool{
+    private func shouldShowContent(status:Status)->Bool{
         return status != Status.Loaded && status != Status.Failed && status != Status.Error
     }
     
@@ -90,9 +103,7 @@ class LoginViewController: UIViewController {
             return
         }
         
-        #if targetEnvironment(macCatalyst)
-            print("Not available")
-        #else
+     
         if(status == Status.Error){
             self.showAlert(
                 title: "Ocurró un error",
@@ -116,10 +127,10 @@ class LoginViewController: UIViewController {
                 ]
             )
         }
-        #endif
         
-        stackView.isHidden = shouldShowContenet(status: status)
-        label.isHidden = shouldShowContenet(status: status)
+        stackView.isHidden = shouldShowContent(status: status)
+        label.isHidden = shouldShowContent(status: status)
+        appIcon.isHidden = shouldShowContent(status: status)
         loadingSpinnerView.isHidden = status != Status.Loading
         
         if(status == Status.Loading){
@@ -134,6 +145,7 @@ class LoginViewController: UIViewController {
     
     
     private func setupViews(){
+        view.addSubview(appIcon)
         view.addSubview(stackView)
         view.addSubview(label)
         view.addSubview(loadingSpinnerView)
@@ -159,9 +171,16 @@ class LoginViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -20),
             stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor,constant: -50),
+            
+            appIcon.bottomAnchor.constraint(equalTo: label.topAnchor,constant: 0),
+            appIcon.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            appIcon.widthAnchor.constraint(equalToConstant: 75),
+            appIcon.heightAnchor.constraint(equalToConstant: 75),
+            
             label.bottomAnchor.constraint(equalTo: stackView.topAnchor,constant: -30),
             label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 40),
             label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -40),
+            
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
             
@@ -171,9 +190,16 @@ class LoginViewController: UIViewController {
             stackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor,constant: -50),
             stackView.widthAnchor.constraint(equalToConstant: 500),
+           
+            appIcon.bottomAnchor.constraint(equalTo: label.topAnchor,constant:0),
+            appIcon.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            appIcon.widthAnchor.constraint(equalToConstant: 100),
+            appIcon.heightAnchor.constraint(equalToConstant: 100),
+            
             label.bottomAnchor.constraint(equalTo: stackView.topAnchor,constant: -30),
             label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 40),
             label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -40),
+            
             loadingSpinnerView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             loadingSpinnerView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
             

@@ -32,8 +32,8 @@ class ScheduleGridCell : UICollectionViewCell{
             heightAnchor.constraint(equalToConstant: 90),
             scheduleView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
             scheduleView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -20),
-            scheduleView.topAnchor.constraint(equalTo: self.topAnchor,constant: 10),
-            scheduleView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -10)
+            scheduleView.topAnchor.constraint(equalTo: self.topAnchor,constant: 5),
+            scheduleView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -5)
         ])
     }
     
