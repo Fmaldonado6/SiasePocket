@@ -42,8 +42,9 @@
                 android:id="@+id/logoLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginBottom="20dp"
+                android:orientation="vertical"
+                android:visibility="@{status == Status.Loaded ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toTopOf="@id/materialCardView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,9 +64,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:text="Siase Pocket"
+                    android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:textSize="23sp"
-                    android:textAlignment="center" />
+                    android:textSize="23sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 

@@ -10,6 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,10 +22,18 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideSiaseDataSource(networkInterceptor: NetworkInterceptor): NetworkDataSource {
+    fun provideSiaseDataSource(
+        networkInterceptor: NetworkInterceptor,
+        siaseApplication: SiaseApplication
+    ): NetworkDataSource {
+
+        val mb = 1000000L
+        val cache = Cache(siaseApplication.cacheDir, 100 * mb)
+
         val okHttpClient =
             OkHttpClient.Builder()
                 .addInterceptor(networkInterceptor)
+                .cache(cache)
                 .build()
 
         return Retrofit.Builder()
