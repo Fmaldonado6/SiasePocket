@@ -16,7 +16,7 @@ android {
         applicationId "com.fmaldonado.siase"
         minSdk 23
         targetSdk 34
-        versionCode 44
+        versionCode 45
         versionName "1.5.11"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
