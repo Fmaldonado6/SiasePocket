@@ -84,9 +84,7 @@ constructor(
         mainScheduleClassesDao.deleteClasses()
         mainScheduleClassesDao.insertClasses(classList)
 
-        val notificationsEnabled = getNotificationsPreferences()
 
-        if (notificationsEnabled) return
 
         val oldNotifications = notificationsDao.getNotifications()
         for (oldNotification in oldNotifications) {
@@ -142,6 +140,10 @@ constructor(
             )
 
             notificationsDao.insertNotification(notification)
+
+            val notificationsEnabled = getNotificationsPreferences()
+            if (notificationsEnabled) return
+
             notificationsService.scheduleNotification(notification)
         }
 
