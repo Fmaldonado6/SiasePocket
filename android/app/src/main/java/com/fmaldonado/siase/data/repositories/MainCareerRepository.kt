@@ -142,7 +142,7 @@ constructor(
             notificationsDao.insertNotification(notification)
 
             val notificationsEnabled = getNotificationsPreferences()
-            if (notificationsEnabled) return
+            if (!notificationsEnabled) return
 
             notificationsService.scheduleNotification(notification)
         }

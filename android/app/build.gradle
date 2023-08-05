@@ -16,8 +16,8 @@ android {
         applicationId "com.fmaldonado.siase"
         minSdk 23
         targetSdk 34
-        versionCode 45
-        versionName "1.5.11"
+        versionCode 47
+        versionName "1.5.12"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,11 +31,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\"https://siase-api-production.up.railway.app/api/\""
+            buildConfigField "String", "BASE_URL", "\"https://bumbleb.uber.space/siaseApi/api/\""
         }
 
         debug {
-            buildConfigField "String", "BASE_URL", "\"https://siase-api-production.up.railway.app/api/\""
+            buildConfigField "String", "BASE_URL", "\"https://bumbleb.uber.space/siaseApi/api/\""
             applicationIdSuffix ".debug"
         }
     }

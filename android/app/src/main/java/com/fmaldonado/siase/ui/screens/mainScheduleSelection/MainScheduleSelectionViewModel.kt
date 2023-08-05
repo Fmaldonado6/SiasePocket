@@ -28,12 +28,12 @@ constructor(
     private val mainCareerRepository: MainCareerRepository,
     private val authRepository: AuthRepository,
     preferencesRepository: PreferencesRepository
-) : BaseViewModel(authRepository,preferencesRepository) {
+) : BaseViewModel(authRepository, preferencesRepository) {
 
 
     val schedules = MutableLiveData<List<Schedule>>()
 
-    fun getSchedules(career:Careers) {
+    fun getSchedules(career: Careers) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 status.postValue(Status.Loading)
@@ -50,24 +50,32 @@ constructor(
         }
     }
 
-    private suspend fun getSchedulesProcess(career:Careers) {
+    private suspend fun getSchedulesProcess(career: Careers) {
         val result = scheduleRepository.getSchedules(career)
         schedules.postValue(result)
+    }
+
+    private suspend fun getMainCareerAndScheduleProcess(career: Careers, schedule: Schedule) {
+        mainCareerRepository.selectMainCareer(career)
+        mainCareerRepository.selectMainSchedule(schedule)
+        scheduleRepository.resetSchedule()
     }
 
     fun setMainCareerAndSchedule(career: Careers, schedule: Schedule) {
         viewModelScope.launch {
             try {
                 status.postValue(Status.Loading)
-                mainCareerRepository.selectMainCareer(career)
-                mainCareerRepository.selectMainSchedule(schedule)
-                scheduleRepository.resetSchedule()
+                getMainCareerAndScheduleProcess(career, schedule)
                 status.postValue(Status.Completed)
 
             } catch (e: Exception) {
-                Log.e("Error", "e", e)
-                FirebaseCrashlytics.getInstance().recordException(e)
-                status.postValue(Status.Error)
+                when (e) {
+                    is Unauthorized -> restoreSession {
+                        getMainCareerAndScheduleProcess(career, schedule)
+                    }
+                    else -> status.postValue(Status.Error)
+                }
+
             }
         }
     }
