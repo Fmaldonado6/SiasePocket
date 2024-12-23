@@ -46,9 +46,8 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/schedules"
-                style="?attr/materialCardViewFilledStyle"
+                style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="0dp"
-
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
@@ -81,10 +80,9 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/kardex"
-                style="?attr/materialCardViewFilledStyle"
+                style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="20dp"

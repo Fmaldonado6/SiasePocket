@@ -1,6 +1,7 @@
 package com.fmaldonado.siase.ui.utils
 
 import com.fmaldonado.siase.R
+import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -8,7 +9,11 @@ import java.util.*
 fun parseTime(time: String): LocalTime {
     val format = DateTimeFormatter.ofPattern("h:mm a", Locale.US)
     return LocalTime.parse(time.uppercase(Locale.getDefault()), format)
+}
 
+fun parseDate(time: String): LocalDate {
+    val format = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.US)
+    return LocalDate.parse(time.uppercase(Locale.getDefault()), format)
 }
 
 inline fun <T1 : Any, T2 : Any, R : Any> safeLet(

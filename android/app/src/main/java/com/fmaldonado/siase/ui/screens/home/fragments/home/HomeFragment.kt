@@ -20,6 +20,7 @@ import com.fmaldonado.siase.databinding.HomeFragmentBinding
 import com.fmaldonado.siase.databinding.HourItemBinding
 import com.fmaldonado.siase.ui.fragments.classDetail.ClassDetailFragment
 import com.fmaldonado.siase.ui.fragments.scheduleDetail.ScheduleDetailFragment
+import com.fmaldonado.siase.ui.screens.auth.MainActivity
 import com.fmaldonado.siase.ui.screens.scheduleDetail.ScheduleDetailActivity
 import com.fmaldonado.siase.ui.utils.ParcelKeys
 import com.fmaldonado.siase.ui.utils.Status
@@ -56,6 +57,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.userInfo ?: viewModel.signOut()
+
         val name = viewModel.userInfo!!.nombre.split(" ").first()
         binding.collapsingToolbar.title = resources.getString(R.string.welcomeText, name)
 
@@ -91,6 +94,14 @@ class HomeFragment : Fragment() {
 
         viewModel.status.observe(viewLifecycleOwner) {
             binding.status = it
+            when (it) {
+                Status.SignOut -> {
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+                else -> Log.d("HomeFragment", "Status not implemented")
+            }
         }
 
         viewModel.todaySchedule.observe(viewLifecycleOwner) {

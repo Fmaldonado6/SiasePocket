@@ -21,6 +21,11 @@
         <item name="colorOnBackground">@color/md_theme_onBackground</item>
         <item name="colorSurface">@color/md_theme_surface</item>
         <item name="colorOnSurface">@color/md_theme_onSurface</item>
+        <item name="colorSurfaceContainer">@color/md_theme_surface_container</item>
+        <item name="colorSurfaceContainerLow">@color/md_theme_background</item>
+
+        <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceVariant</item>
+
         <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant</item>
         <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
         <item name="colorOutline">@color/md_theme_outline</item>
@@ -32,13 +37,10 @@
     </style>
 
 
-
     <style name="Theme.Siase.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Siase.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.Siase.PopupOverlay" parent="ThemeOverlay.AppCompat" />
 </resources>

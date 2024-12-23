@@ -6,7 +6,7 @@
     android:layout_height="90dp">
 
     <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.Material3.CardView.Filled"
+        style="?attr/materialCardViewFilledStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"

@@ -17,12 +17,26 @@
     <string name="moreText">Más</string>
     <string name="mainCareerSelectionDesc">Seleccione la carrera que está cursando actualmente</string>
     <string name="mainScheduleSelectionDesc">Seleccione su horario actual</string>
+
     <string name="monday">Lunes</string>
     <string name="tuesday">Martes</string>
     <string name="wednesday">Miércoles</string>
     <string name="thursday">Jueves</string>
     <string name="friday">Viernes</string>
     <string name="saturday">Sábado</string>
+    <string name="sunday">Domingo</string>
+
+    <string name="mondayShort">Lun</string>
+    <string name="tuesdayShort">Mar</string>
+    <string name="wednesdayShort">Mié</string>
+    <string name="thursdayShort">Jue</string>
+    <string name="fridayShort">Vie</string>
+    <string name="saturdayShort">Sáb</string>
+    <string name="sundayShort">Dom</string>
+
+    <string name="availableSpace">Lugares disponibles: %d</string>
+
+
     <string name="sessionError">Ocurrió un error al recuperar su sesión</string>
     <string name="credentialsError">Matrícula o contraseña incorrectos</string>
     <string name="retryText">Reintentar</string>
@@ -67,4 +81,7 @@
     <string name="changeThemeText">Aplicar colores dinámicos</string>
     <string name="changeThemeDescription">Se aplican los colores del sistema</string>
     <string name="noClassesText">No tienes clases presenciales en este horario</string>
+    <string name="afisText">AFIs</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -19,4 +19,9 @@
         android:name="com.fmaldonado.siase.ui.screens.home.fragments.more.MoreFragment"
         android:label="more_fragment"
         tools:layout="@layout/more_fragment" />
+    <fragment
+        android:id="@+id/afisFragment"
+        android:name="com.fmaldonado.siase.ui.screens.home.fragments.afis.AfisFragment"
+        android:label="afis_fragment"
+        tools:layout="@layout/afis_fragment" />
 </navigation>

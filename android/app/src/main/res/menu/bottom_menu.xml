@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/homeFragment"
         android:enabled="true"
@@ -11,8 +11,14 @@
         android:icon="@drawable/school_icon"
         android:title="@string/careersText" />
     <item
+        android:id="@+id/afisFragment"
+        android:enabled="true"
+        android:icon="@drawable/event_icon"
+        android:title="@string/afisText" />
+    <item
         android:id="@+id/moreFragment"
         android:enabled="true"
+
         android:icon="@drawable/more_icon"
         android:title="@string/moreText" />
 </menu>

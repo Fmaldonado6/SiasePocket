@@ -62,7 +62,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         viewModel.status.observe(viewLifecycleOwner) {
             when (it) {
-                Status.Completed -> {
+                Status.SignOut -> {
                     val intent = Intent(context, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)

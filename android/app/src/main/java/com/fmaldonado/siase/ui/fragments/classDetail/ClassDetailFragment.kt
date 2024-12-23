@@ -11,6 +11,7 @@ import com.fmaldonado.siase.R
 import com.fmaldonado.siase.data.models.ClassDetail
 import com.fmaldonado.siase.databinding.ClassDetailFragmentBinding
 import com.fmaldonado.siase.ui.utils.ParcelKeys
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 

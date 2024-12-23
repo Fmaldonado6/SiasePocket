@@ -47,7 +47,7 @@ constructor(
         viewModelScope.launch(Dispatchers.IO) {
             authRepository.signOut()
             scheduleRepository.resetSchedule()
-            status.postValue(Status.Completed)
+            status.postValue(Status.SignOut)
         }
     }
 

@@ -157,7 +157,7 @@ class ScheduleDetailFragment : Fragment() {
         )
         val eventLayout = binding.eventLayout
         val initialTime = LocalTime.of(7, 0)
-        var initialDuration = 100L
+        var initialDuration = 50L
         for (classDetail in schedule) {
             val fadeIn = AlphaAnimation(0f, 1f)
 

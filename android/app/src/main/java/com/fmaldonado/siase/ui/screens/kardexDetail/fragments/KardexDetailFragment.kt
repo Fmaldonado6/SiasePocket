@@ -1,6 +1,7 @@
 package com.fmaldonado.siase.ui.screens.kardexDetail.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +50,21 @@ class KardexDetailFragment : Fragment() {
             }
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        restartList()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        restartList()
+    }
+
+    private fun restartList() {
+        binding.subjectList.scrollToPosition(0)
+    }
+
 
     companion object {
 

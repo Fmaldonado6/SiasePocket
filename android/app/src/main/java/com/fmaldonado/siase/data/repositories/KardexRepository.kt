@@ -14,12 +14,18 @@ constructor(
     private val networkDataSource: NetworkDataSource,
 ) {
 
-    suspend fun getKardex(career: Careers): Kardex {
+    suspend fun getKardex(career: Careers, cacheEnabled: Boolean = true): Kardex {
         val index = authRepository.signedInUser!!.carreras.indexOfFirst {
             it.claveCarrera == career.claveCarrera &&
                     it.claveDependencia == career.claveDependencia
         }
 
-        return networkDataSource.getKardex(index)
+        return networkDataSource.getKardex(
+            index,
+            if (cacheEnabled)
+                NetworkDataSource.EnableCache
+            else
+                NetworkDataSource.DisableCache
+        )
     }
 }

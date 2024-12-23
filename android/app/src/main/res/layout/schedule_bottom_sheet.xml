@@ -19,14 +19,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+
+        <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+            android:id="@+id/drag_handle"
+            android:layout_width="match_parent"
+            android:paddingBottom="0dp"
+            android:layout_height="20dp" />
         <TextView
             android:id="@+id/serversTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:text="@string/schedulesText"
             android:textSize="20sp" />
 

@@ -4,6 +4,7 @@ enum class Status {
     Loading,
     Loaded,
     Completed,
+    SignOut,
     Error,
     Failed,
     Empty

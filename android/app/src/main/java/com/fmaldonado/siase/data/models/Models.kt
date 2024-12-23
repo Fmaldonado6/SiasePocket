@@ -124,3 +124,49 @@ data class Careers(
     val clavePlanEstudios: String,
     val claveCarrera: String,
 ) : Parcelable
+
+
+@Parcelize
+data class AfiHistorial(
+    val completadas: Int,
+    val total: Int,
+    val afis: MutableList<AfiRegistrada>
+) : Parcelable
+
+
+@Parcelize
+data class AfiRegistrada(
+    val area: String,
+    val evento: String,
+    val idEvento: String,
+    val indicaciones: String,
+    val recinto: String,
+    val sede: String,
+    val direccion: String,
+    val municipio: String,
+    val estado: String,
+    val pais: String,
+    val organizador: String,
+    val fechaInicio: String,
+    val horaInicio: String,
+    val asistencia: Boolean,
+    val eventoOficial: Boolean,
+    val numEventoOficial: Int,
+    val periodoEscolar: String,
+) : Parcelable
+
+@Parcelize
+data class Afi(
+    val registrado: Boolean,
+    val organizador: String,
+    val area: String,
+    val evento: String,
+    val descripcion: String,
+    val fechaInicio: String,
+    val horaInicio: String,
+    val fechaFin: String,
+    val horaFin: String,
+    val capacidad: Int,
+    val alumnosRegistrados: Int,
+    val disponibles: Int,
+) : Parcelable

@@ -22,6 +22,8 @@ class NetworkInterceptor(private val preferencesService: PreferencesService) : I
 
         val response = chain.proceed(request)
 
+        Log.e("Interceptor", response.message())
+
         if (response.isSuccessful)
             return response
         if (response.code() == 400)
@@ -30,7 +32,6 @@ class NetworkInterceptor(private val preferencesService: PreferencesService) : I
             throw NotFoundError(response.message())
         if (response.code() == 501 || response.code() == 401)
             throw Unauthorized(response.message())
-
         throw  AppError(response.message())
 
 

@@ -35,7 +35,13 @@ constructor(
 
     val userInfo = authRepository.signedInUser
 
-
+    fun signOut() {
+        viewModelScope.launch(Dispatchers.IO) {
+            authRepository.signOut()
+            scheduleRepository.resetSchedule()
+            status.postValue(Status.SignOut)
+        }
+    }
     fun getTodaySchedule() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
